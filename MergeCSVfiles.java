@@ -29,6 +29,7 @@ public class MergeCSVfiles {
 	}
 
 	public void sortDirFiles() {
+	try{
 		File directory = new File(this.dir);
 		this.dirName = directory.getName();
 
@@ -38,9 +39,9 @@ public class MergeCSVfiles {
 				readFile(this.files.get(i).getPath());
 			System.out.println("Done Creating CSV file!");
 		}
-
-		else
-			System.out.println("Invalid input! Not a directory");
+	}catch (Exception e) {
+		System.out.println("Invalid input! Check path/files");
+	}
 
 	}
 

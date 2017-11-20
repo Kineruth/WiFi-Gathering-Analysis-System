@@ -20,12 +20,14 @@ public class ConvertToKML {
 
 	public void createFile() {
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+	try{
 		if (this.file.isFile() && this.file.getName().endsWith(".csv")) { //only get CSV files.
 			this.filePath = this.filePath.replaceFirst(".csv", (" - "+timeStamp+".kml")); //replace file type to KML+timeStamp.
 			readFile();
-		} else 
-			System.out.println("Invalid Input! Not a file.");
-		
+		} 
+	}catch (Exception e) {
+		System.out.println("Invalid input! Not a file's path");
+	}
 	}
 
 	private void readFile() {
@@ -51,11 +53,9 @@ public class ConvertToKML {
 			fr.close();
 
 			writeFile(linesUnited);
-			System.out.println("Done Creating KML file!");
+			
 
-		} catch (
-
-		IOException ex) {
+		} catch (IOException ex) {
 			System.out.print("Error reading file\n" + ex);
 			System.exit(2);
 

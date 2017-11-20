@@ -4,13 +4,13 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		//put path to a specific directory
-//		MergeCSVfiles t = new MergeCSVfiles("C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\מונחה עצמים\\Tasks\\Task0\\27.10");
-//		t.sortDirFiles();
+		//put a specific path's directory to make CSV file
+		MergeCSVfiles t = new MergeCSVfiles("C:\\Users\\admin\\Desktop\\Task0");
+		t.sortDirFiles();
 		
-		//put a path to a specific CSV file
-		ConvertToKML k = new ConvertToKML("C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\מונחה עצמים\\Tasks\\Task0\\27.10.csv");
-		k.createFile();
+		//put a specific path to CSV file to make KML file
+//		ConvertToKML k = new ConvertToKML("C:\\Users\\admin\\Desktop\\Task0\\Task0-2017.11.20.16.46.35");
+//		k.createFile();
 
 		
 
