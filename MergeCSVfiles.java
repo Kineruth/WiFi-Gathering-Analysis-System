@@ -15,19 +15,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.management.ListenerNotFoundException;
-
+/**
+ * This class takes CSV files from a given directory and creates a new CSV file.
+ * Takes Wifi networks and arranges them by same time and place for every line in the new CSV file.
+ * Up to 10 networks for every sample (=time and place).
+ * @author Kineret Ruth Nahary & Yakir Amar
+ *
+ */
 public class MergeCSVfiles {
 
 	private String dir, dirName;
 	private ArrayList<File> files;
 	private boolean count = false;
-
+/**
+ * Parameterized constructor.
+ * @param dir is an input from user for a directory's path.
+ */
 	public MergeCSVfiles(String dir) {
 		this.dir = dir;
 		this.dirName = null;
 		this.files = new ArrayList<File>();
 	}
-
+/**
+ * This function gets all the files from a given directory and sends them 
+ */
 	public void sortDirFiles() {
 	try{
 		File directory = new File(this.dir);
