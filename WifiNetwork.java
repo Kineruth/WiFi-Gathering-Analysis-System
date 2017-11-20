@@ -42,78 +42,51 @@ public class WifiNetwork implements Comparable<WifiNetwork> {
 		this.Frecuency = Other.Frecuency;
 		this.Signal = Other.Signal;
 	}
-
+/**
+ * 
+ * @return the ID.
+ */
 	public String getID() {
 		return ID;
-	}
-
-	public void setID(String ID) {
-		this.ID = ID;
 	}
 
 	public String getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
-	}
-
 	public String getLAT() {
 		return LAT;
 	}
 
-	public void setLAT(String lAT) {
-		LAT = lAT;
-	}
 
 	public String getLON() {
 		return LON;
 	}
 
-	public void setLON(String lON) {
-		LON = lON;
-	}
 
 	public String getALT() {
 		return ALT;
-	}
-
-	public void setALT(String aLT) {
-		ALT = aLT;
 	}
 
 	public String getSSID() {
 		return SSID;
 	}
 
-	public void setSSID(String sSID) {
-		SSID = sSID;
-	}
 
 	public String getMAC() {
 		return MAC;
 	}
 
-	public void setMAC(String mAC) {
-		MAC = mAC;
-	}
 
 	public String getFrecuency() {
 		return Frecuency;
 	}
 
-	public void setFrecuency(String frecuency) {
-		Frecuency = frecuency;
-	}
 
 	public String getSignal() {
 		return Signal;
 	}
 
-	public void setSignal(String signal) {
-		Signal = signal;
-	}
 
 	public String printCommonProp() {
 		return this.time + "," + this.ID + "," + this.LAT + "," + this.LON + "," + this.ALT;

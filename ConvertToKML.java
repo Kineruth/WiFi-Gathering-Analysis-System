@@ -7,6 +7,9 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ConvertToKML {
@@ -48,6 +51,13 @@ public class ConvertToKML {
 			}
 			
 			f.filterFile(linesUnited);
+//			 Comparator<String[]> cmp = new Comparator<String[]>() {
+//			      public int compare(String o1, String o2) {
+//			        return Integer.valueOf(o1).compareTo(Integer.valueOf(o2));
+//			      }
+//			      };
+//			      Collections.sort(linesUnited, cmp);
+			    
 
 			br.close();
 			fr.close();
