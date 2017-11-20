@@ -1,23 +1,34 @@
 
-
+import java.util.List;
 import java.util.Scanner;
 
 public class Filter {
 	private int choice;
+	private String input = "";
 
-	public String chooseFilter() {
-		String ans;
-		System.out.println(
-				"Please enter how you want to filter your file information:\n1. By Time\n2. By Location\n3. By ID");
-
+	public void filterFile(List<String[]> linesUnited) {
 		Scanner sc = new Scanner(System.in);
+		System.out.println("Do you want to filter your file information?\n1. Yes\n2. No");
 		this.choice = sc.nextInt();
-		while (this.choice < 1 && this.choice > 3) {
 
+		while (this.choice != 1 && this.choice != 2) { // if invalid input
+			System.out.println("Invalid Input! Enter again");
 			this.choice = sc.nextInt();
-			System.out.println("Invalid Input! this number is not in the options - Enter again");
 		}
-		return getInputUser(this.choice);
+
+		if (this.choice == 1) {
+
+			System.out.println("Filter by :\n1. Time 2. Location 3. ID ");
+			this.choice = sc.nextInt();
+
+			while (this.choice < 1 && this.choice > 3) { // if invalid input
+				System.out.println("Invalid Input! Enter again");
+				this.choice = sc.nextInt();
+			}
+			filterLines(linesUnited);
+
+		}
+
 	}
 
 	public int getChoice() {
@@ -26,39 +37,60 @@ public class Filter {
 
 	// ***************************PRIVATE*****************************
 
-	private String getInputUser(int choice) {
-		String ans = "";
-		int time = 0;
+
+	// https://stackoverflow.com/questions/9146224/arraylist-filter -
+	// List.remove & Predicate
+
+	private void filterByTime(List<String[]> linesUnited) {
 		Scanner sc = new Scanner(System.in);
-		if (this.choice == 1) {
-			System.out.println("Enter : date (dd/mm/yyyy) : ");
-			ans = sc.nextLine();
-			System.out.println("Enter : hour (1 to 12) : ");
-			time = sc.nextInt();
-			System.out.println("Choose: \n1.AM \n2.PM");
-			if (sc.nextInt() == 1)
-				ans += " " + time + ":00";
-			else {
-				if (time < 12)
-					ans += " " + (time + 12) + ":00";
-				else
-					ans += " 00:00";
-			}
-
-			return ans;
-		} else if (this.choice == 2) {
-			System.out.println("We'll get from you a point(LAN,LON) & a km radius for the location\nEnter Latitude : ");
-			ans = sc.nextDouble() + "";
-			System.out.println("Enter Longitude : ");
-			ans += "," + sc.nextDouble() + "";
-			System.out.println("Enter Radius (km) : ");
-			ans += "," + sc.nextDouble() + "";
-			return ans;
-
-		} else {
-			System.out.println("Enter your chosen ID : ");
-			return ans = sc.nextLine();
+		int time = 0;
+		System.out.println("Enter : date (dd/mm/yyyy) : ");
+		this.input = sc.nextLine();
+		System.out.println("Enter : hour (1 to 12) : ");
+		time = sc.nextInt();
+		System.out.println("Choose: \n1.AM \n2.PM");
+		if (sc.nextInt() == 1)
+			this.input += " " + time + ":00";
+		else {
+			if (time < 12)
+				this.input += " " + (time + 12) + ":00";
+			else
+				this.input += " 00:00";
 		}
+		linesUnited.removeIf(line -> !(line[0].split(" ")[0].equals(this.input.split(" ")[0])
+				&& (line[0].split(" ")[1].split(":")[0].equals(this.input.split(" ")[1].split(":")[0]))));
+	}
+
+	private void filterByPlace(List<String[]> linesUnited) {
+		Scanner sc = new Scanner(System.in);
+		this.input = "";
+		System.out.println("We'll get from you a point(LAN,LON) & a km radius for the location\nEnter Latitude : ");
+		this.input = sc.nextDouble() + "";
+		System.out.println("Enter Longitude : ");
+		this.input += "," + sc.nextDouble() + "";
+		System.out.println("Enter Radius (km) : ");
+		this.input += "," + sc.nextDouble() + "";
+
+		LocPoint p1 = new LocPoint(this.input.split(",")[0], this.input.split(",")[1]);
+		linesUnited.removeIf(line -> !(p1.pointInCircle(new LocPoint(line[2], line[3]),
+				Double.parseDouble(this.input.split(",")[2]))));
+	}
+
+	private void filterByID(List<String[]> linesUnited) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter your chosen ID : ");
+		this.input = sc.nextLine();
+
+		linesUnited.removeIf(line -> !(this.input.equals(line[1])));
+	}
+	
+	private void filterLines(List<String[]> linesUnited) {
+		if (this.choice == 1)
+			filterByTime(linesUnited);
+		else if (this.choice == 2)
+			filterByPlace(linesUnited);
+		else
+			filterByID(linesUnited);
 
 	}
 
