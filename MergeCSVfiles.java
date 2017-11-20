@@ -98,7 +98,8 @@ public class MergeCSVfiles {
 	
 	private void writeFile(UnitedNets n) {
 		try {
-			FileWriter fw = new FileWriter(this.dir + ".csv", true);  //file name & path as the directory
+			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+			FileWriter fw = new FileWriter((this.dir + "-"+timeStamp+".csv"), true);  //file name +timeStamp & path as the directory
 			PrintWriter outs = new PrintWriter(fw);
 			String info;
 			if (this.count == false) {
