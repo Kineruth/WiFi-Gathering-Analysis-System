@@ -1,4 +1,4 @@
-
+package src;
 
 import java.io.BufferedReader;
 
@@ -78,7 +78,7 @@ public class MergeCSVfiles {
 			String[] line;
 			WifiNetwork network;
 			CommonNets common = new CommonNets();
-			UnitedNets united = new UnitedNets();
+			UnitedSamples united = new UnitedSamples();
 			FileReader fr = new FileReader(filePath);
 			BufferedReader br = new BufferedReader(fr);
 
@@ -108,7 +108,7 @@ public class MergeCSVfiles {
 
 	// https://stackoverflow.com/questions/5797208/java-how-do-i-write-a-file-to-a-specified-directory
 	
-	private void writeFile(UnitedNets n) {
+	private void writeFile(UnitedSamples n) {
 		try {
 			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 			FileWriter fw = new FileWriter((this.dir + "-"+timeStamp+".csv"), true);  //file name +timeStamp & path as the directory
@@ -142,7 +142,7 @@ public class MergeCSVfiles {
 		}
 	}
 
-	private String getCommonInfo(UnitedNets united, int i) {
+	private String getCommonInfo(UnitedSamples united, int i) {
 		return united.get(i).get(0).getTime() + "," + united.get(i).get(0).getID() + "," + united.get(i).get(0).getLAT()
 				+ "," + united.get(i).get(0).getLON() + "," + united.get(i).get(0).getALT() + ","
 				+ united.get(i).size();

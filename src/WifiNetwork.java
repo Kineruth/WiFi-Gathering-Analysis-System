@@ -1,4 +1,4 @@
-
+package src;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,20 +9,16 @@ import java.util.Collections;
  *
  */
 public class WifiNetwork implements Comparable<WifiNetwork> {
-	private String ID, time, LAT, LON, ALT, SSID, MAC, Frecuency, Signal;
+	private String SSID, MAC, Frequency, Signal;
 
 	/**
 	 * Default constructor
 	 */
 	public WifiNetwork() {
-		this.ID = null;
-		this.time = null;
-		this.LAT = null;
-		this.LON = null;
-		this.ALT = null;
+
 		this.SSID = null;
 		this.MAC = null;
-		this.Frecuency = null;
+		this.Frequency = null;
 		this.Signal = null;
 
 	}
@@ -30,69 +26,24 @@ public class WifiNetwork implements Comparable<WifiNetwork> {
  * Parameterized constructor
  * @param line takes info from a line to build a WifiNetwork
  */
-	public WifiNetwork(String[] line) {
-		this.ID = line[0];
-		this.time = line[4];
-		this.LAT = line[7];
-		this.LON = line[8];
-		this.ALT = line[9];
-		this.SSID = line[2];
-		this.MAC = line[1];
-		this.Frecuency = convertToFrequency(Integer.parseInt(line[5]));
-		this.Signal = line[6];
+	public WifiNetwork(String SSID, String MAC, String Frequency, String Signal) {
+		this.SSID = SSID;
+		this.MAC = MAC;
+		this.Frequency = convertToFrequency(Integer.parseInt(Frequency));
+		this.Signal = Signal;
 	}
 /**
  * Copy constructor
  * @param Other copying other WifiNetwork.
  */
 	public WifiNetwork(WifiNetwork Other) {
-		this.ID = Other.ID;
-		this.time = Other.time;
-		this.LAT = Other.LAT;
-		this.LON = Other.LON;
-		this.ALT = Other.ALT;
+;
 		this.SSID = Other.SSID;
 		this.MAC = Other.MAC;
-		this.Frecuency = Other.Frecuency;
+		this.Frequency = Other.Frequency;
 		this.Signal = Other.Signal;
 	}
-/**
- * 
- * @return the WifiNetwork ID.
- */
-	public String getID() {
-		return ID;
-	}
-/**
- * 
- * @return the WifiNetwork Time.
- */
-	public String getTime() {
-		return time;
-	}
-/**
- * 
- * @return the WifiNetwork latitude.
- */
-	public String getLAT() {
-		return LAT;
-	}
 
-/**
- * 
- * @return the WifiNetwork longitude.
- */
-	public String getLON() {
-		return LON;
-	}
-
-/**
- * 
- * @return the WifiNetwork altitude.
- */
-	public String getALT() {
-		return ALT;
-	}
 /**
  * 
  * @return the WifiNetwork SSID.
@@ -114,7 +65,7 @@ public class WifiNetwork implements Comparable<WifiNetwork> {
  * @return the WifiNetwork frequency.
  */
 	public String getFrecuency() {
-		return Frecuency;
+		return Frequency;
 	}
 
 /**
@@ -125,19 +76,11 @@ public class WifiNetwork implements Comparable<WifiNetwork> {
 		return Signal;
 	}
 
-/**
- * 
- * @return prints the common elements in a CSV format.
- */
-	public String printCommonProp() {
-		return this.time + "," + this.ID + "," + this.LAT + "," + this.LON + "," + this.ALT;
-	}
-
 	/**
 	 * @return prints the wanted elements in a CSV format.
 	 */
 	public String toString() {
-		return this.SSID + "," + this.MAC + "," + this.Frecuency + "," + this.Signal;
+		return ","+this.SSID + "," + this.MAC + "," + this.Frequency + "," + this.Signal;
 	}
 
 	/**

@@ -1,9 +1,10 @@
+package src;
 
 
 import java.util.ArrayList;
 
 public class CommonNets {
-
+/*
 	private ArrayList<WifiNetwork> common;
 
 	public CommonNets(){
@@ -33,11 +34,11 @@ public class CommonNets {
 		this.common.sort(null);
 
 	}
-	public UnitedNets sortListNet() {
+	public UnitedSamples sortListNet() {
 		if (this.common.isEmpty())
 			return null;
 		boolean flag = false;
-		UnitedNets ans = new UnitedNets();
+		UnitedSamples ans = new UnitedSamples();
 		CommonNets temp = new CommonNets();
 
 		String time = this.common.get(0).getTime();
@@ -88,5 +89,5 @@ public class CommonNets {
 	private boolean compALT(int i, String alt) {
 		return this.common.get(i).getALT().equals(alt);
 	}
-
+*/
 }
