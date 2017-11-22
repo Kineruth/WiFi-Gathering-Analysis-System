@@ -58,8 +58,6 @@ public class MergeCSVfiles {
 					readFile(this.files.get(i).getPath());
 				System.out.println("Done Creating CSV file!");
 			}
-//			ConvertCSVToKML kmlFile =	new ConvertCSVToKML(this.directoryPath, this.newFileName);
-//			kmlFile.createFile();
 		} catch (Exception e) {
 			System.out.println("Error while running the files!");
 		}
@@ -88,7 +86,7 @@ public class MergeCSVfiles {
 	/**
 	 * This function reads a given file, takes all the wanted WiFi networks, arranges them to be written in a new file.
 	 * @param filePath a given file's path.
-	 * @exception IOException if the file cannot be read from.
+	 * @exception IOException if fails reading from file.
 	 */
 	private void readFile(String filePath) {
 		try {
@@ -144,6 +142,7 @@ public class MergeCSVfiles {
  * Takes all the sorted and arranged WiFiNetworks and writes them in a specific format.
  * Every line in the new file represents a sample of WiFiNetworks up till 10 networks arranges by signals.
  * @param unitedSamples
+ * @exception throws IOException if fails writing to the file.
  */
 	private void writeFile(UnitedSamples unitedSamples) {
 		try {
