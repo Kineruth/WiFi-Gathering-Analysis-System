@@ -84,7 +84,6 @@ public class MergeCSVfiles {
 			String[] line;
 			WifiNetwork network;
 			Sample sample = new Sample();
-			CommonNets common = new CommonNets();
 			UnitedSamples unitedSamples = new UnitedSamples();
 			FileReader fr = new FileReader(filePath);
 			BufferedReader br = new BufferedReader(fr);
@@ -94,33 +93,28 @@ public class MergeCSVfiles {
 			device = line[2].split("=")[1];
 			str = br.readLine();
 			str = br.readLine();
-
-			sample = new Sample(device, line[3], line[6], line[7], line[8]);
-			network = new WifiNetwork(line[1], line[0], line[4], line[5]);
-			sample.addNetwork(network);
-
-			while ((str = br.readLine()) != null) { // while line not empty
-				line = str.split(",");
+			line = str.split(",");
+			
+			if (line[10].equals("WIFI")) {
+				sample = new Sample(device, line[3], line[6], line[7], line[8]);
 				network = new WifiNetwork(line[1], line[0], line[4], line[5]);
-				if (sample.checkToAddToSample(line[3], line[6], line[7], line[8])) { // add
-																						// network
-																						// to
-																						// sample
-					sample.addNetwork(network);
-				} else {
-					unitedSamples.add(sample);
-					sample = new Sample(device, line[3], line[6], line[7], line[8]);
-					sample.addNetwork(network);
+				sample.addNetwork(network);
+			} 
+				while ((str = br.readLine()) != null) { // while line not empty
+					line = str.split(",");
+					if (line[10].equals("WIFI")) {
+						network = new WifiNetwork(line[1], line[0], line[4], line[5]);
+						// add network to sample
+						if (sample.checkToAddToSample(line[3], line[6], line[7], line[8])) {
+							sample.addNetwork(network);
+						} else {
+							unitedSamples.add(sample);
+							sample = new Sample(device, line[3], line[6], line[7], line[8]);
+							sample.addNetwork(network);
+						}
+					}
 				}
-
-			}
-
-			/*
-			 * while ((str = br.readLine()) != null) { str = device + "," + str;
-			 * line = str.split(","); if (line[11].equals("WIFI")) { network =
-			 * new WifiNetwork(line); common.add(network); } } united =
-			 * common.sortListNet();
-			 */
+			
 
 			br.close();
 			fr.close();
@@ -136,13 +130,13 @@ public class MergeCSVfiles {
 
 	private void writeFile(UnitedSamples unitedSamples) {
 		try {
-			//Gets the timeStamp
+			// Gets the timeStamp
 			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 			// file name+timeStamp&path as the directory
 			FileWriter fw = new FileWriter((this.dir + "-" + timeStamp + ".csv"), true);
 			PrintWriter outs = new PrintWriter(fw);
 			String info;
-			//adds the title only once
+			// adds the title only once
 			if (this.count == false) {
 				this.count = true;
 				String line = "Time,ID,LAT,LON,ALT,#WiFi networks";
@@ -152,30 +146,18 @@ public class MergeCSVfiles {
 				outs.println(line);
 
 			}
-			if(unitedSamples!=null){
+			if (unitedSamples != null) {
 				for (int i = 0; i < unitedSamples.size(); i++) {
-					info=unitedSamples.get(i).printSampleInfo();
-					//Runs over all the networks in the sample and prints their info.
-					for (int j = 0; j < unitedSamples.get(i).getCommonNetworks().size(); j++){
-						info+=unitedSamples.get(i).getCommonNetworks().get(j).toString();
+					info = unitedSamples.get(i).printSampleInfo();
+					// Runs over all the networks in the sample and prints their
+					// info.
+					for (int j = 0; j < unitedSamples.get(i).getCommonNetworks().size(); j++) {
+						info += unitedSamples.get(i).getCommonNetworks().get(j).toString();
 					}
 					outs.println(info);
 					info = null;
 				}
 			}
-			
-			/*
-			if (unitedSamples != null) {
-				for (int i = 0; i < unitedSamples.size(); i++) {
-					info = unitedSamples.get(i).get(0).printCommonProp() + "," + unitedSamples.get(i).size();
-					for (int j = 0; j < unitedSamples.get(i).size(); j++) {
-						info += "," + unitedSamples.get(i).get(j).toString();
-					}
-					outs.println(info);
-					info = null;
-
-				}
-			} */
 			outs.close();
 			fw.close();
 
@@ -183,11 +165,5 @@ public class MergeCSVfiles {
 			System.out.print("Error writing file\n" + ex);
 		}
 	}
-/*
-	private String getCommonInfo(UnitedSamples united, int i) {
-		return united.get(i).get(0).getTime() + "," + united.get(i).get(0).getID() + "," + united.get(i).get(0).getLAT()
-				+ "," + united.get(i).get(0).getLON() + "," + united.get(i).get(0).getALT() + ","
-				+ united.get(i).size();
-	} */
 
 }
