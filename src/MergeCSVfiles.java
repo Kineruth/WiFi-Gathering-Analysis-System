@@ -18,7 +18,7 @@ import javax.management.ListenerNotFoundException;
 
 /**
  * This class takes CSV files from a given directory and creates a new CSV file.
- * Takes Wifi networks and arranges them by same time and place for every line
+ * Takes WiFi networks and arranges them by same time and place for every line
  * in the new CSV file. Up to 10 networks for every sample (=time and place).
  * 
  * @author Kineret Ruth Nahary & Yakir Amar
@@ -26,9 +26,9 @@ import javax.management.ListenerNotFoundException;
  */
 public class MergeCSVfiles {
 
-	private String dir, dirName;
+	private String directoryPath, directoryName, newFileName;
 	private ArrayList<File> files;
-	private boolean count = false;
+	private boolean headerCreated = false;
 
 	/**
 	 * Parameterized constructor.
@@ -36,26 +36,30 @@ public class MergeCSVfiles {
 	 * @param dir
 	 *            is an input from user for a directory's path.
 	 */
-	public MergeCSVfiles(String dir) {
-		this.dir = dir;
-		this.dirName = null;
+	public MergeCSVfiles(String directory) {
+		this.directoryPath = directory;
+		this.directoryName = null;
 		this.files = new ArrayList<File>();
+		this.newFileName=null;
 	}
 
 	/**
 	 * This function gets all the files from a given directory and sends them
+	 * @exception Exception e for any failure .
 	 */
 	public void sortDirFiles() {
 		try {
-			File directory = new File(this.dir);
-			this.dirName = directory.getName();
+			File directory = new File(this.directoryPath);
+			this.directoryName = directory.getName();
 
 			if (directory.isDirectory()) {
-				listf(this.dir, this.files);
+				listf(this.directoryPath, this.files);
 				for (int i = 0; i < this.files.size(); i++)
 					readFile(this.files.get(i).getPath());
 				System.out.println("Done Creating CSV file!");
 			}
+//			ConvertCSVToKML kmlFile =	new ConvertCSVToKML(this.directoryPath, this.newFileName);
+//			kmlFile.createFile();
 		} catch (Exception e) {
 			System.out.println("Invalid input! Check path/files");
 		}
@@ -63,8 +67,12 @@ public class MergeCSVfiles {
 	}
 
 	// ***************************PRIVATE*****************************
-
-	// https://stackoverflow.com/questions/14676407/list-all-files-in-the-folder-and-also-sub-folders
+/**
+ * This function adds all the CSV files from a given directory recursively to an ArrayList of files.
+ * Taken from https://stackoverflow.com/questions/14676407/list-all-files-in-the-folder-and-also-sub-folders
+ * @param dirPath a given directory's path.
+ * @param files a given ArrayList of files.
+ */
 	private void listf(String dirPath, ArrayList<File> files) {
 		File directory = new File(dirPath);
 		// get all the files from a directory
@@ -75,9 +83,13 @@ public class MergeCSVfiles {
 			else if (file.isDirectory())
 				listf(file.getAbsolutePath(), files);
 		}
-
 	}
 
+	/**
+	 * This function reads a given file, takes all the wanted WiFi networks, arranges them to be written in a new file.
+	 * @param filePath a given file's path.
+	 * @exception IOException if the file cannot be read from.
+	 */
 	private void readFile(String filePath) {
 		try {
 			String str, device;
@@ -127,18 +139,24 @@ public class MergeCSVfiles {
 	}
 
 	// https://stackoverflow.com/questions/5797208/java-how-do-i-write-a-file-to-a-specified-directory
-
+/**
+ * This function writes a new file with the wanted information.
+ * Takes all the sorted and arranged WiFiNetworks and writes them in a specific format.
+ * Every line in the new file represents a sample of WiFiNetworks up till 10 networks arranges by signals.
+ * @param unitedSamples
+ */
 	private void writeFile(UnitedSamples unitedSamples) {
 		try {
 			// Gets the timeStamp
 			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 			// file name+timeStamp&path as the directory
-			FileWriter fw = new FileWriter((this.dir + "-" + timeStamp + ".csv"), true);
+			this.newFileName=this.directoryPath + " - " + timeStamp + ".csv";
+			FileWriter fw = new FileWriter(this.newFileName, true);
 			PrintWriter outs = new PrintWriter(fw);
 			String info;
 			// adds the title only once
-			if (this.count == false) {
-				this.count = true;
+			if (this.headerCreated == false) {
+				this.headerCreated = true;
 				String line = "Time,ID,LAT,LON,ALT,#WiFi networks";
 				for (int i = 1; i < 11; i++) {
 					line += ",SSID" + i + ",MAC" + i + ",Frecuency" + i + ",Signal" + i;

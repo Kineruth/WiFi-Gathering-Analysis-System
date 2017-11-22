@@ -1,4 +1,5 @@
 package src;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,28 +16,27 @@ import java.util.List;
 
 import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
+import de.micromata.opengis.kml.v_2_2_0.TimeStamp;
 
-public class ConvertToKML {
+public class ConvertCSVToKML {
 	private File file;
 	private String filePath, fileName;
 
-	public ConvertToKML(String fp) {
-		this.filePath = fp;
+	public ConvertCSVToKML(String filePath) {
+		this.filePath = filePath;
 		this.file = new File(this.filePath);
 	}
 
 	public void createFile() {
-		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+		// String timeStamp = new
+		// SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 		try {
-			if (this.file.isFile() && this.file.getName().endsWith(".csv")) { // only
-																				// get
-																				// CSV
-																				// files.
-				this.filePath = this.filePath.replaceFirst(".csv", (" - " + timeStamp + ".kml")); // replace
-																									// file
-																									// type
-																									// to
-																									// KML+timeStamp.
+			// Get only CSV files
+			if (this.file.isFile() && this.file.getName().endsWith(".csv")) {
+				// Add to file's name timeStamp & change file type to KML
+				// this.filePath = this.filePath.replaceFirst(".csv", (" - " +
+				// timeStamp + ".kml"));
+				this.filePath = this.filePath.replaceFirst(".csv", (".kml"));
 				readFile();
 			}
 		} catch (Exception e) {
@@ -81,9 +81,23 @@ public class ConvertToKML {
 	private void writeFile(List<String[]> linesUnited) {
 
 		try {
+			List<Sample> samples = getSamplesList(linesUnited);
 			Kml kml = new Kml();
 			Document doc = kml.createAndSetDocument();
-			for (int i = 0; i < linesUnited.size(); i++) {
+			TimeStamp timeStamp= new TimeStamp();
+			/*for (int i = 0; i < linesUnited.size(); i++) {
+				doc.createAndAddPlacemark().withName(linesUnited.get(i)[0])
+						.withDescription("TimeStamp:" + linesUnited.get(i)[0] + "\nScanned with:"
+								+ linesUnited.get(i)[1] + "\nAmount of WiFi networks :" + linesUnited.get(i)[5])
+						.createAndSetPoint().addToCoordinates(Double.parseDouble(linesUnited.get(i)[3]),
+								Double.parseDouble(linesUnited.get(i)[2]));
+			}*/
+			
+			for (Sample sample : samples) {
+				for (int j = 0; j < sample.getNetworksAmount(); j++) {
+					timeStamp=sample.
+					
+				}
 				doc.createAndAddPlacemark().withName(linesUnited.get(i)[0])
 						.withDescription("TimeStamp:" + linesUnited.get(i)[0] + "\nScanned with:"
 								+ linesUnited.get(i)[1] + "\nAmount of WiFi networks :" + linesUnited.get(i)[5])
@@ -95,6 +109,20 @@ public class ConvertToKML {
 			System.out.print("Error writing file\n" + ex);
 		}
 
+	}
+
+	private List<Sample> getSamplesList(List<String[]> linesUnited) {
+		List<Sample> samples = null;
+		for (int i = 0; i < linesUnited.size(); i++) {
+			String[] line = linesUnited.get(i);
+			Sample sample = new Sample(line[1], line[0], line[2], line[3], line[4]);
+			for (int j = 6; j < line.length - 3; j = j + 4) {
+				WiFiNetwork network = new WiFiNetwork(line[j], line[j + 1], line[j + 2], line[j + 3]);
+				sample.addNetwork(network);
+			}
+			samples.add(sample);
+		}
+		return samples;
 	}
 
 	private String getColor(int signal) {

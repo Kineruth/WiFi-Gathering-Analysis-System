@@ -33,6 +33,8 @@ public class Sample {
 	public Sample(String ID, String Time, String LAT, String LON, String ALT) {
 		this.ID = ID;
 		this.Time = Time;
+		TimeCorrector tc = new TimeCorrector();
+		tc.correctAndSetTime(this.Time);
 		this.LAT = LAT;
 		this.LON = LON;
 		this.ALT = ALT;
@@ -98,7 +100,7 @@ public class Sample {
  * 
  * @return this commonNetworks' ArrayList size.
  */
-	public int getSampleSize() {
+	public int getNetworksAmount() {
 		return this.commonNetworks.size();
 	}
 /**
@@ -106,7 +108,7 @@ public class Sample {
  * @return prints this Sample information with this commonNetworks' ArrayList size.
  */
 	public String printSampleInfo() {
-		return this.Time + "," + this.ID + "," + this.LAT + "," + this.LON + "," + this.ALT + "," + getSampleSize();
+		return this.Time + "," + this.ID + "," + this.LAT + "," + this.LON + "," + this.ALT + "," + getNetworksAmount();
 	}
 /**
  * This function compares the given parameters with this Sample parameters to check if they are equal.
@@ -151,5 +153,6 @@ public class Sample {
 	private boolean compareALT(String ALT) {
 		return this.ALT.equals(ALT);
 	}
+
 
 }
