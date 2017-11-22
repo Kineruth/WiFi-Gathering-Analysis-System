@@ -8,13 +8,13 @@ import java.util.Collections;
  * @author Kineret Ruth Nahary & Yakir Amar
  *
  */
-public class WifiNetwork implements Comparable<WifiNetwork> {
+public class WiFiNetwork implements Comparable<WiFiNetwork> {
 	private String SSID, MAC, Frequency, Signal;
 
 	/**
 	 * Default constructor
 	 */
-	public WifiNetwork() {
+	public WiFiNetwork() {
 
 		this.SSID = null;
 		this.MAC = null;
@@ -24,9 +24,12 @@ public class WifiNetwork implements Comparable<WifiNetwork> {
 	}
 /**
  * Parameterized constructor
- * @param line takes info from a line to build a WifiNetwork
+ * @param SSID  
+ * @param MAC
+ * @param Frequency
+ * @param Signal
  */
-	public WifiNetwork(String SSID, String MAC, String Frequency, String Signal) {
+	public WiFiNetwork(String SSID, String MAC, String Frequency, String Signal) {
 		this.SSID = SSID;
 		this.MAC = MAC;
 		this.Frequency = convertToFrequency(Integer.parseInt(Frequency));
@@ -36,7 +39,7 @@ public class WifiNetwork implements Comparable<WifiNetwork> {
  * Copy constructor
  * @param Other copying other WifiNetwork.
  */
-	public WifiNetwork(WifiNetwork Other) {
+	public WiFiNetwork(WiFiNetwork Other) {
 ;
 		this.SSID = Other.SSID;
 		this.MAC = Other.MAC;
@@ -46,38 +49,38 @@ public class WifiNetwork implements Comparable<WifiNetwork> {
 
 /**
  * 
- * @return the WifiNetwork SSID.
+ * @return this WifiNetwork's SSID.
  */
 	public String getSSID() {
-		return SSID;
+		return this.SSID;
 	}
 
 /**
  * 
- * @return the WifiNetwork Mac.
+ * @return this WifiNetwork's Mac.
  */
 	public String getMAC() {
-		return MAC;
+		return this.MAC;
 	}
 
 /**
  * 
- * @return the WifiNetwork frequency.
+ * @return this WifiNetwork's frequency.
  */
 	public String getFrecuency() {
-		return Frequency;
+		return this.Frequency;
 	}
 
 /**
  * 
- * @return the WifiNetwork signal.
+ * @return this WifiNetwork's signal.
  */
 	public String getSignal() {
-		return Signal;
+		return this.Signal;
 	}
 
 	/**
-	 * @return prints the wanted elements in a CSV format.
+	 * @return prints this WifiNetwork's parameters in a CSV format.
 	 */
 	public String toString() {
 		return ","+this.SSID + "," + this.MAC + "," + this.Frequency + "," + this.Signal;
@@ -86,9 +89,9 @@ public class WifiNetwork implements Comparable<WifiNetwork> {
 	/**
 	 * A function of Comparable.
 	 * This function compares signals of the current WifiNetwork and another WifiNetwork.
-	 * @return returns 1\0\-1 if the current WifiNetwork bigger\equal\smaller than the other.
+	 * @return returns 1\0\-1 if the current WifiNetwork is bigger\equal\smaller than the other.
 	 */
-	public int compareTo(WifiNetwork wn) {
+	public int compareTo(WiFiNetwork wn) {
 
 		return this.getSignal().compareTo(wn.getSignal());
 	}
@@ -97,7 +100,7 @@ public class WifiNetwork implements Comparable<WifiNetwork> {
 /**
  * This function converts a WifiNetwork channel to frequency.
  * @param channel takes the channel from a WifiNetwork.
- * @return returns the converted frequency. 
+ * @return the converted frequency as a string. 
  */
 	private String convertToFrequency(int channel) {
 		int frequency;

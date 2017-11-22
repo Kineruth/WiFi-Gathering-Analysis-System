@@ -82,7 +82,7 @@ public class MergeCSVfiles {
 		try {
 			String str, device;
 			String[] line;
-			WifiNetwork network;
+			WiFiNetwork network;
 			Sample sample = new Sample();
 			UnitedSamples unitedSamples = new UnitedSamples();
 			FileReader fr = new FileReader(filePath);
@@ -97,13 +97,13 @@ public class MergeCSVfiles {
 			
 			if (line[10].equals("WIFI")) {
 				sample = new Sample(device, line[3], line[6], line[7], line[8]);
-				network = new WifiNetwork(line[1], line[0], line[4], line[5]);
+				network = new WiFiNetwork(line[1], line[0], line[4], line[5]);
 				sample.addNetwork(network);
 			} 
 				while ((str = br.readLine()) != null) { // while line not empty
 					line = str.split(",");
 					if (line[10].equals("WIFI")) {
-						network = new WifiNetwork(line[1], line[0], line[4], line[5]);
+						network = new WiFiNetwork(line[1], line[0], line[4], line[5]);
 						// add network to sample
 						if (sample.checkToAddToSample(line[3], line[6], line[7], line[8])) {
 							sample.addNetwork(network);
