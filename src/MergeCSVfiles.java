@@ -106,11 +106,11 @@ public class MergeCSVfiles {
 			str = br.readLine();
 			str = br.readLine();
 			line = str.split(",");
-			
+			//get the first sample to compare the times with other networks
 			sample = new Sample(device, line[3], line[6], line[7], line[8]);
 			if (line[10].equals("WIFI")) {
 				network = new WiFiNetwork(line[1], line[0], line[4], line[5]);
-				sample.addNetwork(network);
+				sample.addNetwork(network); // add network to sample
 			} 
 				while ((str = br.readLine()) != null) { // while line not empty
 					line = str.split(",");
