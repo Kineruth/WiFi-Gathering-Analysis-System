@@ -22,6 +22,7 @@ public class Sample {
 		this.LAT = LAT;
 		this.LON = LON;
 		this.ALT = ALT;
+		this.commonNetworks = new ArrayList<WifiNetwork>();
 	}
 
 	public void addNetwork(WifiNetwork network) {
@@ -51,7 +52,6 @@ public class Sample {
 	public ArrayList<WifiNetwork> getCommonNetworks() {
 		return this.commonNetworks;
 	}
-	
 
 	public void setCommonNetworks(ArrayList<WifiNetwork> commonNetworks) {
 		this.commonNetworks = commonNetworks;
@@ -65,19 +65,23 @@ public class Sample {
 		return this.Time + "," + this.ID + "," + this.LAT + "," + this.LON + "," + this.ALT + "," + getSampleSize();
 	}
 
-	public boolean compareTime(String Time) {
+	public boolean checkToAddToSample(String Time, String LAT, String LON, String ALT) {
+		return compareTime(Time) && compareLAT(LAT) && compareLON(LON) && compareALT(ALT);
+	}
+
+	private boolean compareTime(String Time) {
 		return this.Time.equals(Time);
 	}
 
-	public boolean compareLAT(String LAT) {
+	private boolean compareLAT(String LAT) {
 		return this.LAT.equals(LAT);
 	}
 
-	public boolean compareLON(String LON) {
+	private boolean compareLON(String LON) {
 		return this.LON.equals(LON);
 	}
 
-	public boolean compareALT(String ALT) {
+	private boolean compareALT(String ALT) {
 		return this.ALT.equals(ALT);
 	}
 

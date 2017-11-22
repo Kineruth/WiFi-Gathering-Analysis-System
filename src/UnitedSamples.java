@@ -10,7 +10,7 @@ public class UnitedSamples {
 	}
 
 	public void add(Sample sample) {
-		ArrayList<WifiNetwork> sortedNetworks =sortBySignal(sample.getCommonNetworks());
+		ArrayList<WifiNetwork> sortedNetworks =sortBySignal(sample.getCommonNetworks()); 
 		sample.setCommonNetworks(sortedNetworks);
 		this.united.add(sample);
 	}

@@ -62,12 +62,6 @@ public class ConvertToKML {
 			}
 
 			f.filterFile(linesUnited);
-			// Comparator<String[]> cmp = new Comparator<String[]>() {
-			// public int compare(String o1, String o2) {
-			// return Integer.valueOf(o1).compareTo(Integer.valueOf(o2));
-			// }
-			// };
-			// Collections.sort(linesUnited, cmp);
 
 			br.close();
 			fr.close();

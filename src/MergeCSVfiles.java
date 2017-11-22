@@ -15,10 +15,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.management.ListenerNotFoundException;
+
 /**
  * This class takes CSV files from a given directory and creates a new CSV file.
- * Takes Wifi networks and arranges them by same time and place for every line in the new CSV file.
- * Up to 10 networks for every sample (=time and place).
+ * Takes Wifi networks and arranges them by same time and place for every line
+ * in the new CSV file. Up to 10 networks for every sample (=time and place).
+ * 
  * @author Kineret Ruth Nahary & Yakir Amar
  *
  */
@@ -27,32 +29,36 @@ public class MergeCSVfiles {
 	private String dir, dirName;
 	private ArrayList<File> files;
 	private boolean count = false;
-/**
- * Parameterized constructor.
- * @param dir is an input from user for a directory's path.
- */
+
+	/**
+	 * Parameterized constructor.
+	 * 
+	 * @param dir
+	 *            is an input from user for a directory's path.
+	 */
 	public MergeCSVfiles(String dir) {
 		this.dir = dir;
 		this.dirName = null;
 		this.files = new ArrayList<File>();
 	}
-/**
- * This function gets all the files from a given directory and sends them 
- */
-	public void sortDirFiles() {
-	try{
-		File directory = new File(this.dir);
-		this.dirName = directory.getName();
 
-		if (directory.isDirectory()) {
-			listf(this.dir, this.files);
-			for (int i = 0; i < this.files.size(); i++)
-				readFile(this.files.get(i).getPath());
-			System.out.println("Done Creating CSV file!");
+	/**
+	 * This function gets all the files from a given directory and sends them
+	 */
+	public void sortDirFiles() {
+		try {
+			File directory = new File(this.dir);
+			this.dirName = directory.getName();
+
+			if (directory.isDirectory()) {
+				listf(this.dir, this.files);
+				for (int i = 0; i < this.files.size(); i++)
+					readFile(this.files.get(i).getPath());
+				System.out.println("Done Creating CSV file!");
+			}
+		} catch (Exception e) {
+			System.out.println("Invalid input! Check path/files");
 		}
-	}catch (Exception e) {
-		System.out.println("Invalid input! Check path/files");
-	}
 
 	}
 
@@ -77,8 +83,9 @@ public class MergeCSVfiles {
 			String str, device;
 			String[] line;
 			WifiNetwork network;
+			Sample sample = new Sample();
 			CommonNets common = new CommonNets();
-			UnitedSamples united = new UnitedSamples();
+			UnitedSamples unitedSamples = new UnitedSamples();
 			FileReader fr = new FileReader(filePath);
 			BufferedReader br = new BufferedReader(fr);
 
@@ -86,19 +93,38 @@ public class MergeCSVfiles {
 			line = str.split(",");
 			device = line[2].split("=")[1];
 			str = br.readLine();
+			str = br.readLine();
 
-			while ((str = br.readLine()) != null) {
-				str = device + "," + str;
+			sample = new Sample(device, line[3], line[6], line[7], line[8]);
+			network = new WifiNetwork(line[1], line[0], line[4], line[5]);
+			sample.addNetwork(network);
+
+			while ((str = br.readLine()) != null) { // while line not empty
 				line = str.split(",");
-				if (line[11].equals("WIFI")) {
-					network = new WifiNetwork(line);
-					common.add(network);
+				network = new WifiNetwork(line[1], line[0], line[4], line[5]);
+				if (sample.checkToAddToSample(line[3], line[6], line[7], line[8])) { // add
+																						// network
+																						// to
+																						// sample
+					sample.addNetwork(network);
+				} else {
+					unitedSamples.add(sample);
+					sample = new Sample(device, line[3], line[6], line[7], line[8]);
+					sample.addNetwork(network);
 				}
+
 			}
-			united = common.sortListNet();
+
+			/*
+			 * while ((str = br.readLine()) != null) { str = device + "," + str;
+			 * line = str.split(","); if (line[11].equals("WIFI")) { network =
+			 * new WifiNetwork(line); common.add(network); } } united =
+			 * common.sortListNet();
+			 */
+
 			br.close();
 			fr.close();
-			writeFile(united);
+			writeFile(unitedSamples);
 
 		} catch (IOException ex) {
 			System.out.print("Error reading file\n" + ex);
@@ -107,13 +133,16 @@ public class MergeCSVfiles {
 	}
 
 	// https://stackoverflow.com/questions/5797208/java-how-do-i-write-a-file-to-a-specified-directory
-	
-	private void writeFile(UnitedSamples n) {
+
+	private void writeFile(UnitedSamples unitedSamples) {
 		try {
+			//Gets the timeStamp
 			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-			FileWriter fw = new FileWriter((this.dir + "-"+timeStamp+".csv"), true);  //file name +timeStamp & path as the directory
+			// file name+timeStamp&path as the directory
+			FileWriter fw = new FileWriter((this.dir + "-" + timeStamp + ".csv"), true);
 			PrintWriter outs = new PrintWriter(fw);
 			String info;
+			//adds the title only once
 			if (this.count == false) {
 				this.count = true;
 				String line = "Time,ID,LAT,LON,ALT,#WiFi networks";
@@ -123,17 +152,30 @@ public class MergeCSVfiles {
 				outs.println(line);
 
 			}
-			if (n != null) {
-				for (int i = 0; i < n.size(); i++) {
-					info = n.get(i).get(0).printCommonProp() + "," + n.get(i).size();
-					for (int j = 0; j < n.get(i).size(); j++) {
-						info += "," + n.get(i).get(j).toString();
+			if(unitedSamples!=null){
+				for (int i = 0; i < unitedSamples.size(); i++) {
+					info=unitedSamples.get(i).printSampleInfo();
+					//Runs over all the networks in the sample and prints their info.
+					for (int j = 0; j < unitedSamples.get(i).getCommonNetworks().size(); j++){
+						info+=unitedSamples.get(i).getCommonNetworks().get(j).toString();
+					}
+					outs.println(info);
+					info = null;
+				}
+			}
+			
+			/*
+			if (unitedSamples != null) {
+				for (int i = 0; i < unitedSamples.size(); i++) {
+					info = unitedSamples.get(i).get(0).printCommonProp() + "," + unitedSamples.get(i).size();
+					for (int j = 0; j < unitedSamples.get(i).size(); j++) {
+						info += "," + unitedSamples.get(i).get(j).toString();
 					}
 					outs.println(info);
 					info = null;
 
 				}
-			}
+			} */
 			outs.close();
 			fw.close();
 
@@ -141,11 +183,11 @@ public class MergeCSVfiles {
 			System.out.print("Error writing file\n" + ex);
 		}
 	}
-
+/*
 	private String getCommonInfo(UnitedSamples united, int i) {
 		return united.get(i).get(0).getTime() + "," + united.get(i).get(0).getID() + "," + united.get(i).get(0).getLAT()
 				+ "," + united.get(i).get(0).getLON() + "," + united.get(i).get(0).getALT() + ","
 				+ united.get(i).size();
-	}
+	} */
 
 }
