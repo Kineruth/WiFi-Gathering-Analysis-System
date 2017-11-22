@@ -61,7 +61,7 @@ public class MergeCSVfiles {
 //			ConvertCSVToKML kmlFile =	new ConvertCSVToKML(this.directoryPath, this.newFileName);
 //			kmlFile.createFile();
 		} catch (Exception e) {
-			System.out.println("Invalid input! Check path/files");
+			System.out.println("Error while running the files!");
 		}
 
 	}
@@ -107,8 +107,8 @@ public class MergeCSVfiles {
 			str = br.readLine();
 			line = str.split(",");
 			
+			sample = new Sample(device, line[3], line[6], line[7], line[8]);
 			if (line[10].equals("WIFI")) {
-				sample = new Sample(device, line[3], line[6], line[7], line[8]);
 				network = new WiFiNetwork(line[1], line[0], line[4], line[5]);
 				sample.addNetwork(network);
 			} 
