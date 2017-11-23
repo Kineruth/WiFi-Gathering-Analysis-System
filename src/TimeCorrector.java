@@ -22,8 +22,13 @@ public void correctAndSetTime(String time){
 		time=time.replaceAll("/", "-");
 	String [] timeStamp = time.split(" ");
 	String [] date = timeStamp[0].split("-");
-	if(date[0].length()==2)
-		time= 20+date[2]+"-"+date[1]+"-"+date[0]+" "+timeStamp[1]+":00";
+	if(date[0].length()==2){
+		if(date[2].length()==2)
+			time= 20+date[2]+"-"+date[1]+"-"+date[0]+" "+timeStamp[1]+":00";
+		else
+			time= date[2]+"-"+date[1]+"-"+date[0]+" "+timeStamp[1]+":00";
+	}
+		
 }
 
 }

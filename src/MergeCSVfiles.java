@@ -33,8 +33,7 @@ public class MergeCSVfiles {
 	/**
 	 * Parameterized constructor.
 	 * 
-	 * @param dir
-	 *            is an input from user for a directory's path.
+	 * @param dir  is an input from user for a directory's path.
 	 */
 	public MergeCSVfiles(String directory) {
 		this.directoryPath = directory;
@@ -44,7 +43,7 @@ public class MergeCSVfiles {
 	}
 
 	/**
-	 * This function gets all the files from a given directory and sends them
+	 * This function gets all the files from a given directory and sends them to be read from.
 	 * @exception Exception e for any failure .
 	 */
 	public void sortDirFiles() {
@@ -94,18 +93,20 @@ public class MergeCSVfiles {
 			String[] line;
 			WiFiNetwork network;
 			Sample sample = new Sample();
-			UnitedSamples unitedSamples = new UnitedSamples();
+			SamplesList unitedSamples = new SamplesList();
 			FileReader fr = new FileReader(filePath);
 			BufferedReader br = new BufferedReader(fr);
 
 			str = br.readLine();
 			line = str.split(",");
+			//Get device model
 			device = line[2].split("=")[1];
 			str = br.readLine();
 			str = br.readLine();
 			line = str.split(",");
 			//get the first sample to compare the times with other networks
 			sample = new Sample(device, line[3], line[6], line[7], line[8]);
+			//Check if it's WiFi network
 			if (line[10].equals("WIFI")) {
 				network = new WiFiNetwork(line[1], line[0], line[4], line[5]);
 				sample.addNetwork(network); // add network to sample
@@ -141,10 +142,10 @@ public class MergeCSVfiles {
  * This function writes a new file with the wanted information.
  * Takes all the sorted and arranged WiFiNetworks and writes them in a specific format.
  * Every line in the new file represents a sample of WiFiNetworks up till 10 networks arranges by signals.
- * @param unitedSamples
+ * @param unitedSamples an arrayList of Samples.
  * @exception throws IOException if fails writing to the file.
  */
-	private void writeFile(UnitedSamples unitedSamples) {
+	private void writeFile(SamplesList unitedSamples) {
 		try {
 			// Gets the timeStamp
 			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
@@ -153,7 +154,7 @@ public class MergeCSVfiles {
 			FileWriter fw = new FileWriter(this.newFileName, true);
 			PrintWriter outs = new PrintWriter(fw);
 			String info;
-			// adds the title only once
+			// adds the title only once to the file
 			if (this.headerCreated == false) {
 				this.headerCreated = true;
 				String line = "Time,ID,LAT,LON,ALT,#WiFi networks";
@@ -166,8 +167,7 @@ public class MergeCSVfiles {
 			if (unitedSamples != null) {
 				for (int i = 0; i < unitedSamples.size(); i++) {
 					info = unitedSamples.get(i).printSampleInfo();
-					// Runs over all the networks in the sample and prints their
-					// info.
+					// Runs over all networks in the sample and prints their info.
 					for (int j = 0; j < unitedSamples.get(i).getCommonNetworks().size(); j++) {
 						info += unitedSamples.get(i).getCommonNetworks().get(j).toString();
 					}

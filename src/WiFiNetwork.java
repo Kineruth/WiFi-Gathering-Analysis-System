@@ -98,7 +98,7 @@ public class WiFiNetwork implements Comparable<WiFiNetwork> {
 
 	// ***************************PRIVATE*****************************
 /**
- * This function converts a WifiNetwork channel to frequency.
+ * This function converts a WifiNetwork channel to frequency. If the given channel is already in frequency numbers then it will skip the convert step.
  * @param channel takes the channel from a WifiNetwork.
  * @return the converted frequency as a string. 
  */

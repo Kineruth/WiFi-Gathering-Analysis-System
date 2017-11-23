@@ -3,10 +3,20 @@ package src;
 import java.util.*;
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ * This class represents a filter tool. It gets the user choice to filter the networks or not.
+ * If the user choose to filter, then he has 3 options to choose from: time, a certain radius from location and the ID of a device.
+ * It filters the networks by the user choice.
+ * @author Kineret Ruth Nahary & Yakir Amar
+ *
+ */
 public class Filter {
 	private int choice;
-
+/**
+ * This function gets the user choice of filtering and filters the list of lines, every line is a sample.
+ * @param linesUnited a given list of lines from the CSV file. 
+ * @exception Exception e if the program fails running..
+ */
 	public void filterFile(List<String[]> linesUnited) {
 		Scanner sc = new Scanner(System.in);
 		try {
@@ -35,15 +45,16 @@ public class Filter {
 
 	}
 
-	public int getChoice() {
-		return choice;
-	}
 
 	// ***************************PRIVATE*****************************
 
-	// https://stackoverflow.com/questions/9146224/arraylist-filter -
-	// List.remove & Predicate
-
+/**
+ * This function gets the user choice of time to filter the lines by it.
+ * Filters using Predicate - checks if the user's date and hour is as in the line, if not - removes the line.
+ * Predicate removeIf: https://stackoverflow.com/questions/9146224/arraylist-filter
+ * @param linesUnited a given list of lines from the CSV file. 
+ * @exception Exception e if the user entered invalid input.
+ */
 	private void filterByTime(List<String[]> linesUnited) {
 		Scanner sc = new Scanner(System.in);
 		try {
@@ -59,7 +70,12 @@ public class Filter {
 			System.out.println("Entered invalid input! Converting file without filtering");
 		}
 	}
-
+/**
+  * This function gets the user choice of location and radius to filter the lines by it.
+ * Filters using Predicate - checks if  the line's point is within the user's point's radius , if not - removes the line.
+ * Predicate removeIf: https://stackoverflow.com/questions/9146224/arraylist-filter
+ * @param linesUnited
+ */
 	private void filterByPlace(List<String[]> linesUnited) {
 		Scanner sc = new Scanner(System.in);
 		try {
@@ -78,7 +94,12 @@ public class Filter {
 			System.out.println("Entered invalid input! Converting file without filtering");
 		}
 	}
-
+/**
+ * This function gets the user choice of device ID to filter the lines by it.
+ * Filters using Predicate - checks if  the line's point is within the user's point's radius , if not - removes the line.
+ * Predicate removeIf: https://stackoverflow.com/questions/9146224/arraylist-filter
+ * @param linesUnited
+ */
 	private void filterByID(List<String[]> linesUnited) {
 		Scanner sc = new Scanner(System.in);
 		try {

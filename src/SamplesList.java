@@ -7,12 +7,12 @@ import java.util.ArrayList;
  * @author Kineret Ruth Nahary & Yakir Amar
  *
  */
-public class UnitedSamples {
+public class SamplesList {
 	private ArrayList<Sample> united;
 /**
  * Default constructor.
  */
-	public UnitedSamples() {
+	public SamplesList() {
 		this.united = new ArrayList<Sample>();
 	}
 /**
@@ -49,6 +49,7 @@ public class UnitedSamples {
 /**
  * This function sorts a given Sample of WiFiNetworks before adding it to this united ArrayList.
  * It sorts all the WiFiNetworks in the Sample by signals in an ascending order using the Comparable's compareTo function.
+ * Adds to the list up till 10 WiFiNetworks.
  * @param sampleNetworks a given Sample's WiFiNetworks' ArrayList.
  * @return a sorted WiFiNetworks' ArrayList.
  */
