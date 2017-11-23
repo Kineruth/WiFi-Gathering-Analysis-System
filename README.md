@@ -63,15 +63,15 @@ https://serc.carleton.edu/sp/library/google_earth/what.html
 
 Further look into the classes:
 --
-1.	**Main** - The main class, where we call the `MergeCSVfiles()` & `ConvertCSVToKML()` to create CSV & KML files.
-2. **MergeCSVfiles** – This class gets a folder path, takes only CSV files and creates a new CSV file that contains all the top ten strongest (signal) Wi-Fi networks and their information for every timestamp from all those files, arranging them in an ascending order.
-3. **WiFiNetwork** – This class represents an object called WiFiNetwork, it contains the Wi-Fi network's Mac, SSID, frequency and signal. There's a function that converts a channel into frequency, because the app only gives us the channel and we wanted to know and save it as frequency. 
-4. **Sample** - This class represents a sample of Wi-Fi networks = a sample has all the networks that were scanned in the same time and location. It contains the device ID, longitude, latitude, altitude ,its timestamp - the scanning time and all the networks that were scanned in an arrayList.
-5. **SamplesList** - This class represents a list of all the Wi-Fi networks samples from the CSV files.
-6.	**ConvertCSVToKML** – This class gets an arranged CSV file (a file that was created with `mergeCSVfiles()`) and converts it into a KML format. It gives the user 3 filter options to chose from, to filter by time- specific date and hour, by a point on the map and a radius to get the networks that are within this radius, or by the device ID. 
-7.	**Filter** – This class gets the user's choice of filter and his/her input (using Scanner) and filters the unwanted networks.
-8.	**LocPoint** – This class creates a point(latitude, longitude). It has a function pointInCircle() that checks if a given point is within the radius from the current point.
-9. **TimeCorrector** - This class corrects the time format to (yyyy-mm-dd hh-mm-ss) for future use writing the KML file. Also contains a function `setTimeKMLFormat()` that converts the time to timeStamp as used in Google Earth timelaps.
+1. 	**Main** - The main class, where we call the `MergeCSVfiles()` & `ConvertCSVToKML()` to create CSV & KML files.
+2.  **MergeCSVfiles** – This class gets a folder path, takes only CSV files and creates a new CSV file that contains all the top ten strongest (signal) Wi-Fi networks and their information for every timestamp from all those files, arranging them in an ascending order.
+3.  **WiFiNetwork** – This class represents an object called WiFiNetwork, it contains the Wi-Fi network's Mac, SSID, frequency and signal. There's a function that converts a channel into frequency, because the app only gives us the channel and we wanted to know and save it as frequency. 
+4.  **Sample** - This class represents a sample of Wi-Fi networks = a sample has all the networks that were scanned in the same time and location. It contains the device ID, longitude, latitude, altitude ,its timestamp - the scanning time and all the networks that were scanned in an arrayList.
+5.  **SamplesList** - This class represents a list of all the Wi-Fi networks samples from the CSV files.
+6.	 **ConvertCSVToKML** – This class gets an arranged CSV file (a file that was created with `mergeCSVfiles()`) and converts it into a KML format. It gives the user 3 filter options to chose from, to filter by time- specific date and hour, by a point on the map and a radius to get the networks that are within this radius, or by the device ID. 
+7.	 **Filter** – This class gets the user's choice of filter and his/her input (using Scanner) and filters the unwanted networks.
+8.	 **LocPoint** – This class creates a point(latitude, longitude). It has a function pointInCircle() that checks if a given point is within the radius from the current point.
+9.  **TimeCorrector** - This class corrects the time format to (yyyy-mm-dd hh-mm-ss) for future use writing the KML file. Also contains a function `setTimeKMLFormat()` that converts the time to timeStamp as used in Google Earth timelaps.
 
 *How to run the program:*
 --
@@ -80,8 +80,25 @@ Clone the repository to your computer, add all the java files (classes) to your 
 *How to create CSV & KML files:*
 --
 In the Main class:
-*Creating CSV file: create an object 'MergeCSVfiles' - give it a directory's path, and call for '.sortDirFiles()'.
-*Creating Google Earth's KML file: create an object 'ConvertCSVToKML' - give it a CSV file's path (file that was created by 'MergeCSVfiles'),
+* Creating CSV file: create an object 'MergeCSVfiles' - give it a directory's path, and call for '.sortDirFiles()'.
+
+```
+public class Main {
+
+	public static void main(String[] args) {  
+  
+		// put a specific path's directory to make CSV file  
+		MergeCSVfiles t = new MergeCSVfiles("C:\\Users\\admin\\Desktop\\Task0");  
+		t.sortDirFiles();   
+		```
+		
+* Creating Google Earth's KML file: create an object 'ConvertCSVToKML' - give it a CSV file's path (file that was created by 'MergeCSVfiles'),
 then call for '.createFile()'.
+
+```  
+		// put a specific path to CSV file to make KML file   
+		ConvertCSVToKML k =	new ConvertCSVToKML("C:\\Users\\admin\\Desktop\\Task0 - 2017.11.23.15.29.28.csv");  
+		k.createFile();  
+```
 
 
