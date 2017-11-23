@@ -10,8 +10,9 @@ public class TimeCorrector {
  * This function converts the given time format to match the KML TimeStamp format. 
  * @param time a given time.
  */
-public void setTimeKMLFormat(String time){
+public String setTimeKMLFormat(String time){
 	 time.replaceAll(" ", "T");
+	 return time;
 }
 /**
  * This function corrects a given time to be in this pattern:  (yyyy-mm-dd hh:mm:ss).
@@ -23,7 +24,7 @@ public void correctAndSetTime(String time){
 	String [] timeStamp = time.split(" ");
 	String [] date = timeStamp[0].split("-");
 	if(date[0].length()==2)
-		time= date[2]+"-"+date[1]+"-"+date[0]+" "+timeStamp[1]+":00";
+		time= 20+date[2]+"-"+date[1]+"-"+date[0]+" "+timeStamp[1]+":00";
 	
 }
 

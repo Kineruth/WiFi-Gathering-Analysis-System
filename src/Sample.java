@@ -11,6 +11,7 @@ public class Sample {
 
 	private String ID, Time, LAT, LON, ALT;
 	private ArrayList<WiFiNetwork> commonNetworks;
+	private int commonNetworksSize;
 /**
  * Default constructor
  */
@@ -21,6 +22,7 @@ public class Sample {
 		this.LON = null;
 		this.ALT = null;
 		this.commonNetworks = new ArrayList<WiFiNetwork>();
+		this.commonNetworksSize=0;
 	}
 /**
  * Parameterized constructor
@@ -39,6 +41,7 @@ public class Sample {
 		this.LON = LON;
 		this.ALT = ALT;
 		this.commonNetworks = new ArrayList<WiFiNetwork>();
+		this.commonNetworksSize=this.commonNetworks.size();
 	}
 /**
  * This function adds a given network to this Sample.
@@ -96,12 +99,16 @@ public class Sample {
 	public void setCommonNetworks(ArrayList<WiFiNetwork> commonNetworks) {
 		this.commonNetworks = commonNetworks;
 	}
+
 /**
  * 
  * @return this commonNetworks' ArrayList size.
  */
 	public int getNetworksAmount() {
 		return this.commonNetworks.size();
+	}
+	public void setNetworksAmount(int size) {
+		 this.commonNetworksSize=size;
 	}
 /**
  * 
@@ -118,6 +125,10 @@ public class Sample {
  * @param ALT a given altitude.
  * @return true if this Time & LAT & LON & ALT are equal to the given parameters, false if not.
  */
+	public String getTimeInKML(){
+		TimeCorrector tc =new TimeCorrector();
+		return tc.setTimeKMLFormat(this.Time);
+	}
 	public boolean checkToAddToSample(String Time, String LAT, String LON, String ALT) {
 		return compareTime(Time) && compareLAT(LAT) && compareLON(LON) && compareALT(ALT);
 	}
