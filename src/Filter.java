@@ -48,7 +48,7 @@ public class Filter {
 		Scanner sc = new Scanner(System.in);
 		try {
 
-			System.out.println("Enter : date (dd/mm/yyyy) : ");
+			System.out.println("Enter : date (yyyy-mm-dd) : ");
 			String userDate = sc.nextLine();
 			System.out.println("Enter hour (1 to 24) : ");
 			int userHour = sc.nextInt();

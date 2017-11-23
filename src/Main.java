@@ -17,7 +17,7 @@ public class Main {
 //		t.sortDirFiles();
 
 		// put a specific path to CSV file to make KML file 
-		ConvertCSVToKML k =	new ConvertCSVToKML("C:\\Users\\admin\\Desktop\\Task0 - 2017.11.23.04.29.16.csv");
+		ConvertCSVToKML k =	new ConvertCSVToKML("C:\\Users\\admin\\Desktop\\Task0 - 2017.11.23.15.29.28.csv");
 		k.createFile();
 
 	}

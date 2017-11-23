@@ -111,7 +111,7 @@ public class WiFiNetwork implements Comparable<WiFiNetwork> {
 			frequency = (channel - 34) * 5 + 5170;
 			return frequency + "";
 		}
-		return "";
+		return channel+"";
 	}
 
 }
