@@ -1,37 +1,76 @@
 package src;
-
+/**
+ * This class represents a point on earth using latitude & longitude.
+ * It calculates the distance between two points and returns if a specific point is within a given Km radius.
+ * @author Kineret Ruth Nahary & Yakir Amar
+ *
+ */
 public class LocPoint {
 
-	private double x, y;
+	private double Lat, Lon;
 
+	/**
+	 *  Parameterized constructor
+	 *  Converts a string to double. The parameters are already in radians - as the app "Wiggle" exports them.
+	 * @param LAT 
+	 * @param LON
+	 */
 	public LocPoint(String LAT, String LON) {
-		this.x = Double.parseDouble(LAT);
-		this.y = Double.parseDouble(LON);
+		this.Lat = Double.parseDouble(LAT);
+		this.Lon = Double.parseDouble(LON);
+	}
+/**
+ * 
+ * @return this latitude.
+ */
+	public double getLat() {
+		return Lat;
 	}
 
-	public double getX() {
-		return x;
+/**
+ * 
+ * @return this longitude.
+ */
+	public double getLon() {
+		return Lon;
 	}
 
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
-	}
 
 	@Override
 	public String toString() {
-		return "LocPoint [x=" + x + ", y=" + y + "]";
+		return "LocPoint [Lat=" + Lat + ", Lon=" + Lon + "]";
 	}
 
+	/**
+	 * This function checks if a point is within a given radius of this point.
+	 * @param Other other given point.
+	 * @param radius a given radius in Km.
+	 * @return returns true if it's within the radius, false if not.
+	 */
 	public boolean pointInCircle(LocPoint Other, double radius) {
-		double C = 40075.04, A = 360*radius/C, B = A/Math.cos(Math.toRadians(this.x));
-	    return Math.pow((this.x-Other.x)/A, 2) + Math.pow((this.y-Other.y)/B, 2) < 1;
+		return distance(this.Lat, Other.Lat, this.Lon, Other.Lon) <= radius;
 	}
+/**
+ * This function calculate the distance between two points.
+ * Taken from: https://stackoverflow.com/questions/3694380/calculating-distance-between-two-points-using-latitude-longitude-what-am-i-doi
+ * @param Lat1 this point's latitude.
+ * @param Lat2 other point's latitude.
+ * @param Lon1 this point's longitude.
+ * @param Lon2 other point's longitude.
+ * @return the distance between the two points.
+ */
+	public static double distance(double Lat1, double Lat2, double Lon1, double Lon2) {
+		final int R = 6371; // Radius of the earth
+
+		double latDistance = Lat2 - Lat1;
+		double lonDistance = Lon2 - Lon1;
+		double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+				+ Math.cos(Lat1) * Math.cos(Lat2) * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		double distance = R * c * 1000; // convert to meters
+		distance = Math.pow(distance, 2);
+
+		return Math.sqrt(distance);
+	}
+
 }
