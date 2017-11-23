@@ -45,7 +45,7 @@ The program merges CSV files from exported android app called "WiGLE WiFi Wardri
 For every timestamp it takes the top 10 networks with the strongest signals and arranges them in an ascending order. 
 
 ```
-** "WiGLE WiFi Wardriving" ** app – it is an open source network observation, positioning and display client from the world's largest queryable database of wireless networks. 
+**"WiGLE WiFi Wardriving"** app – it is an open source network observation, positioning and display client from the world's largest queryable database of wireless networks. 
 This app can be used for site survey, security analysis and competition with friends. 
 It collects networks for personal research (information was taken from the android app store).
 https://play.google.com/store/apps/details?id=net.wigle.wigleandroid&hl=en
@@ -56,7 +56,7 @@ By uploading  the file to "Google Earth" site, we can look up all the Wi-Fi netw
 We can choose in the program either to filter the networks' samples list by a specific date and hour, by a specific device ID, or by choosing a point and a radius to show all the networks within this specific radius.
 
 ```
-** "Google Earth" ** – is a geobrowser that accesses satellite, aerial imagery and other geographic data over the internet to represent the Earth as a three dimensional globe. 
+**"Google Earth"** – is a geobrowser that accesses satellite, aerial imagery and other geographic data over the internet to represent the Earth as a three dimensional globe. 
 This product has many features one of them is the ability to show mappable data by reading KML files that had been uploaded to it.
 https://serc.carleton.edu/sp/library/google_earth/what.html
 ```
@@ -78,10 +78,13 @@ Further look into the classes:
 Clone the repository to your computer, add all the java files (classes) to your eclipse, or some other tool used for java.
 
 *How to create CSV & KML files:*
---
-In the Main class:
-* Creating CSV file: create an object 'MergeCSVfiles' - give it a directory's path, and call for '.sortDirFiles()'.
+--  
 
+In class Main:  
+* *Creating CSV file:* create an object 'MergeCSVfiles' - give it a directory's path, and call for '.sortDirFiles()'. 
+* *Creating Google Earth's KML file:* create an object 'ConvertCSVToKML' - give it a CSV file's path (file that was created by 'MergeCSVfiles'),
+then call for '.createFile()'. 
+ 
 ```
 public class Main {
 
@@ -89,13 +92,7 @@ public class Main {
   
 		// put a specific path's directory to make CSV file  
 		MergeCSVfiles t = new MergeCSVfiles("C:\\Users\\admin\\Desktop\\Task0");  
-		t.sortDirFiles();   
-		```
-		
-* Creating Google Earth's KML file: create an object 'ConvertCSVToKML' - give it a CSV file's path (file that was created by 'MergeCSVfiles'),
-then call for '.createFile()'.
-
-```  
+		t.sortDirFiles();  
 		// put a specific path to CSV file to make KML file   
 		ConvertCSVToKML k =	new ConvertCSVToKML("C:\\Users\\admin\\Desktop\\Task0 - 2017.11.23.15.29.28.csv");  
 		k.createFile();  
