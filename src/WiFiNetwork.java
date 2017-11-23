@@ -3,6 +3,7 @@ package src;
 import java.util.ArrayList;
 import java.util.Collections;
 /**
+ * Date: 23-11-2017
  * This class represent a WifiNetwork.
  * Gets information from a line in the file and passes it to the WifiNetwork's parameters.
  * @author Kineret Ruth Nahary & Yakir Amar

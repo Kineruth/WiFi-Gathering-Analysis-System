@@ -1,5 +1,6 @@
 package src;
 /**
+ * Date: 23-11-2017
  * This class represents a point on earth using latitude & longitude.
  * It calculates the distance between two points and returns if a specific point is within a given Km radius.
  * @author Kineret Ruth Nahary & Yakir Amar

@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 /**
+ * Date: 23-11-2017
  * This class represents an ArrayList of all the samples created from the file.
  * The samples are sorted by signals in an ascending order.
  * @author Kineret Ruth Nahary & Yakir Amar

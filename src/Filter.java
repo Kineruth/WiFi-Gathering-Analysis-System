@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.List;
 import java.util.Scanner;
 /**
+ * Date: 23-11-2017
  * This class represents a filter tool. It gets the user choice to filter the networks or not.
  * If the user choose to filter, then he has 3 options to choose from: time, a certain radius from location and the ID of a device.
  * It filters the networks by the user choice.
@@ -24,7 +25,7 @@ public class Filter {
 			this.choice = sc.nextInt();
 
 			while (this.choice != 1 && this.choice != 2) { // if invalid input
-				System.out.println("Invalid Input! Enter again");
+				System.out.println("Not in the options! Enter again");
 				this.choice = sc.nextInt();
 			}
 
@@ -34,7 +35,7 @@ public class Filter {
 				this.choice = sc.nextInt();
 
 				while (this.choice < 1 && this.choice > 3) { // if invalid input
-					System.out.println("Invalid Input! Enter again");
+					System.out.println("Not in the options! Enter again");
 					this.choice = sc.nextInt();
 				}
 				filterLines(linesUnited);

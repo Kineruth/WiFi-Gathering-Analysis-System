@@ -17,6 +17,7 @@ import java.util.Collections;
 import javax.management.ListenerNotFoundException;
 
 /**
+ * Date: 23-11-2017
  * This class takes CSV files from a given directory and creates a new CSV file.
  * Takes WiFi networks and arranges them by same time and place for every line
  * in the new CSV file. Up to 10 networks for every sample (=time and place).

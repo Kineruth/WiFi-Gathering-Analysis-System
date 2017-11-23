@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 /**
+ * Date: 23-11-2017
  * This class represents a sample of all the WiFiNetworks scanned at the same time , in the same location and by the same device.
  * This sample contains all the WiFiNetworks in an ArrayList.
  * @author  Kineret Ruth Nahary & Yakir Amar

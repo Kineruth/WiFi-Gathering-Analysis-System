@@ -1,5 +1,6 @@
 package src;
 /**
+ * Date: 23-11-2017
  * This class converts a given time to match the KML format in google earth.
  * It also corrects the time pattern to match this pattern: (yyyy-mm-dd hh:mm:ss).
  * @author Kineret Ruth Nahary & Yakir Amar
