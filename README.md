@@ -13,28 +13,6 @@ Authors:
 Kineret Ruth Nahary  
 Yakir Amar
 
-**File list:**
---  
-
-```  
-.:  
-KML API  
-doc  
-src  
-Wigle Wifi App - Exports - Examples  
-.classpath  
-.gitignore  
-.project  
-README  
-```
-
-```  
-.:
-KML API - has the KML Jak API files.  
-doc - has the JavaDoc files, specificaly the ones called *allclasses* .  
-src - has all the java classes and Unit testing.  
-Wigle Wifi App - Exports - Examples - has exports files from the Wigle app.  
-```
 
 **Intoduction**
 ==
@@ -59,6 +37,28 @@ We can choose in the program either to filter the networks' samples list by a sp
 "Google Earth" – is a geobrowser that accesses satellite, aerial imagery and other geographic data over the internet to represent the Earth as a three dimensional globe. 
 This product has many features one of them is the ability to show mappable data by reading KML files that had been uploaded to it.
 https://serc.carleton.edu/sp/library/google_earth/what.html
+```
+**File list:**
+--  
+
+```  
+.:  
+KML API  
+doc  
+src  
+Wigle Wifi App - Exports - Examples  
+.classpath  
+.gitignore  
+.project  
+README  
+```
+
+```  
+.:
+KML API - has the KML Jak API files.  
+doc - has the JavaDoc files, specificaly the ones called *allclasses* .  
+src - has all the java classes and Unit testing.  
+Wigle Wifi App - Exports - Examples - has exports files from the Wigle app.  
 ```
 
 Further look into the classes:
