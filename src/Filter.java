@@ -49,7 +49,7 @@ public class Filter {
 	// ***************************PRIVATE*****************************
 
 /**
- * This function gets the user choice of time to filter the lines by it.
+ * This function filter the lines by the user choice of time.
  * Filters using Predicate - checks if the user's date and hour is as in the line, if not - removes the line.
  * Predicate removeIf: https://stackoverflow.com/questions/9146224/arraylist-filter
  * @param linesUnited a given list of lines from the CSV file. 
@@ -71,10 +71,11 @@ public class Filter {
 		}
 	}
 /**
-  * This function gets the user choice of location and radius to filter the lines by it.
+  * This function filters the lines by the user choice of location and radius.
  * Filters using Predicate - checks if  the line's point is within the user's point's radius , if not - removes the line.
  * Predicate removeIf: https://stackoverflow.com/questions/9146224/arraylist-filter
- * @param linesUnited
+ * @param linesUnited a given list of lines from the CSV file. 
+ * @exception Exception e if the user entered invalid input.
  */
 	private void filterByPlace(List<String[]> linesUnited) {
 		Scanner sc = new Scanner(System.in);
@@ -95,10 +96,11 @@ public class Filter {
 		}
 	}
 /**
- * This function gets the user choice of device ID to filter the lines by it.
- * Filters using Predicate - checks if  the line's point is within the user's point's radius , if not - removes the line.
+ * This function filters the lines by the user choice of device ID.
+ * Filters using Predicate - checks if  the user's device ID is as stated in the line , if not - removes the line.
  * Predicate removeIf: https://stackoverflow.com/questions/9146224/arraylist-filter
- * @param linesUnited
+ * @param linesUnited a given list of lines from the CSV file. 
+ * @exception Exception e if the user entered invalid input.
  */
 	private void filterByID(List<String[]> linesUnited) {
 		Scanner sc = new Scanner(System.in);
@@ -111,7 +113,10 @@ public class Filter {
 			System.out.println("Entered invalid input! Converting file without filtering");
 		}
 	}
-
+/**
+ *This function checks the user'd choice of filtering and sends to the wanted filter.
+ * @param linesUnited a given list of lines from the CSV file. 
+ */
 	private void filterLines(List<String[]> linesUnited) {
 		if (this.choice == 1)
 			filterByTime(linesUnited);
