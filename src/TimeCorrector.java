@@ -11,8 +11,7 @@ public class TimeCorrector {
  * @param time a given time.
  */
 public String setTimeKMLFormat(String time){
-	 time.replaceAll(" ", "T");
-	 return time;
+	 return time=time.replaceAll(" ", "T");
 }
 /**
  * This function corrects a given time to be in this pattern:  (yyyy-mm-dd hh:mm:ss).
@@ -20,12 +19,11 @@ public String setTimeKMLFormat(String time){
  */
 public void correctAndSetTime(String time){
 	if(time.contains("/"))
-		time.replaceAll("/", "-");
+		time=time.replaceAll("/", "-");
 	String [] timeStamp = time.split(" ");
 	String [] date = timeStamp[0].split("-");
 	if(date[0].length()==2)
 		time= 20+date[2]+"-"+date[1]+"-"+date[0]+" "+timeStamp[1]+":00";
-	
 }
 
 }

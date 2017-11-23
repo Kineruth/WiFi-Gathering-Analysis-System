@@ -34,8 +34,7 @@ public class ConvertCSVToKML {
 	/**
 	 * Parameterized constructor.
 	 * 
-	 * @param filePath
-	 *            a given file's path.
+	 * @param filePath a given file's path.
 	 */
 	public ConvertCSVToKML(String filePath) {
 		this.filePath = filePath;
@@ -43,10 +42,9 @@ public class ConvertCSVToKML {
 	}
 
 	/**
-	 * This function takes only a CSV file and creates a KML file for it.
+	 * This function takes only a CSV file and creates a KML Google earth file from it.
 	 * 
-	 * @exception Exception
-	 *                e if the program fails running.
+	 * @exception Exception e if the program fails running.
 	 */
 	public void createFile() {
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
@@ -65,10 +63,9 @@ public class ConvertCSVToKML {
 	}
 
 	/**
-	 * This function reads from the given file.
+	 * This function reads from the given CSV file.
 	 * 
-	 * @exception IOException
-	 *                ex if it fails reading from file.
+	 * @exception IOException ex if it fails reading from file.
 	 */
 	private void readFile() {
 		try {
@@ -103,23 +100,20 @@ public class ConvertCSVToKML {
 	}
 
 	// ***************************PRIVATE*****************************
+
 	/**
-	 * This class writes the KML file, it sorts by the user's chosen filter than
-	 * writes the file in a KML format.
-	 * 
-	 * @param list
-	 *            a given lists of lines = each line represents a sample.
-	 * @throws FileNotFoundException
-	 *             if it fails finding the file.
-	 * @throws MalformedURLException
-	 *             if it fails writing the KML file.
+	 * This class writes the KML file, it sorts by the user's chosen filter than writes the file in a KML format.
+	 * @param samples a given list of samples.
+	 * @throws FileNotFoundException  if it fails finding the file.
+	 * @throws MalformedURLException  if it fails writing the KML file.
 	 */
 	private void writeFile(List<Sample> samples) throws FileNotFoundException, MalformedURLException {
 		Kml kml = new Kml();
 		Document doc = kml.createAndSetDocument();
-		TimeStamp timeStamp = new TimeStamp();
+		
 		for (Sample sample : samples) {
 			for (int i = 0; i < sample.getNetworksAmount(); i++) {
+				TimeStamp timeStamp = new TimeStamp();
 				timeStamp.setWhen(sample.getTimeInKML());
 				doc.createAndAddPlacemark().withName(sample.getID()).withOpen(Boolean.TRUE).withTimePrimitive(timeStamp)
 						.withDescription(KMLDescription(sample.getCommonNetworks().get(i))).createAndSetPoint()
@@ -149,10 +143,9 @@ public class ConvertCSVToKML {
 	}
 
 	/**
-	 * This function returns the description for the KML file.
+	 * This function returns a WiFiNetwork's description for the KML file.
 	 * 
-	 * @param wn
-	 *            a given WiFiNetwork.
+	 * @param wn a given WiFiNetwork.
 	 * @return the KML description.
 	 */
 	private String KMLDescription(WiFiNetwork wn) {
@@ -161,12 +154,10 @@ public class ConvertCSVToKML {
 	}
 
 	/**
-	 * This function sorts all the strongest Macs to be written in the file and
-	 * shown ion google earth's map.
+	 * This function creates WiFiNetworks and a list of samples to be written in the file and shown on google earth's map.
 	 * 
-	 * @param linesUnited
-	 *            a given list of lines = samples.
-	 * @return a sorted list of samples with the strongest Macs.
+	 * @param linesUnited a given list of lines = samples.
+	 * @return a list of samples.
 	 */
 
 	private List<Sample> getSamplesList(List<String[]> linesUnited) {

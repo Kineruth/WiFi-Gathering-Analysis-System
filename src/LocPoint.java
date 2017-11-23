@@ -35,8 +35,9 @@ public class LocPoint {
 		return Lon;
 	}
 
-
-	@Override
+/**
+ * @return prints the point's parametes.
+ */
 	public String toString() {
 		return "LocPoint [Lat=" + Lat + ", Lon=" + Lon + "]";
 	}
