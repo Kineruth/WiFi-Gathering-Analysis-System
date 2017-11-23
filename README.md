@@ -32,7 +32,7 @@ README
 .:
 KML API - has the KML Jak API files.  
 doc - has the JavaDoc files, specificaly the ones called *allclasses* .  
-src - has all the java classes.  
+src - has all the java classes and Unit testing.  
 Wigle Wifi App - Exports - Examples - has exports files from the Wigle app.  
 ```
 
@@ -45,18 +45,18 @@ The program merges CSV files from exported android app called "WiGLE WiFi Wardri
 For every timestamp it takes the top 10 networks with the strongest signals and arranges them in an ascending order. 
 
 ```
-**"WiGLE WiFi Wardriving"** app – it is an open source network observation, positioning and display client from the world's largest queryable database of wireless networks. 
+"WiGLE WiFi Wardriving" app – it is an open source network observation, positioning and display client from the world's largest queryable database of wireless networks. 
 This app can be used for site survey, security analysis and competition with friends. 
 It collects networks for personal research (information was taken from the android app store).
 https://play.google.com/store/apps/details?id=net.wigle.wigleandroid&hl=en
 ```
 
 The program also takes an arranged file and creates a KML file using Jak API so that it can be used on the "Google Earth" site.
-By uploading  the file to "Google Earth" site, we can look up all the Wi-Fi networks we wanted to see on the map with a timelaps option. 
+By uploading  the file to "Google Earth" site, we can look up all the Wi-Fi networks we wanted to see on the map with a timeline option. 
 We can choose in the program either to filter the networks' samples list by a specific date and hour, by a specific device ID, or by choosing a point and a radius to show all the networks within this specific radius.
 
 ```
-**"Google Earth"** – is a geobrowser that accesses satellite, aerial imagery and other geographic data over the internet to represent the Earth as a three dimensional globe. 
+"Google Earth" – is a geobrowser that accesses satellite, aerial imagery and other geographic data over the internet to represent the Earth as a three dimensional globe. 
 This product has many features one of them is the ability to show mappable data by reading KML files that had been uploaded to it.
 https://serc.carleton.edu/sp/library/google_earth/what.html
 ```
@@ -71,7 +71,7 @@ Further look into the classes:
 6.	 **ConvertCSVToKML** – This class gets an arranged CSV file (a file that was created with `mergeCSVfiles()`) and converts it into a KML format. It gives the user 3 filter options to chose from, to filter by time- specific date and hour, by a point on the map and a radius to get the networks that are within this radius, or by the device ID. 
 7.	 **Filter** – This class gets the user's choice of filter and his/her input (using Scanner) and filters the unwanted networks.
 8.	 **LocPoint** – This class creates a point(latitude, longitude). It has a function pointInCircle() that checks if a given point is within the radius from the current point.
-9.  **TimeCorrector** - This class corrects the time format to (yyyy-mm-dd hh-mm-ss) for future use writing the KML file. Also contains a function `setTimeKMLFormat()` that converts the time to timeStamp as used in Google Earth timelaps.
+9.  **TimeCorrector** - This class corrects the time format to (yyyy-mm-dd hh-mm-ss) for future use writing the KML file. Also contains a function `setTimeKMLFormat()` that converts the time to timeStamp as used in Google Earth timeline.
 
 *How to run the program:*
 --
