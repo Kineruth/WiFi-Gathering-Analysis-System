@@ -16,7 +16,7 @@ Yakir Amar
 File list:
 --  
 
-'''  
+' ' '  
 .:  
 KML API  
 doc  
@@ -26,7 +26,7 @@ Wigle Wifi App - Exports - Examples
 .gitignore  
 .project  
 README  
-'''
+' ' '
 
 About the project:
 --
@@ -37,15 +37,15 @@ For every timestamp it takes the top 10 networks with the strongest signals and 
 This app can be used for site survey, security analysis and competition with friends. 
 It collects networks for personal research (information was taken from the android app store).
 https://play.google.com/store/apps/details?id=net.wigle.wigleandroid&hl=en
-'''
+' ' '
 The program also takes an arranged file and converts it into a KML file that can be used on the "Google Earth" site.
 By uploading  the file to "Google Earth" site, we can look up all the Wi-Fi networks we wanted to see on the map. 
 We can choose in the program either to filter the network's list by a specific date and hour, by a specific ID (=device), or by choosing a point and a radius to show all the networks inside this specific radius.
-'''
+' ' '
 "Google Earth" – is a geobrowser that accesses satellite, aerial imagery and other geographic data over the internet to represent the Earth as a three dimensional globe. 
 This product has many features one of them is the ability to show mappable data by reading KML files that had been uploaded to it.
 https://serc.carleton.edu/sp/library/google_earth/what.html
-'''
+' ' '
 
 Further look into the classes:
 --
