@@ -5,26 +5,27 @@ Object-Oriented-Task1
 
 Project source can be downloaded from:
 --- 
-https://github.com/Kineruth/Task1.git
+https://github.com/Kineruth/Task1.git  
 Program is a project for Ariel University's Object Oriented course.
 
 Authors:
 --
-Kineret Ruth Nahary
+Kineret Ruth Nahary  
 Yakir Amar
 
 File list:
---
-'''
-.:
-KML API
-doc
-src
-Wigle Wifi App - Exports - Examples
-.classpath
-.gitignore
-.project
-README
+--  
+
+'''  
+.:  
+KML API  
+doc  
+src  
+Wigle Wifi App - Exports - Examples  
+.classpath  
+.gitignore  
+.project  
+README  
 '''
 
 About the project:
@@ -48,17 +49,19 @@ https://serc.carleton.edu/sp/library/google_earth/what.html
 
 Further look into the classes:
 --
-1.	'*mergeCSVfiles*' – This class gets a folder path, takes only CSV files and creates a new CSV file that contains all the top ten strongest (signal) Wi-Fi networks and their information for every timestamp from all those files, arranging them in an ascending order.
-2.	'*WiFiNetwork*' – This class represent an object called WiFiNetwork, it contains all the information of a specific Wi-Fi network that had been scanned by the app and added into the file. The information has the device ID, the network's name, its MAC, signal, frequency, longitude, latitude, altitude and its timestamp- the time it had been scanned. The class has a function that converts a channel into frequency, because the app only gives us the channel and we wanted to know and save it as frequency for later use with "Google Earth". 
-3.	'*convertToKML*' – This class gets an arranged CSV file (a file that was created with mergeCSVfiles) and converts it into a KML format. It gives the user 3 filter options of what he wants the file to have, to filter by time- specific date and hour, filter by a point on the map and a radius to get the networks that are within this radius, or to filter by ID – the name of the device. There is a function called getColor() that gives every pin a color that represent its top network (with the strongest signal between the networks from the same timestamp). A green color is given when the signal is higher/equal to -70, a yellow when it's between -70 and -90, and a red when it is lower than -90.
-4.	'*Filter*' – This class gets the uses choice of filter and his/her input (using Scanner).
-5.	'*LocPoint*' – This class creates a point(latitude, longitude). It has a function pointInCircle() that checks if a given point is within the radius from the current point.
-6.	'*Main*' - The main class.
-
+1.	Main - The main class, where we call the MergeCSVfiles() & ConvertCSVToKML() to create CSV & KML files.
+2. MergeCSVfiles – This class gets a folder path, takes only CSV files and creates a new CSV file that contains all the top ten strongest (signal) Wi-Fi networks and their information for every timestamp from all those files, arranging them in an ascending order.
+3. WiFiNetwork – This class represents an object called WiFiNetwork, it contains the Wi-Fi network's Mac, SSID, frequency and signal. There's a function that converts a channel into frequency, because the app only gives us the channel and we wanted to know and save it as frequency. 
+4. Sample - This class represents a sample of Wi-Fi networks = a sample has all the networks that were scanned in the same time and location. It contains the device ID, longitude, latitude, altitude ,its timestamp - the scanning time and all the networks that were scanned in an arrayList.
+5. SamplesList - This class represents a list of all the Wi-Fi networks samples from the CSV files.
+6.	ConvertCSVToKML – This class gets an arranged CSV file (a file that was created with mergeCSVfiles()) and converts it into a KML format. It gives the user 3 filter options to chose from, to filter by time- specific date and hour, by a point on the map and a radius to get the networks that are within this radius, or by the device ID. 
+7.	Filter – This class gets the user's choice of filter and his/her input (using Scanner) and filters the unwanted networks.
+8.	LocPoint – This class creates a point(latitude, longitude). It has a function pointInCircle() that checks if a given point is within the radius from the current point.
+9. TimeCorrector - This class corrects the time format to (yyyy-mm-dd hh-mm-ss) for future use writing the KML file. Also contains a function setTimeKMLFormat() that converts the time to timeStamp as used in Google Earth timelaps.
 
 How to run the program:
 --
-Clone the directory to your local machine.
+Clone the repository to your computer, add all the java files (classes) to your eclipse, or some other tool used for java.
 
 How to create CSV & KML files:
 --
