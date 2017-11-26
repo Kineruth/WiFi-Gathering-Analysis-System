@@ -6,10 +6,17 @@ package src;
  * @author Kineret Ruth Nahary & Yakir Amar
  *
  */
+
 public class LocPoint {
 
 	private double Lat, Lon;
-
+/**
+ * Default constructor
+ */
+	public LocPoint(){
+		this.Lat=0;
+		this.Lon=0;
+	}
 	/**
 	 *  Parameterized constructor
 	 *  Converts a string to double. The parameters are already in radians - as the app "Wiggle" exports them.
