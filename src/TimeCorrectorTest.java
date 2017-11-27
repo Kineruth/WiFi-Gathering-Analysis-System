@@ -13,6 +13,14 @@ public class TimeCorrectorTest {
 		assertEquals("2017-5-23T14:45:23",result);
 	}
 
-
+	@Test
+	public void testCorrectAndSetTime() {
+		TimeCorrector C=new TimeCorrector();
+		String s="29/10/2017  15:02:43";
+		C.correctAndSetTime(s);
+		assertEquals("29/10/2017  15:02:43",s);
+		
+		
+	}
 
 }
