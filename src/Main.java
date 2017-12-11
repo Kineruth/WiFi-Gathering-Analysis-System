@@ -12,13 +12,13 @@ public class Main {
 	public static void main(String[] args) {
 
 		// put a specific path's directory to make CSV file
-		MergeCSVfiles t = new MergeCSVfiles("C:\\Users\\admin\\Desktop\\Task0");
-		t.sortDirFiles();
+//		MergeCSVfiles t = new MergeCSVfiles("C:\\Users\\admin\\git\\Task1\\Wigle Wifi App - Exports - Examples");
+//		t.sortDirFiles();
 
 		
 		
 		// put a specific path to CSV file to make KML file 
-		ConvertCSVToKML k =	new ConvertCSVToKML("C:\\Users\\admin\\Desktop\\Task0 - 2017.11.23.15.29.28.csv");
+		ConvertCSVToKML k =	new ConvertCSVToKML("C:\\Users\\admin\\Desktop\\data - 2017.11.29.16.26.49.csv");
 		k.createFile();
 
 	}

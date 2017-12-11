@@ -31,10 +31,11 @@ public class MergeCSVfiles {
 	private ArrayList<File> files;
 	private boolean headerCreated = false;
 
+	
 	/**
 	 * Parameterized constructor.
 	 * 
-	 * @param dir  is an input from user for a directory's path.
+	 * @param dir is an input from user for a directory's path.
 	 */
 	public MergeCSVfiles(String directory) {
 		this.directoryPath = directory;
@@ -106,7 +107,7 @@ public class MergeCSVfiles {
 			str = br.readLine();
 			line = str.split(",");
 			//get the first sample to compare the times with other networks
-			sample = new Sample(device, line[3], line[6], line[7], line[8]);
+			sample = new Sample(device, line[3], line[6], line[7], line[8],0);
 			//Check if it's WiFi network
 			if (line[10].equals("WIFI")) {
 				network = new WiFiNetwork(line[1], line[0], line[4], line[5]);
@@ -121,7 +122,7 @@ public class MergeCSVfiles {
 							sample.addNetwork(network);
 						} else {
 							unitedSamples.add(sample);
-							sample = new Sample(device, line[3], line[6], line[7], line[8]);
+							sample = new Sample(device, line[3], line[6], line[7], line[8],0);
 							sample.addNetwork(network);
 						}
 					}

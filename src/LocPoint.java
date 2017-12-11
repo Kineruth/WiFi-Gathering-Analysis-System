@@ -9,13 +9,14 @@ package src;
 
 public class LocPoint {
 
-	private double Lat, Lon;
+	private double Lat, Lon,Alt;
 /**
  * Default constructor
  */
 	public LocPoint(){
 		this.Lat=0;
 		this.Lon=0;
+		this.Alt=0;
 	}
 	/**
 	 *  Parameterized constructor
@@ -23,16 +24,17 @@ public class LocPoint {
 	 * @param LAT 
 	 * @param LON
 	 */
-	public LocPoint(String LAT, String LON) {
+	public LocPoint(String LAT, String LON,String ALT) {
 		this.Lat = Double.parseDouble(LAT);
 		this.Lon = Double.parseDouble(LON);
+		this.Alt = Double.parseDouble(ALT);
 	}
 /**
  * 
  * @return this latitude.
  */
 	public double getLat() {
-		return Lat;
+		return this.Lat;
 	}
 
 /**
@@ -40,11 +42,18 @@ public class LocPoint {
  * @return this longitude.
  */
 	public double getLon() {
-		return Lon;
+		return this.Lon;
 	}
+	/**
+	 * 
+	 * @return this longitude.
+	 */
+		public double getAlt() {
+			return this.Alt;
+		}
 
 /**
- * @return prints the point's parametes.
+ * @return prints the point's parameters.
  */
 	public String toString() {
 		return "LocPoint [Lat=" + Lat + ", Lon=" + Lon + "]";

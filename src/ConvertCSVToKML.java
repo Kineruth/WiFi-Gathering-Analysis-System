@@ -76,7 +76,7 @@ public class ConvertCSVToKML {
 			List<String[]> linesUnited = new ArrayList<String[]>();
 			String str = br.readLine();
 			Filter f = new Filter();
-
+			
 			str = br.readLine();
 			while (str != null) {
 				line = str.split(",");
@@ -89,7 +89,8 @@ public class ConvertCSVToKML {
 			br.close();
 			fr.close();
 
-			writeFile(getSamplesList(linesUnited));
+			LinesToSamples r = new LinesToSamples();
+			writeFile(r.getSamplesList(linesUnited));
 
 		} catch (IOException ex) {
 			System.out.print("Error reading file\n" + ex);
@@ -110,7 +111,7 @@ public class ConvertCSVToKML {
 	private void writeFile(List<Sample> samples) throws FileNotFoundException, MalformedURLException {
 		Kml kml = new Kml();
 		Document doc = kml.createAndSetDocument();
-		
+		int counter =0; //counting points on map.
 		for (Sample sample : samples) {
 			for (int i = 0; i < sample.getNetworksAmount(); i++) {
 				TimeStamp timeStamp = new TimeStamp();
@@ -118,9 +119,10 @@ public class ConvertCSVToKML {
 				doc.createAndAddPlacemark().withName(sample.getID()).withOpen(Boolean.TRUE).withTimePrimitive(timeStamp)
 						.withDescription(KMLDescription(sample.getCommonNetworks().get(i))).createAndSetPoint()
 						.addToCoordinates(Double.parseDouble(sample.getLON()), Double.parseDouble(sample.getLAT()));
+				counter++;
 			}
 		}
-
+		System.out.println("count points: "+counter);
 		/*
 		 * List<Sample> samples = getSamplesList(linesUnited); Kml kml = new
 		 * Kml(); Document doc = kml.createAndSetDocument();
@@ -153,26 +155,7 @@ public class ConvertCSVToKML {
 				+ wn.getSignal();
 	}
 
-	/**
-	 * This function creates WiFiNetworks and a list of samples to be written in the file and shown on google earth's map.
-	 * 
-	 * @param linesUnited a given list of lines = samples.
-	 * @return a list of samples.
-	 */
-
-	private List<Sample> getSamplesList(List<String[]> linesUnited) {
-		List<Sample> samples = new ArrayList<Sample>();
-		for (int i = 0; i < linesUnited.size(); i++) {
-			String[] line = linesUnited.get(i);
-			Sample sample = new Sample(line[1], line[0], line[2], line[3], line[4]);
-			for (int j = 6; j < line.length - 3; j = j + 4) {
-				WiFiNetwork network = new WiFiNetwork(line[j], line[j + 1], line[j + 2], line[j + 3]);
-				sample.addNetwork(network);
-			}
-			samples.add(sample);
-		}
-		return samples;
-	}
+	
 	/*
 	 * private List<Sample> getStrongestMacNetworks(List<Sample> samples) {
 	 * ArrayList<String> macsList = new ArrayList<String>(); String macInfo; for

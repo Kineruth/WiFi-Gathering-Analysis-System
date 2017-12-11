@@ -7,3 +7,17 @@
 /SamplesList.class
 /TimeCorrectorTest.class
 /convertToFrequencyTest.class
+/Filter.class
+/LocPoint.class
+/LocPointTest.class
+/Main.class
+/MergeCSVfiles.class
+/SampleTest.class
+/WiFiNetworkTest.class
+/Calculate_Mac.class
+/Mac.class
+/MacInput.class
+/ReadFromFile.class
+/WriteToFile.class
+/LinesToSamples.class
+/CSVToKML.class
