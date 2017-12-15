@@ -27,8 +27,8 @@ import javax.management.ListenerNotFoundException;
  */
 public class MergeCSVfiles {
 
-	private String directoryPath, directoryName, newFileName;
 	private ArrayList<File> files;
+	private String directoryPath, newFileName;
 	private boolean headerCreated = false;
 
 	
@@ -39,7 +39,6 @@ public class MergeCSVfiles {
 	 */
 	public MergeCSVfiles(String directory) {
 		this.directoryPath = directory;
-		this.directoryName = null;
 		this.files = new ArrayList<File>();
 		this.newFileName=null;
 	}
@@ -51,7 +50,6 @@ public class MergeCSVfiles {
 	public void sortDirFiles() {
 		try {
 			File directory = new File(this.directoryPath);
-			this.directoryName = directory.getName();
 
 			if (directory.isDirectory()) {
 				listf(this.directoryPath, this.files);
@@ -167,11 +165,11 @@ public class MergeCSVfiles {
 
 			}
 			if (unitedSamples != null) {
-				for (int i = 0; i < unitedSamples.size(); i++) {
-					info = unitedSamples.get(i).printSampleInfo();
+				for (int i = 0; i < unitedSamples.listSize(); i++) {
+					info = unitedSamples.getSample(i).printSampleInfo();
 					// Runs over all networks in the sample and prints their info.
-					for (int j = 0; j < unitedSamples.get(i).getCommonNetworks().size(); j++) {
-						info += unitedSamples.get(i).getCommonNetworks().get(j).toString();
+					for (int j = 0; j < unitedSamples.getSample(i).getCommonNetworks().size(); j++) {
+						info += unitedSamples.getSample(i).getCommonNetworks().get(j).toString();
 					}
 					outs.println(info);
 					info = null;

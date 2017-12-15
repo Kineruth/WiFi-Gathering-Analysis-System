@@ -15,7 +15,6 @@ public class Sample implements Comparable<Sample> {
 	private String ID, Time, LAT, LON, ALT;
 	private double PI;
 	private ArrayList<WiFiNetwork> commonNetworks;
-	private int commonNetworksSize;
 
 	/**
 	 * Default constructor
@@ -28,7 +27,6 @@ public class Sample implements Comparable<Sample> {
 		this.ALT = "";
 		this.PI = 0;
 		this.commonNetworks = new ArrayList<WiFiNetwork>();
-		this.commonNetworksSize = 0;
 	}
 
 	/**
@@ -40,7 +38,7 @@ public class Sample implements Comparable<Sample> {
 	 * @param LON
 	 * @param ALT
 	 */
-	public Sample(String ID, String Time, String LAT, String LON, String ALT, double IP) {
+	public Sample(String ID, String Time, String LAT, String LON, String ALT, double PI) {
 		this.ID = ID;
 		this.Time = Time;
 		TimeCorrector tc = new TimeCorrector();
@@ -48,9 +46,8 @@ public class Sample implements Comparable<Sample> {
 		this.LAT = LAT;
 		this.LON = LON;
 		this.ALT = ALT;
-		this.PI = IP;
+		this.PI = PI;
 		this.commonNetworks = new ArrayList<WiFiNetwork>();
-		this.commonNetworksSize = this.commonNetworks.size();
 	}
 
 	public Sample(Sample s) {
@@ -59,8 +56,8 @@ public class Sample implements Comparable<Sample> {
 		this.LAT = s.getLAT();
 		this.LON = s.getLON();
 		this.ALT = s.getALT();
+		this.PI = s.getPI();
 		this.commonNetworks = s.getCommonNetworks();
-		this.commonNetworksSize = s.getNetworksAmount();
 	}
 
 	/**
@@ -168,9 +165,6 @@ public class Sample implements Comparable<Sample> {
 		return this.commonNetworks.size();
 	}
 
-	public void setNetworksAmount(int size) {
-		this.commonNetworksSize = size;
-	}
 
 	/**
 	 * 
@@ -219,22 +213,6 @@ public class Sample implements Comparable<Sample> {
 		return compareTime(Time) && compareLAT(LAT) && compareLON(LON) && compareALT(ALT);
 	}
 
-	// /**
-	// * This function checks if a given mac appears in a specific sample, if so
-	// it returns the Wifi network,
-	// * @param mac a given mac.
-	// * @return a WiFi network that has the same mac.
-	// */
-	// public WiFiNetwork ifContainMac(String mac){
-	// for(WiFiNetwork wn : this.commonNetworks){ //run over all networks in
-	// sample
-	// if(wn.getMAC()==mac)
-	// return wn;
-	// break;
-	// }
-	// return new WiFiNetwork(); //need to always check if the returned sample
-	// is empty, if so don't add to the new array.
-	// }
 	/**
 	 * A function of Comparable. This function compares IPs of the current
 	 * Sample and another Sample.

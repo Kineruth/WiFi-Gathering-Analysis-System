@@ -18,9 +18,12 @@ public class Main {
 		
 		
 		// put a specific path to CSV file to make KML file 
-		ConvertCSVToKML k =	new ConvertCSVToKML("C:\\Users\\admin\\Desktop\\data - 2017.11.29.16.26.49.csv");
+		ConvertCSVToKML k =	new ConvertCSVToKML("C:\\Users\\admin\\git\\Task1\\Wigle Wifi App - Exports - Examples - 2017.12.14.00.04.53.csv");
 		k.createFile();
 
+		
+		//Create a CSV file with all strongest mac correct location
+		
 	}
 
 }

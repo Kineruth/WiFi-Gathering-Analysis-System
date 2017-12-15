@@ -89,9 +89,9 @@ public class Filter {
 			System.out.println("Enter Radius (km) : ");
 			String userRadius = sc.nextDouble() + "";
 
-			LocPoint p1 = new LocPoint(userLat, userLon,0+""); //we don't care about the alt 
+			Coordinate p1 = new Coordinate(userLat, userLon,0+""); //we don't care about the alt 
 			linesUnited
-					.removeIf(line -> !(p1.pointInCircle(new LocPoint(line[2], line[3],0+""), Double.parseDouble(userLat))));
+					.removeIf(line -> !(p1.pointInCircle(new Coordinate(line[2], line[3],0+""), Double.parseDouble(userLat))));
 		} catch (Exception e) {
 			System.out.println("Entered invalid input! Converting file without filtering");
 		}

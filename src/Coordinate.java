@@ -7,13 +7,13 @@ package src;
  *
  */
 
-public class LocPoint {
+public class Coordinate {
 
 	private double Lat, Lon,Alt;
 /**
  * Default constructor
  */
-	public LocPoint(){
+	public Coordinate(){
 		this.Lat=0;
 		this.Lon=0;
 		this.Alt=0;
@@ -24,7 +24,7 @@ public class LocPoint {
 	 * @param LAT 
 	 * @param LON
 	 */
-	public LocPoint(String LAT, String LON,String ALT) {
+	public Coordinate(String LAT, String LON,String ALT) {
 		this.Lat = Double.parseDouble(LAT);
 		this.Lon = Double.parseDouble(LON);
 		this.Alt = Double.parseDouble(ALT);
@@ -65,7 +65,7 @@ public class LocPoint {
 	 * @param radius a given radius in Km.
 	 * @return returns true if it's within the radius, false if not.
 	 */
-	public boolean pointInCircle(LocPoint Other, double radius) {
+	public boolean pointInCircle(Coordinate Other, double radius) {
 		return distance(this.Lat, Other.Lat, this.Lon, Other.Lon) <= radius;
 	}
 /**

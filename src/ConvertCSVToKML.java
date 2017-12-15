@@ -29,7 +29,7 @@ import de.micromata.opengis.kml.v_2_2_0.TimeStamp;
  */
 public class ConvertCSVToKML {
 	private File file;
-	private String filePath, fileName;
+	private String filePath;
 
 	/**
 	 * Parameterized constructor.
@@ -64,39 +64,18 @@ public class ConvertCSVToKML {
 
 	/**
 	 * This function reads from the given CSV file.
-	 * 
-	 * @exception IOException ex if it fails reading from file.
+	 * @throws MalformedURLException 
+	 * @throws FileNotFoundException 
+
 	 */
-	private void readFile() {
-		try {
+	private void readFile() throws FileNotFoundException, MalformedURLException {
 
-			FileReader fr = new FileReader(this.file.getPath());
-			BufferedReader br = new BufferedReader(fr);
-			String[] line;
-			List<String[]> linesUnited = new ArrayList<String[]>();
-			String str = br.readLine();
-			Filter f = new Filter();
-			
-			str = br.readLine();
-			while (str != null) {
-				line = str.split(",");
-				linesUnited.add(line);
-				str = br.readLine();
-			}
+		LinesToSamples ls = new LinesToSamples();
+		Filter f = new Filter();
+		List<String[]> linesUnited = ls.readCSV(this.file.getPath());
 
-			f.filterFile(linesUnited);
-
-			br.close();
-			fr.close();
-
-			LinesToSamples r = new LinesToSamples();
-			writeFile(r.getSamplesList(linesUnited));
-
-		} catch (IOException ex) {
-			System.out.print("Error reading file\n" + ex);
-			System.exit(2);
-
-		}
+		f.filterFile(linesUnited);
+		writeFile(ls.convertLines(linesUnited));
 
 	}
 
@@ -104,46 +83,29 @@ public class ConvertCSVToKML {
 
 	/**
 	 * This class writes the KML file, it sorts by the user's chosen filter than writes the file in a KML format.
-	 * @param samples a given list of samples.
+	 * @param s a given list of samples.
 	 * @throws FileNotFoundException  if it fails finding the file.
 	 * @throws MalformedURLException  if it fails writing the KML file.
 	 */
-	private void writeFile(List<Sample> samples) throws FileNotFoundException, MalformedURLException {
+	private void writeFile(SamplesList s) throws FileNotFoundException, MalformedURLException {
 		Kml kml = new Kml();
 		Document doc = kml.createAndSetDocument();
 		int counter =0; //counting points on map.
-		for (Sample sample : samples) {
-			for (int i = 0; i < sample.getNetworksAmount(); i++) {
+		for (int i = 0; i < s.listSize(); i++) {
+			for (int j = 0; j < s.getSample(i).getNetworksAmount(); j++) {
 				TimeStamp timeStamp = new TimeStamp();
-				timeStamp.setWhen(sample.getTimeInKML());
-				doc.createAndAddPlacemark().withName(sample.getID()).withOpen(Boolean.TRUE).withTimePrimitive(timeStamp)
-						.withDescription(KMLDescription(sample.getCommonNetworks().get(i))).createAndSetPoint()
-						.addToCoordinates(Double.parseDouble(sample.getLON()), Double.parseDouble(sample.getLAT()));
+				timeStamp.setWhen(s.getSample(i).getTimeInKML());
+				doc.createAndAddPlacemark().withName(s.getSample(i).getID()).withOpen(Boolean.TRUE).withTimePrimitive(timeStamp)
+						.withDescription(KMLDescription(s.getSample(i).getCommonNetworks().get(j))).createAndSetPoint()
+						.addToCoordinates(Double.parseDouble(s.getSample(i).getLON()), Double.parseDouble(s.getSample(i).getLAT()));
 				counter++;
 			}
 		}
 		System.out.println("count points: "+counter);
-		/*
-		 * List<Sample> samples = getSamplesList(linesUnited); Kml kml = new
-		 * Kml(); Document doc = kml.createAndSetDocument();
-		 * 
-		 * for (Sample sample : samples) { for (int i = 0; i <
-		 * sample.getNetworksAmount(); i++) { TimeStamp timeStamp = new
-		 * TimeStamp(); timeStamp.setWhen(sample.getTimeInKML());
-		 * doc.createAndAddPlacemark().withName(sample.getID()).withOpen(Boolean
-		 * .TRUE) .withTimePrimitive(timeStamp)
-		 * .withDescription(KMLDescription(sample.getCommonNetworks().get(i))).
-		 * createAndSetPoint()
-		 * .addToCoordinates(Double.parseDouble(sample.getLON()),
-		 * Double.parseDouble(sample.getLAT())); }
-		 * 
-		 * }
-		 */
-
 		kml.marshal(new File(this.filePath));
 
 	}
-
+	
 	/**
 	 * This function returns a WiFiNetwork's description for the KML file.
 	 * 
@@ -154,57 +116,5 @@ public class ConvertCSVToKML {
 		return "SSID: " + wn.getSSID() + "\nMac: " + wn.getMAC() + "\nFrequency: " + wn.getFrecuency() + "\nSignal: "
 				+ wn.getSignal();
 	}
-
-	
-	/*
-	 * private List<Sample> getStrongestMacNetworks(List<Sample> samples) {
-	 * ArrayList<String> macsList = new ArrayList<String>(); String macInfo; for
-	 * (int i = 0; i < samples.size(); i++) { for (int j = 0; j <
-	 * samples.get(i).getNetworksAmount(); j++) { // Saves which
-	 * sample&WiFiNetwork this Mac Belongs+the Mac macInfo = i + "-" + j + "-" +
-	 * samples.get(i).getCommonNetworks().get(j).getMAC();
-	 * macsList.add(macInfo); } } for (int i = 0; i < macsList.size(); i++) { if
-	 * (!macsList.get(i).equals("checked")) { String currenStrongtMac =
-	 * macsList.get(i); for (int j = i + 1; j < macsList.size() - 2; j++) { if
-	 * (!macsList.get(j).equals("checked")) { if (isEqualMacs(macsList.get(i),
-	 * macsList.get(j))) { String[] current = currenStrongtMac.split("-");
-	 * String[] other = macsList.get(j).split("-"); int currentSample =
-	 * Integer.parseInt(current[0]); int otherSample =
-	 * Integer.parseInt(other[0]); int currentNetwork =
-	 * Integer.parseInt(current[1]); int otherNetwork =
-	 * Integer.parseInt(other[1]); // checks if current Mac's signal is weaker
-	 * if (isBiggerOrEqual(samples, currentSample, otherSample, currentNetwork,
-	 * otherNetwork)) { currenStrongtMac = macsList.get(j); macsList.set(i,
-	 * "checked"); // reducing amount of networks by 1
-	 * samples.get(currentSample)
-	 * .setNetworksAmount(samples.get(currentSample).getNetworksAmount() - 1);
-	 * // initializing current network
-	 * samples.get(currentSample).getCommonNetworks().set(currentNetwork, new
-	 * WiFiNetwork()); } else { macsList.set(j, "checked"); // reducing amount
-	 * of networks by 1 samples.get(otherSample)
-	 * .setNetworksAmount(samples.get(otherSample).getNetworksAmount() - 1); //
-	 * initializing the other network
-	 * samples.get(otherSample).getCommonNetworks().set(otherNetwork, new
-	 * WiFiNetwork()); } }
-	 * 
-	 * } } } } return samples; }
-	 * 
-	 * private boolean isEqualMacs(String currentMac, String otherMac) { return
-	 * currentMac.split("-")[2].equals(otherMac.split("-")[2]); }
-	 * 
-	 * private boolean isBiggerOrEqual(List<Sample> samples, int currentSample,
-	 * int otherSample, int currentNetwork, int otherNetwork) { if
-	 * ((samples.get(currentSample).getCommonNetworks().get(currentNetwork)
-	 * .compareTo(samples.get(otherSample).getCommonNetworks().get(otherNetwork)
-	 * )) == -1) return true; else if
-	 * ((samples.get(currentSample).getCommonNetworks().get(currentNetwork)
-	 * .compareTo(samples.get(otherSample).getCommonNetworks().get(otherNetwork)
-	 * )) == 0) return true; return false; }
-	 */
-	/*
-	 * private String getColor(int signal) { if (signal >= -70) return "#green";
-	 * else if (signal >= -90 && signal < -70) return "#yellow"; return "#red";
-	 * }
-	 */
 
 }
