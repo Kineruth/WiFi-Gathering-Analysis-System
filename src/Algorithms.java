@@ -15,7 +15,9 @@ public class Algorithms {
 		List<String> lines = new ArrayList<String>();
 
 		for (int i = 0; i < sampleList.getSamplesList().size(); i++) {
-			for (WiFiNetwork wn : sampleList.getSamplesList().get(i).getCommonNetworks()) {
+			//an error here - don't know how to continue
+			for(int j=0; j< sampleList.getSamplesList().get(i).getCommonNetworks().size(); j++){
+				WiFiNetwork wn= sampleList.getSamplesList().get(i).getCommonNetworks().get(j);
 				String mac = wn.getMAC();
 				this.calc.modifyPIAlgo1(sampleList, mac,num, lines);
 			}
@@ -66,7 +68,6 @@ public class Algorithms {
 		SamplesList temp = new SamplesList();
 		Set<Sample> set = new HashSet<Sample>();
 		List<Sample> list = new ArrayList<Sample>();
-		// Calculate calc = new Calculate();
 		// collect all the samples for this sample
 		for (WiFiNetwork wn : sample.getCommonNetworks()) {
 			if (hmap.containsKey(wn.getMAC())) {
@@ -77,22 +78,13 @@ public class Algorithms {
 
 		list.addAll(set);
 		this.calc.modifyPI(sample, list, num);
-		this.calc.sort_RemoveWiFiNetworks((SamplesList) list, num);
+		this.calc.sort_RemoveWiFiNetworks(list, num);
 
-		Coordinate point = calc.calcCoordinate((SamplesList) list, num);
+		Coordinate point = calc.calcCoordinate( list);
 		sample.setLAT(point.getLat() + "");
 		sample.setLON(point.getLon() + "");
 		sample.setALT(point.getAlt() + "");
 		return sample;
 	}
 
-	// @SuppressWarnings("unchecked")
-	// private void sort_RemoveWiFiNetworks(SamplesList sampleList, int num) {
-	// ((List<Sample>) sampleList).sort(null); // sort by IP
-	// if (sampleList.getSamplesList().size()> num) {
-	// //remove unwanted sample
-	// for (int i = num + 1; i < sampleList.getSamplesList().size(); i++)
-	// sampleList.getSamplesList().remove(i);
-	// }
-	// }
 }

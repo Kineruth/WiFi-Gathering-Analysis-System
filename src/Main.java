@@ -24,9 +24,9 @@ public class Main {
 		
 		//Create a CSV file with all strongest mac correct location
 		ArrangeCSV a = new ArrangeCSV();
-		String filePath = "C:\\Users\\admin\\Desktop\\CombinedCSV\\_comb_all_BM2Short_.csv";
+		String filePath = "C:\\Users\\admin\\Desktop\\CombinedCSV\\_comb_all_BM2_.csv";
 		String fileOutput="C:\\Users\\admin\\Desktop\\withoutCoordinates\\_comb_no_gps_ts1.csv";
-		int number =5;
+		int number =4;
 		a.macStrongestLocation(filePath, number);
 //		a.userLocation(filePath, fileOutput, number);
 	}

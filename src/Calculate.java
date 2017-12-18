@@ -46,7 +46,6 @@ public class Calculate {
 				}
 				if (found == true) {
 					temp.add(s);
-//					j++;
 					s = new Sample();
 					found=false;
 					break;
@@ -55,25 +54,20 @@ public class Calculate {
 			}
 		}
 		
-//		if(temp.getSamplesList().size()>0){
 		if(temp.size()>0){
-			System.out.println(temp.get(0).getPI());
-			System.out.println(temp.get(1).getPI());
-			Collections.sort( temp, new PI_Comparator());
-			System.out.println(temp.get(0).getPI());
-			System.out.println(temp.get(1).getPI());
+			sort_RemoveWiFiNetworks(temp, num);
 			lines.add(setCoordinatesAlgo1(temp, num, mac));
 		}
 	}
 	
 	
 	@SuppressWarnings("unchecked")
-	public void sort_RemoveWiFiNetworks(SamplesList sampleList, int num) {
-		((List<Sample>) sampleList).sort(null); // sort by IP
-		if (sampleList.getSamplesList().size()> num) {
+	public void sort_RemoveWiFiNetworks(List<Sample> sampleList, int num) {
+		Collections.sort( sampleList, new PI_Comparator()); // sort by IP
+		if (sampleList.size()> num) {
 			//remove unwanted sample
-			for (int i = num + 1; i < sampleList.getSamplesList().size(); i++)
-				sampleList.getSamplesList().remove(i); 
+			for (int i = num + 1; i < sampleList.size(); i++)
+				sampleList.remove(i); 
 		}
 	}
 	/**
@@ -85,7 +79,7 @@ public class Calculate {
 	 */
 
 	public String setCoordinatesAlgo1(List<Sample> temp, int num,String mac) {
-		Coordinate point = calcCoordinate(temp, num);
+		Coordinate point = calcCoordinate(temp);
 		String ssid=temp.get(0).getCommonNetworks().get(0).getSSID();
 		String frequency = temp.get(0).getCommonNetworks().get(0).getFrecuency();
 		String signal =temp.get(0).getCommonNetworks().get(0).getSignal();
@@ -103,7 +97,7 @@ public class Calculate {
 		return new WiFiNetwork();
 	}
 
-	public Coordinate calcCoordinate(List<Sample> sampleList, int num) {
+	public Coordinate calcCoordinate(List<Sample> sampleList) {
 		double weight = 0, lat = 0, lon = 0, alt = 0;
 		int signal = 0;
 		for (int i = 0; i < sampleList.size(); i++) {
