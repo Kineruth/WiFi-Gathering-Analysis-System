@@ -142,10 +142,10 @@ public class MergeCSVfiles {
  * This function writes a new file with the wanted information.
  * Takes all the sorted and arranged WiFiNetworks and writes them in a specific format.
  * Every line in the new file represents a sample of WiFiNetworks up till 10 networks arranges by signals.
- * @param unitedSamples an arrayList of Samples.
+ * @param list an arrayList of Samples.
  * @exception throws IOException if fails writing to the file.
  */
-	private void writeFile(SamplesList unitedSamples) {
+	private void writeFile(SamplesList list) {
 		try {
 			// Gets the timeStamp
 			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
@@ -164,12 +164,12 @@ public class MergeCSVfiles {
 				outs.println(line);
 
 			}
-			if (unitedSamples != null) {
-				for (int i = 0; i < unitedSamples.listSize(); i++) {
-					info = unitedSamples.getSample(i).printSampleInfo();
+			if (list != null) {
+				for (int i = 0; i < list.listSize(); i++) {
+					info = list.getSample(i).printSampleInfo();
 					// Runs over all networks in the sample and prints their info.
-					for (int j = 0; j < unitedSamples.getSample(i).getCommonNetworks().size(); j++) {
-						info += unitedSamples.getSample(i).getCommonNetworks().get(j).toString();
+					for (int j = 0; j < list.getSample(i).getCommonNetworks().size(); j++) {
+						info += list.getSample(i).getCommonNetworks().get(j).toString();
 					}
 					outs.println(info);
 					info = null;

@@ -18,20 +18,18 @@ public class LinesToSamples {
 			FileReader fr = new FileReader(filePath);
 			BufferedReader br = new BufferedReader(fr);
 			String[] line;
-			String str = br.readLine();
-			
-			str = br.readLine();
+			String str = br.readLine(); 
+			if(str.length()==40 && str.contains("ID")){
+			str = br.readLine();//skip header
+			}
 			while (str != null) {
 				line = str.split(",");
 				linesUnited.add(line);
 				str = br.readLine();
 			}
-
-			br.close();
 			fr.close();
-
 		} catch (IOException ex) {
-			System.out.print("Error reading file\n" + ex);
+			System.out.print("Error reading file! Not the correct CSV format\n" + ex);
 			System.exit(2);
 
 		}

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author Kineret Ruth Nahary & Yakir Amar
  *
  */
-public class Sample implements Comparable<Sample> {
+public class Sample {
 
 	private String ID, Time, LAT, LON, ALT;
 	private double PI;
@@ -220,11 +220,6 @@ public class Sample implements Comparable<Sample> {
 	 * @return returns 1\0\-1 if the current Sample's IP is bigger\equal\smaller
 	 *         than the other.
 	 */
-	public int compareTo(Sample s) {
-
-		return (this.getPI() + "").compareTo((s.getPI() + ""));
-	}
-
 	// ***************************PRIVATE*****************************
 	/**
 	 * 
@@ -265,5 +260,8 @@ public class Sample implements Comparable<Sample> {
 	private boolean compareALT(String ALT) {
 		return this.ALT.equals(ALT);
 	}
+
+
+
 
 }

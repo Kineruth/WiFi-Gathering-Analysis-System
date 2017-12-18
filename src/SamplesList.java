@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.List;
 /**
  * Date: 23-11-2017
  * This class represents an ArrayList of all the samples created from the file.
@@ -71,6 +72,7 @@ public class SamplesList {
 		return networks;
 
 	}
+
 
 
 }
