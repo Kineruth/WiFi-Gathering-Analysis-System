@@ -23,9 +23,7 @@ public class Calculate {
 	 * @param s
 	 *            a given new Sample to be modified.
 	 */
-	@SuppressWarnings("unchecked")
 	public void modifyPIAlgo1(SamplesList list, String mac, int num, List<String> lines) {
-//		SamplesList temp = new SamplesList();
 		List<Sample> temp = new ArrayList<Sample>();
 		Sample s = new Sample();
 		boolean found = false;
@@ -33,7 +31,7 @@ public class Calculate {
 			
 			for (WiFiNetwork n : list.getSamplesList().get(j).getCommonNetworks()) { //run over all wifi in sample
 				if (n.getMAC().equals(mac)) {
-					int signal = Integer.parseInt(n.getSignal());
+					double signal = Double.parseDouble(n.getSignal());
 					s.setALT(list.getSamplesList().get(j).getALT());
 					s.setLAT(list.getSamplesList().get(j).getLAT());
 					s.setLON(list.getSamplesList().get(j).getLON());
@@ -65,7 +63,7 @@ public class Calculate {
 	public void sort_RemoveWiFiNetworks(List<Sample> sampleList, int num) {
 		Collections.sort( sampleList, new PI_Comparator()); // sort by IP
 		if (sampleList.size()> num) {
-			//remove unwanted sample
+			//remove unwanted samples
 			for (int i = num + 1; i < sampleList.size(); i++)
 				sampleList.remove(i); 
 		}
@@ -88,22 +86,12 @@ public class Calculate {
 
 	}
 	
-	private WiFiNetwork getNet(Sample s, String mac) {
-		// run over all the sample's network list
-		for (WiFiNetwork wn : s.getCommonNetworks()) {
-			if (wn.getMAC() == mac)
-				return wn;
-		}
-		return new WiFiNetwork();
-	}
-
 	public Coordinate calcCoordinate(List<Sample> sampleList) {
 		double weight = 0, lat = 0, lon = 0, alt = 0;
-//		int signal = 0;
+		double signal;
 		for (int i = 0; i < sampleList.size(); i++) {
 			WiFiNetwork wn = new WiFiNetwork(sampleList.get(i).getCommonNetworks().get(0));
-//			signal = Integer.parseInt(wn.getSignal());
-			double 	signal = Double.parseDouble(wn.getSignal());
+			 signal = Double.parseDouble(wn.getSignal());
 			weight += sampleList.get(i).getPI();
 			lat += (Double.parseDouble(sampleList.get(i).getLAT()))
 					* sampleList.get(i).getPI();
@@ -131,29 +119,27 @@ public class Calculate {
 	 * @param num
 	 *            a given number for filtering.
 	 */
-	public void modifyPI(Sample s, List<Sample> list, int num) {
+	public void modifyPI(Sample s, List<Sample> list) {
 		String mac = "";
 		double weight = 0, PI = 1;
-		int diff;
-		for (int i = 0; i < list.size(); i++) {
-			for (WiFiNetwork wn : s.getCommonNetworks()) {
+		double diff;
+		for (int i = 0; i < list.size(); i++) { //run over all samples
+			for (WiFiNetwork wn : s.getCommonNetworks()) { //run over all wifi's in given sample
 				mac = wn.getMAC();
-				if (list.get(i).getCommonNetworks().contains(mac)) { // has mac
-																		// -
-																		// calc
-					WiFiNetwork net = new WiFiNetwork(getNet(list.get(i), mac));
-					if (Integer.parseInt(net.getSignal()) == this.noSignal)
+				for(WiFiNetwork w : list.get(i).getCommonNetworks()){//wifi's list
+					if(mac.equals(w.getMAC())){
+						if (Double.parseDouble(w.getSignal()) == this.noSignal)
 						diff = this.diffNoSignal;
 					else
-						diff = Math.max(Math.abs(Integer.parseInt(wn.getSignal()) - Integer.parseInt(net.getSignal())),
+						diff = Math.max(Math.abs(Double.parseDouble(wn.getSignal()) - Double.parseDouble(w.getSignal())),
 								this.minDiff);
 					weight = this.norm
-							/ (Math.pow(diff, this.sigDiff) * Math.pow(Integer.parseInt(wn.getSignal()), this.power));
+							/ (Math.pow(diff, this.sigDiff) * Math.pow(Double.parseDouble(wn.getSignal()), this.power));
 					PI *= weight;
 				}
+				}
 			}
-			list.get(i).setPI(PI); // do we want to create now the sample
-									// that'll be printed?!
+			list.get(i).setPI(PI); 
 		}
 
 	}

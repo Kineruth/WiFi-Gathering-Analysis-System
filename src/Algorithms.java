@@ -1,12 +1,9 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 
 public class Algorithms {
@@ -34,7 +31,6 @@ public class Algorithms {
 		for (int i = 0; i < s1.getSamplesList().size(); i++) {
 			for (int j = 0; j < s1.getSamplesList().get(i).getCommonNetworks().size(); j++) {
 				WiFiNetwork wn = s1.getSamplesList().get(i).getCommonNetworks().get(j);
-				//			for (WiFiNetwork wn : s1.getSamplesList().get(i).getCommonNetworks()) {
 				if (hmap.containsKey(wn.getMAC()))
 					hmap.get(wn.getMAC()).add(s1.getSamplesList().get(i));
 				else {
@@ -66,12 +62,11 @@ public class Algorithms {
 	 *            a given number for filtering.
 	 * @return the given sample with the user coordinates we found.
 	 */
-	@SuppressWarnings("unchecked")
 	private Sample calcAlgo2(HashMap<String, List<Sample>> hmap, Sample sample, int num) {
 		List<Sample> temp = new ArrayList<Sample>();
 		Set<Sample> set = new HashSet<Sample>();
 		List<Sample> list = new ArrayList<Sample>();
-		// collect all the samples for this sample - temp is empty!
+		// collect all the samples for this sample 
 		for (WiFiNetwork wn : sample.getCommonNetworks()) {
 			if (hmap.containsKey(wn.getMAC())) {
 				temp.addAll(hmap.get(wn.getMAC()));
@@ -79,8 +74,9 @@ public class Algorithms {
 			}
 		}
 		list.addAll(set);
+		calc.modifyPI(sample,  list);
 		this.calc.sort_RemoveWiFiNetworks(list, num);
-
+		
 		Coordinate point = calc.calcCoordinate(list);
 		sample.setLAT(point.getLat() + "");
 		sample.setLON(point.getLon() + "");

@@ -24,11 +24,11 @@ public class Main {
 		
 		//Create a CSV file with all strongest mac correct location
 		ArrangeCSV a = new ArrangeCSV();
-		String filePath = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\testing\\Algo2_file_test.csv";
+		String filePath = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\testing\\_comb_all_BM3_.csv";
 		String fileOutput="C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\testing\\_comb_no_gps_ts2_.csv";
 		int number =4;
-//		a.macStrongestLocation(filePath, number);
-		a.userLocation(filePath, fileOutput, number);
+//		a.macStrongestLocation(filePath, number); //algo 1
+		a.userLocation(filePath, fileOutput, number); //algo 2
 	}
 
 }

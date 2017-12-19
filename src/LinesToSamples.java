@@ -23,16 +23,17 @@ public class LinesToSamples {
 			if(line.length==46 && line[1].equals("ID")){
 			str = br.readLine();//skip header
 			}
-			while (str != null) {
+			boolean flag = true;
+			while (str != null&& flag) {
 				line = str.split(",");
 				if(line.length>4){
 				linesUnited.add(line);
 				str = br.readLine();
 				}
+				else flag=false;
 			}
 			br.close();
 			fr.close();
-//			return linesUnited;
 		} catch (IOException ex) {
 			System.out.print("Error reading file! Not the correct CSV format\n" + ex);
 			System.exit(2);

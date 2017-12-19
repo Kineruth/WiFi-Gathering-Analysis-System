@@ -127,16 +127,16 @@ public class Sample {
 		this.Time = time;
 	}
 
-	public void setLAT(String lAT) {
-		this.LAT = lAT;
+	public void setLAT(String lat) {
+		this.LAT = lat;
 	}
 
-	public void setLON(String lON) {
-		this.LON = lON;
+	public void setLON(String lon) {
+		this.LON = lon;
 	}
 
-	public void setALT(String aLT) {
-		this.ALT = aLT;
+	public void setALT(String alt) {
+		this.ALT = alt;
 	}
 
 	/**

@@ -15,9 +15,6 @@ public class ArrangeCSV {
 	private int num;
 
 	public ArrangeCSV() {
-		// this.filePath=filePath+"";
-		// this.file = new File(this.filePath);
-		// this.num=Integer.parseInt(num);
 		this.filePath = null;
 		this.file1 = null;
 		this.file2 = null;
@@ -47,14 +44,13 @@ public class ArrangeCSV {
 	}
 
 	private void checkCSVFile(int algorithm) { // need to be checked
-		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 		LinesToSamples ls = new LinesToSamples();
 		Algorithms algo = new Algorithms();
 		try {
 			// Get only CSV files
-			// Add to file's name a timeStamp
-			if (algorithm == 1 && this.file1.isFile() && this.file1.getName().endsWith(".csv")) {
-				this.fileName = this.filePath.replaceFirst(".csv", (" - " + timeStamp + ".csv"));
+			if(algorithm == 1){
+//			if (algorithm == 1 && this.file1.isFile() && this.file1.getName().endsWith(".csv")) {
+				this.fileName = this.filePath.replaceFirst(".csv", (" - Algo1 Output.csv"));
 				/* read from file and convert lines to Samples */
 				SamplesList samples = ls.convertLines(ls.readCSV(this.filePath));
 				writeAlgo1File(algo.strongestMacLocation(samples, this.num));
@@ -62,7 +58,7 @@ public class ArrangeCSV {
 			if((algorithm == 2)){
 //			if (algorithm == 2 && this.file1.isFile() && this.file1.getName().endsWith(".csv") && this.file2.isFile()
 //					&& this.file2.getName().endsWith(".csv")) {
-				this.fileName = this.fileOutput.replaceFirst(".csv", (" - Algo2 testing this.csv"));
+				this.fileName = this.fileOutput.replaceFirst(".csv", (" - Algo2 Output.csv"));
 				/* read from file and convert lines to Samples */
 				SamplesList s1 = ls.convertLines(ls.readCSV(this.filePath));
 				SamplesList s2 = ls.convertLines(ls.readCSV(this.fileOutput));
@@ -101,7 +97,6 @@ public class ArrangeCSV {
 	private void writeAlgo2File(SamplesList s) { // need to be finished.
 		try {
 			FileWriter fw = new FileWriter(this.fileName);
-			@SuppressWarnings("resource")
 			PrintWriter outs = new PrintWriter(fw);
 			String line = "Time,ID,LAT,LON,ALT,#WiFi networks";
 			for (int i = 1; i < 11; i++) {
@@ -120,8 +115,10 @@ public class ArrangeCSV {
 					line = null;
 				}
 			}
+			outs.close();
+			fw.close();
 		}
-
+		
 		catch (IOException ex) {
 			System.out.print("Error writing file\n" + ex);
 		}
