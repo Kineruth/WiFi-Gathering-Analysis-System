@@ -36,6 +36,8 @@ public class LinesToSamples {
 			fr.close();
 		} catch (IOException ex) {
 			System.out.print("Error reading file! Not the correct CSV format\n" + ex);
+//			e.printStackTrace();
+//			System.out.println(e);
 			System.exit(2);
 
 		}

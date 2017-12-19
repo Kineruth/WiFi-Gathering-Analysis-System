@@ -26,9 +26,11 @@ public class Main {
 		ArrangeCSV a = new ArrangeCSV();
 		String filePath = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\testing\\_comb_all_BM3_.csv";
 		String fileOutput="C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\testing\\_comb_no_gps_ts2_.csv";
+//		String filePath =" C:\\Users\\admin\\Desktop\\target.csv";
+//		String fileOutput =" C:\\Users\\admin\\Downloads\\algo2\\Nogps.csv";
 		int number =4;
-//		a.macStrongestLocation(filePath, number); //algo 1
-		a.userLocation(filePath, fileOutput, number); //algo 2
+		a.macStrongestLocation(filePath, number); //algo 1
+//		a.userLocation(filePath, fileOutput, number); //algo 2
 	}
 
 }

@@ -28,6 +28,7 @@ public class ArrangeCSV {
 			System.out.println("Invalid number!"); // then what?
 		this.filePath = filePath + "";
 		this.file1 = new File(this.filePath);
+		this.fileName = this.filePath.replaceFirst(".csv", (" - Algo1 Output.csv"));
 		checkCSVFile(1);
 	}
 
@@ -50,8 +51,8 @@ public class ArrangeCSV {
 			// Get only CSV files
 			if(algorithm == 1){
 //			if (algorithm == 1 && this.file1.isFile() && this.file1.getName().endsWith(".csv")) {
-				this.fileName = this.filePath.replaceFirst(".csv", (" - Algo1 Output.csv"));
 				/* read from file and convert lines to Samples */
+				System.out.println(this.filePath);
 				SamplesList samples = ls.convertLines(ls.readCSV(this.filePath));
 				writeAlgo1File(algo.strongestMacLocation(samples, this.num));
 			}

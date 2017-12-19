@@ -123,6 +123,15 @@ public class Calculate {
 		String mac = "";
 		double weight = 0, PI = 1;
 		double diff;
+		if(list.isEmpty()){
+			for (WiFiNetwork wn : s.getCommonNetworks()) {
+				diff = this.diffNoSignal;
+				weight = this.norm
+						/ (Math.pow(diff, this.sigDiff) * Math.pow(Double.parseDouble(wn.getSignal()), this.power));
+				PI *= weight;
+			}
+//			list.get(i).setPI(PI); 
+		}
 		for (int i = 0; i < list.size(); i++) { //run over all samples
 			for (WiFiNetwork wn : s.getCommonNetworks()) { //run over all wifi's in given sample
 				mac = wn.getMAC();
