@@ -12,7 +12,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		// put a specific path's directory to make CSV file
-//		MergeCSVfiles t = new MergeCSVfiles("C:\\Users\\admin\\git\\Task1\\Wigle Wifi App - Exports - Examples");
+		MergeCSVfiles t = new MergeCSVfiles("C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\Ex2\\data\\BM1\\Wifi_scans");
 //		t.sortDirFiles();
 
 		
@@ -24,11 +24,11 @@ public class Main {
 		
 		//Create a CSV file with all strongest mac correct location
 		ArrangeCSV a = new ArrangeCSV();
-		String filePath = "C:\\Users\\admin\\Desktop\\CombinedCSV\\_comb_all_BM2_.csv";
-		String fileOutput="C:\\Users\\admin\\Desktop\\withoutCoordinates\\_comb_no_gps_ts1.csv";
+		String filePath = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\testing\\Algo2_file_test.csv";
+		String fileOutput="C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\testing\\_comb_no_gps_ts2_.csv";
 		int number =4;
-		a.macStrongestLocation(filePath, number);
-//		a.userLocation(filePath, fileOutput, number);
+//		a.macStrongestLocation(filePath, number);
+		a.userLocation(filePath, fileOutput, number);
 	}
 
 }

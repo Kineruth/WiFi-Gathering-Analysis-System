@@ -99,10 +99,11 @@ public class Calculate {
 
 	public Coordinate calcCoordinate(List<Sample> sampleList) {
 		double weight = 0, lat = 0, lon = 0, alt = 0;
-		int signal = 0;
+//		int signal = 0;
 		for (int i = 0; i < sampleList.size(); i++) {
 			WiFiNetwork wn = new WiFiNetwork(sampleList.get(i).getCommonNetworks().get(0));
-			signal = Integer.parseInt(wn.getSignal());
+//			signal = Integer.parseInt(wn.getSignal());
+			double 	signal = Double.parseDouble(wn.getSignal());
 			weight += sampleList.get(i).getPI();
 			lat += (Double.parseDouble(sampleList.get(i).getLAT()))
 					* sampleList.get(i).getPI();

@@ -4,38 +4,41 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class Algorithms {
 	private Calculate calc = new Calculate();
 
-	
 	public List<String> strongestMacLocation(SamplesList sampleList, int num) {
 		List<String> lines = new ArrayList<String>();
 
 		for (int i = 0; i < sampleList.getSamplesList().size(); i++) {
-			//an error here - don't know how to continue
-			for(int j=0; j< sampleList.getSamplesList().get(i).getCommonNetworks().size(); j++){
-				WiFiNetwork wn= sampleList.getSamplesList().get(i).getCommonNetworks().get(j);
+			for (int j = 0; j < sampleList.getSamplesList().get(i).getCommonNetworks().size(); j++) {
+				WiFiNetwork wn = sampleList.getSamplesList().get(i).getCommonNetworks().get(j);
 				String mac = wn.getMAC();
-				this.calc.modifyPIAlgo1(sampleList, mac,num, lines);
+				this.calc.modifyPIAlgo1(sampleList, mac, num, lines);
+				j--;
 			}
+
 		}
 		return lines;
 	}
 
-	
 	public SamplesList userLocation(SamplesList s1, SamplesList s2, int num) {
 
-		HashMap<String, SamplesList> hmap = new HashMap<String, SamplesList>();
+		HashMap<String, List<Sample>> hmap = new HashMap<String, List<Sample>>();
 		// create hashmap from dataBase samples
 		for (int i = 0; i < s1.getSamplesList().size(); i++) {
-			for (WiFiNetwork wn : s1.getSamplesList().get(i).getCommonNetworks()) {
+			for (int j = 0; j < s1.getSamplesList().get(i).getCommonNetworks().size(); j++) {
+				WiFiNetwork wn = s1.getSamplesList().get(i).getCommonNetworks().get(j);
+				//			for (WiFiNetwork wn : s1.getSamplesList().get(i).getCommonNetworks()) {
 				if (hmap.containsKey(wn.getMAC()))
 					hmap.get(wn.getMAC()).add(s1.getSamplesList().get(i));
 				else {
-					SamplesList temp = new SamplesList();
+					List<Sample> temp = new ArrayList<Sample>();
 					temp.add(s1.getSamplesList().get(i));
 					hmap.put(wn.getMAC(), temp);
 				}
@@ -64,23 +67,21 @@ public class Algorithms {
 	 * @return the given sample with the user coordinates we found.
 	 */
 	@SuppressWarnings("unchecked")
-	private Sample calcAlgo2(HashMap hmap, Sample sample, int num) {
-		SamplesList temp = new SamplesList();
+	private Sample calcAlgo2(HashMap<String, List<Sample>> hmap, Sample sample, int num) {
+		List<Sample> temp = new ArrayList<Sample>();
 		Set<Sample> set = new HashSet<Sample>();
 		List<Sample> list = new ArrayList<Sample>();
-		// collect all the samples for this sample
+		// collect all the samples for this sample - temp is empty!
 		for (WiFiNetwork wn : sample.getCommonNetworks()) {
 			if (hmap.containsKey(wn.getMAC())) {
-				SamplesList t = (SamplesList) hmap.get(wn.getMAC());
-				set.addAll((Collection<? extends Sample>) temp);
+				temp.addAll(hmap.get(wn.getMAC()));
+				set.addAll(temp);
 			}
 		}
-
 		list.addAll(set);
-		this.calc.modifyPI(sample, list, num);
 		this.calc.sort_RemoveWiFiNetworks(list, num);
 
-		Coordinate point = calc.calcCoordinate( list);
+		Coordinate point = calc.calcCoordinate(list);
 		sample.setLAT(point.getLat() + "");
 		sample.setLON(point.getLon() + "");
 		sample.setALT(point.getAlt() + "");

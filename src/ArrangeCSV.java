@@ -43,7 +43,7 @@ public class ArrangeCSV {
 		this.fileOutput = fileOutput + "";
 		this.file1 = new File(this.filePath);
 		this.file2 = new File(this.fileOutput);
-		checkCSVFile(1);
+		checkCSVFile(2);
 	}
 
 	private void checkCSVFile(int algorithm) { // need to be checked
@@ -59,9 +59,10 @@ public class ArrangeCSV {
 				SamplesList samples = ls.convertLines(ls.readCSV(this.filePath));
 				writeAlgo1File(algo.strongestMacLocation(samples, this.num));
 			}
-			if (algorithm == 2 && this.file1.isFile() && this.file1.getName().endsWith(".csv") && this.file2.isFile()
-					&& this.file2.getName().endsWith(".csv")) {
-				this.fileName = this.fileOutput.replaceFirst(".csv", (" - " + timeStamp + ".csv"));
+			if((algorithm == 2)){
+//			if (algorithm == 2 && this.file1.isFile() && this.file1.getName().endsWith(".csv") && this.file2.isFile()
+//					&& this.file2.getName().endsWith(".csv")) {
+				this.fileName = this.fileOutput.replaceFirst(".csv", (" - Algo2 testing this.csv"));
 				/* read from file and convert lines to Samples */
 				SamplesList s1 = ls.convertLines(ls.readCSV(this.filePath));
 				SamplesList s2 = ls.convertLines(ls.readCSV(this.fileOutput));
@@ -72,6 +73,8 @@ public class ArrangeCSV {
 			System.out.println("Done writing CSV file!");
 		} catch (Exception e) {
 			System.out.println("Error running the program!");
+			e.printStackTrace();
+			System.out.println(e);
 		}
 	}
 

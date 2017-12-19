@@ -47,6 +47,7 @@ public class Sample {
 		this.LON = LON;
 		this.ALT = ALT;
 		this.PI = PI;
+		
 		this.commonNetworks = new ArrayList<WiFiNetwork>();
 	}
 
@@ -200,7 +201,7 @@ public class Sample {
 	 * sample.
 	 * 
 	 * @param Time
-	 *            a giver time.
+	 *            a given time.
 	 * @param LAT
 	 *            a given latitude.
 	 * @param LON
