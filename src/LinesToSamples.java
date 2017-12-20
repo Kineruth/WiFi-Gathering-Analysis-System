@@ -62,8 +62,8 @@ public class LinesToSamples {
 	 * @param linesUnited a given list of lines from CSV file.
 	 * @return a list of samples.
 	 */
-	public SamplesList convertLines(List<String[]> linesUnited) {
-		SamplesList samples = new SamplesList();
+	public List<Sample> convertLines(List<String[]> linesUnited) {
+		List<Sample> samples = new ArrayList<Sample>();
 		for (int i = 0; i < linesUnited.size(); i++) {
 			String[] line = linesUnited.get(i);
 			Sample sample = new Sample(line[1], line[0], line[2], line[3], line[4],0);

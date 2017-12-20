@@ -78,7 +78,7 @@ public class ArrangeCSV {
 //			if (algorithm == 1 && this.file1.isFile() && this.file1.getName().endsWith(".csv")) {
 				/* read from file and convert lines to Samples */
 				System.out.println(this.filePath);
-				SamplesList samples = ls.convertLines(ls.readCSV(this.filePath));
+				List<Sample> samples = ls.convertLines(ls.readCSV(this.filePath));
 				writeAlgo1File(algo.strongestMacLocation(samples, this.num));
 			}
 			if((algorithm == 2)){
@@ -86,9 +86,9 @@ public class ArrangeCSV {
 //					&& this.file2.getName().endsWith(".csv")) {
 				this.fileName = this.fileOutput.replaceFirst(".csv", (" - Algo2 Output.csv"));
 				/* read from file and convert lines to Samples */
-				SamplesList s1 = ls.convertLines(ls.readCSV(this.filePath));
-				SamplesList s2 = ls.convertLines(ls.readCSV(this.fileOutput));
-				SamplesList arrangedSamples = algo.userLocation(s1, s2, this.num);
+				List<Sample> s1 = ls.convertLines(ls.readCSV(this.filePath));
+				List<Sample> s2 = ls.convertLines(ls.readCSV(this.fileOutput));
+				List<Sample> arrangedSamples = algo.userLocation(s1, s2, this.num);
 
 				writeAlgo2File(arrangedSamples);
 			}
@@ -126,7 +126,7 @@ public class ArrangeCSV {
  * Writes a CSV file for algorithm 2.
  * @param s a given list of samples to be written in the file.
  */
-	private void writeAlgo2File(SamplesList s) { 
+	private void writeAlgo2File(List<Sample> s) { 
 		try {
 			FileWriter fw = new FileWriter(this.fileName);
 			PrintWriter outs = new PrintWriter(fw);
@@ -136,12 +136,12 @@ public class ArrangeCSV {
 			}
 			outs.println(line);
 			if (s != null) {
-				for (int i = 0; i < s.listSize(); i++) {
-					line = s.getSample(i).printSampleInfo();
+				for (int i = 0; i < s.size(); i++) {
+					line = s.get(i).printSampleInfo();
 					// Runs over all networks in the sample and prints their
 					// info.
-					for (int j = 0; j < s.getSample(i).getCommonNetworks().size(); j++) {
-						line += s.getSample(i).getCommonNetworks().get(j).toString();
+					for (int j = 0; j < s.get(i).getCommonNetworks().size(); j++) {
+						line += s.get(i).getCommonNetworks().get(j).toString();
 					}
 					outs.println(line);
 					line = null;

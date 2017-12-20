@@ -23,23 +23,23 @@ public class Calculate {
 	 * @param wn a given WiFiNetwork.
 	 * @param s a given new Sample to be modified.
 	 */
-	public void modifyPIAlgo1(SamplesList list, String mac, int num, List<String> lines) {
+	public void modifyPIAlgo1(List<Sample> list, String mac, int num, List<String> lines) {
 		List<Sample> temp = new ArrayList<Sample>();
 		Sample s = new Sample();
 		boolean found = false;
-		for (int j = 0; j < list.getSamplesList().size(); j++) { //run over all samples
+		for (int j = 0; j < list.size(); j++) { //run over all samples
 			
-			for (WiFiNetwork n : list.getSamplesList().get(j).getCommonNetworks()) { //run over all wifi in sample
+			for (WiFiNetwork n : list.get(j).getCommonNetworks()) { //run over all wifi in sample
 				if (n.getMAC().equals(mac)) {
 					double signal = Double.parseDouble(n.getSignal());
-					s.setALT(list.getSamplesList().get(j).getALT());
-					s.setLAT(list.getSamplesList().get(j).getLAT());
-					s.setLON(list.getSamplesList().get(j).getLON());
-					s.setID(list.getSamplesList().get(j).getID());
-					s.setTime(list.getSamplesList().get(j).getTime());
+					s.setALT(list.get(j).getALT());
+					s.setLAT(list.get(j).getLAT());
+					s.setLON(list.get(j).getLON());
+					s.setID(list.get(j).getID());
+					s.setTime(list.get(j).getTime());
 					s.setPI(1 / Math.pow(signal, 2));
 					s.addNetwork(n);
-					list.getSamplesList().get(j).getCommonNetworks().remove(n);
+					list.get(j).getCommonNetworks().remove(n);
 					found = true;
 				}
 				if (found == true) {

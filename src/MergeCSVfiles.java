@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.management.ListenerNotFoundException;
 
@@ -93,7 +94,7 @@ public class MergeCSVfiles {
 			String[] line;
 			WiFiNetwork network;
 			Sample sample = new Sample();
-			SamplesList unitedSamples = new SamplesList();
+			List<Sample> unitedSamples = new ArrayList<Sample>();
 			FileReader fr = new FileReader(filePath);
 			BufferedReader br = new BufferedReader(fr);
 
@@ -145,7 +146,7 @@ public class MergeCSVfiles {
  * @param list an arrayList of Samples.
  * @exception throws IOException if fails writing to the file.
  */
-	private void writeFile(SamplesList list) {
+	private void writeFile(List<Sample> list) {
 		try {
 			// Gets the timeStamp
 			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
@@ -165,11 +166,11 @@ public class MergeCSVfiles {
 
 			}
 			if (list != null) {
-				for (int i = 0; i < list.listSize(); i++) {
-					info = list.getSample(i).printSampleInfo();
+				for (int i = 0; i < list.size(); i++) {
+					info = list.get(i).printSampleInfo();
 					// Runs over all networks in the sample and prints their info.
-					for (int j = 0; j < list.getSample(i).getCommonNetworks().size(); j++) {
-						info += list.getSample(i).getCommonNetworks().get(j).toString();
+					for (int j = 0; j < list.get(i).getCommonNetworks().size(); j++) {
+						info += list.get(i).getCommonNetworks().get(j).toString();
 					}
 					outs.println(info);
 					info = null;

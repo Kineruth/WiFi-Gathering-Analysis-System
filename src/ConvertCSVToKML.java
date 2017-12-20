@@ -43,8 +43,6 @@ public class ConvertCSVToKML {
 
 	/**
 	 * This function takes only a CSV file and creates a KML Google earth file from it.
-	 * 
-	 * @exception Exception e if the program fails running.
 	 */
 	public void createFile() {
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
@@ -87,17 +85,17 @@ public class ConvertCSVToKML {
 	 * @throws FileNotFoundException  if it fails finding the file.
 	 * @throws MalformedURLException  if it fails writing the KML file.
 	 */
-	private void writeFile(SamplesList s) throws FileNotFoundException, MalformedURLException {
+	private void writeFile(List<Sample> s) throws FileNotFoundException, MalformedURLException {
 		Kml kml = new Kml();
 		Document doc = kml.createAndSetDocument();
 		int counter =0; //counting points on map.
-		for (int i = 0; i < s.listSize(); i++) {
-			for (int j = 0; j < s.getSample(i).getNetworksAmount(); j++) {
+		for (int i = 0; i < s.size(); i++) {
+			for (int j = 0; j < s.get(i).getNetworksAmount(); j++) {
 				TimeStamp timeStamp = new TimeStamp();
-				timeStamp.setWhen(s.getSample(i).getTimeInKML());
-				doc.createAndAddPlacemark().withName(s.getSample(i).getID()).withOpen(Boolean.TRUE).withTimePrimitive(timeStamp)
-						.withDescription(KMLDescription(s.getSample(i).getCommonNetworks().get(j))).createAndSetPoint()
-						.addToCoordinates(Double.parseDouble(s.getSample(i).getLON()), Double.parseDouble(s.getSample(i).getLAT()));
+				timeStamp.setWhen(s.get(i).getTimeInKML());
+				doc.createAndAddPlacemark().withName(s.get(i).getID()).withOpen(Boolean.TRUE).withTimePrimitive(timeStamp)
+						.withDescription(KMLDescription(s.get(i).getCommonNetworks().get(j))).createAndSetPoint()
+						.addToCoordinates(Double.parseDouble(s.get(i).getLON()), Double.parseDouble(s.get(i).getLAT()));
 				counter++;
 			}
 		}

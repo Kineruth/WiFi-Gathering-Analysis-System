@@ -21,12 +21,12 @@ public class Algorithms {
 	 * @param num a given number for the amount of strongest samples to take after sorting them.
 	 * @return a list of arranged lines to be written in a new CSV file.
 	 */
-	public List<String> strongestMacLocation(SamplesList sampleList, int num) {
+	public List<String> strongestMacLocation(List<Sample> sampleList, int num) {
 		List<String> lines = new ArrayList<String>();
 
-		for (int i = 0; i < sampleList.getSamplesList().size(); i++) {
-			for (int j = 0; j < sampleList.getSamplesList().get(i).getCommonNetworks().size(); j++) {
-				WiFiNetwork wn = sampleList.getSamplesList().get(i).getCommonNetworks().get(j);
+		for (int i = 0; i < sampleList.size(); i++) {
+			for (int j = 0; j < sampleList.get(i).getCommonNetworks().size(); j++) {
+				WiFiNetwork wn = sampleList.get(i).getCommonNetworks().get(j);
 				String mac = wn.getMAC();
 				this.calc.modifyPIAlgo1(sampleList, mac, num, lines);
 				j--;
@@ -43,25 +43,25 @@ public class Algorithms {
  * @param num a given number for the amount of strongest samples to take after sorting them.
  * @return an arranged list of samples with the user locations to be written to a new CSV file.
  */
-	public SamplesList userLocation(SamplesList s1, SamplesList s2, int num) {
+	public List<Sample> userLocation(List<Sample> s1, List<Sample> s2, int num) {
 
 		HashMap<String, List<Sample>> hmap = new HashMap<String, List<Sample>>();
 		// create hashmap from dataBase samples
-		for (int i = 0; i < s1.getSamplesList().size(); i++) {
-			for (int j = 0; j < s1.getSamplesList().get(i).getCommonNetworks().size(); j++) {
-				WiFiNetwork wn = s1.getSamplesList().get(i).getCommonNetworks().get(j);
+		for (int i = 0; i < s1.size(); i++) {
+			for (int j = 0; j < s1.get(i).getCommonNetworks().size(); j++) {
+				WiFiNetwork wn = s1.get(i).getCommonNetworks().get(j);
 				if (hmap.containsKey(wn.getMAC()))
-					hmap.get(wn.getMAC()).add(s1.getSamplesList().get(i));
+					hmap.get(wn.getMAC()).add(s1.get(i));
 				else {
 					List<Sample> temp = new ArrayList<Sample>();
-					temp.add(s1.getSamplesList().get(i));
+					temp.add(s1.get(i));
 					hmap.put(wn.getMAC(), temp);
 				}
 			}
 		}
 		// run over file2 samples:
-		for (int i = 0; i < s2.getSamplesList().size(); i++) {
-			calcAlgo2(hmap, s2.getSamplesList().get(i), num);
+		for (int i = 0; i < s2.size(); i++) {
+			calcAlgo2(hmap, s2.get(i), num);
 
 		}
 
