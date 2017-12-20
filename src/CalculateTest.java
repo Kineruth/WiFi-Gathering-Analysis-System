@@ -3,22 +3,20 @@ package src;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
 import org.junit.Test;
 
 public class CalculateTest {
 
 	@Test
 	public void testModifyPIAlgo1() {
-		fail("Not yet implemented");
+	
 	}
 
 	@Test
 	public void testSort_RemoveWiFiNetworks() {
 		Calculate c = new Calculate();
-		Sample sam1= new Sample ("LG","03-12-2017 8:37:10 AM","32","34","13243",32.5);//first
-		Sample sam2= new Sample ("LG","03-12-2017 8:37:10 AM","32","34","13243",42.5);//second
+		Sample sam1= new Sample ("LG","29/10/2017  15:02:43","32","34","13243",32.5);//first
+		Sample sam2= new Sample ("LG","29/10/2017  15:02:43","32","34","13243",42.5);//second
 		ArrayList<Sample> s1= new ArrayList<Sample>();
 		s1.add(sam2);
 		s1.add(sam1);
@@ -33,7 +31,20 @@ public class CalculateTest {
 
 	@Test
 	public void testSetCoordinatesAlgo1() {
-		fail("Not yet implemented");
+		Calculate c = new Calculate();
+		WiFiNetwork wn=new WiFiNetwork("ariel", "f:c:3", "1", "-70");
+		WiFiNetwork wn2=new WiFiNetwork("ariel", "f:c:3", "1", "-50");
+		Sample sam1= new Sample ("LG","03-12-2017 8:37:10 AM","2","4","8",32.5);//first
+		Sample sam2= new Sample ("LG","03-12-2017 8:37:10 AM","3","6","13",42.5);//second
+		sam1.addNetwork(wn);
+		sam2.addNetwork(wn2);
+		ArrayList<Sample> s1= new ArrayList<Sample>();
+		s1.add(sam2);
+		s1.add(sam1);
+		Coordinate point = c.calcCoordinate(s1);
+		String result = "f:c:3,ariel,2412,-50,"+point.getLat()+","+point.getLon()+","+point.getAlt()+",03-12-2017 8:37:10 AM,Aprrox. w-center Algo1";
+		String s = c.setCoordinatesAlgo1(s1, "f:c:3");
+		assertEquals(result,s);
 	}
 
 	@Test
@@ -58,7 +69,7 @@ public class CalculateTest {
 
 	@Test
 	public void testModifyPI() {
-		fail("Not yet implemented");
+		
 	}
 
 }
