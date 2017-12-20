@@ -7,36 +7,53 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This class exports CSV files with 2 options: one that has all the Macs' strongest location,
+ *  the other with the user location when every sample was scanned.
+ *  The program gets a merged CSV file in the format created in class MergeCSVFiles.
+ * @author Kineret Ruth Nahary & Yakir Amar
+ *
+ */
 public class ArrangeCSV {
 
 	private String filePath, fileName, fileOutput;
 	private File file1, file2;
 	private int num;
-
+/**
+ * Default Constructor
+ */
 	public ArrangeCSV() {
 		this.filePath = null;
 		this.file1 = null;
 		this.file2 = null;
 		this.fileOutput = null;
+		this.num = 0;
 	}
-
+/**
+ * Algorithm 1 - finds the strongest location of every Mac from the CSV file.
+ * It sends the file to be read from.
+ * @param filePath a given path to a merged CSV file.
+ * @param num a given number for the amount of strongest samples to take after sorting them.
+ */
 	public void macStrongestLocation(String filePath, int num) {
 		if (num > 0)
 			this.num = num;
-		else
-			System.out.println("Invalid number!"); // then what?
 		this.filePath = filePath + "";
 		this.file1 = new File(this.filePath);
 		this.fileName = this.filePath.replaceFirst(".csv", (" - Algo1 Output.csv"));
 		checkCSVFile(1);
 	}
-
+/**
+ * Algorithm 2 - finds the user location for every sample scanned in the output file. 
+ * This file does'n contain any coordinates, only samples with all the WiFiNetworks that were scanned.
+ * It sends the files to be read from.
+ * @param filePath a given path to a merged CSV file.
+ * @param fileOutput a given path to a merged CSV file that doesn't contain coordinates.
+ * @param num a given number for the amount of strongest samples to take after sorting them.
+ */
 	public void userLocation(String filePath, String fileOutput, int num) {
 		if (num > 0)
 			this.num = num;
-		else
-			System.out.println("Invalid number!"); // then what?
 		this.filePath = filePath + "";
 		this.fileOutput = fileOutput + "";
 		this.file1 = new File(this.filePath);
@@ -44,7 +61,15 @@ public class ArrangeCSV {
 		checkCSVFile(2);
 	}
 
-	private void checkCSVFile(int algorithm) { // need to be checked
+	
+	// ***************************PRIVATE*****************************
+	/**
+	 * Checks if the file is in the correct format and sends it to be read from,
+	 * according the chosen algorithm and converted into samples.
+	 * 
+	 * @param algorithm the chosen algorithm.
+	 */
+	private void checkCSVFile(int algorithm) { 
 		LinesToSamples ls = new LinesToSamples();
 		Algorithms algo = new Algorithms();
 		try {
@@ -70,11 +95,14 @@ public class ArrangeCSV {
 			System.out.println("Done writing CSV file!");
 		} catch (Exception e) {
 			System.out.println("Error running the program!");
-			e.printStackTrace();
-			System.out.println(e);
+//			e.printStackTrace();
+//			System.out.println(e);
 		}
 	}
-
+/**
+ * Writes a CSV file for algorithm 1.
+ * @param s a given list of string containing the correct lines to be printed in the file.
+ */
 	private void writeAlgo1File(List<String> s) { // need to be finished.
 		try {
 			FileWriter fw = new FileWriter(this.fileName);
@@ -94,8 +122,11 @@ public class ArrangeCSV {
 			System.out.print("Error writing file\n" + ex);
 		}
 	}
-
-	private void writeAlgo2File(SamplesList s) { // need to be finished.
+/**
+ * Writes a CSV file for algorithm 2.
+ * @param s a given list of samples to be written in the file.
+ */
+	private void writeAlgo2File(SamplesList s) { 
 		try {
 			FileWriter fw = new FileWriter(this.fileName);
 			PrintWriter outs = new PrintWriter(fw);

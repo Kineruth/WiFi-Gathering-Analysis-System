@@ -5,10 +5,22 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+/**
+ * This class has all the function for the two algorithms.
+ *  It runs over all samples and sends them to the needed functions.
+ * @author Kineret Ruth Nahary & Yakir Amar
+ *
+ */
 public class Algorithms {
+	
 	private Calculate calc = new Calculate();
-
+	
+	/**
+	 * This function sends every Mac and all the samples to calculate its strongest location,
+	 * @param sampleList a given list of samples exported from the merged CSV file.
+	 * @param num a given number for the amount of strongest samples to take after sorting them.
+	 * @return a list of arranged lines to be written in a new CSV file.
+	 */
 	public List<String> strongestMacLocation(SamplesList sampleList, int num) {
 		List<String> lines = new ArrayList<String>();
 
@@ -23,7 +35,14 @@ public class Algorithms {
 		}
 		return lines;
 	}
-
+/**
+ * This class puts all the macs and the samples they were found in them from s1 in a HashMap.
+ * Then it sends every sample from s2 to calculate the user location when this sample was scanned.
+ * @param s1 a given list of samples exported from the merged CSV file.
+ * @param s2 a given list of samples that doesn't have coordinates, exported from the merged CSV file.
+ * @param num a given number for the amount of strongest samples to take after sorting them.
+ * @return an arranged list of samples with the user locations to be written to a new CSV file.
+ */
 	public SamplesList userLocation(SamplesList s1, SamplesList s2, int num) {
 
 		HashMap<String, List<Sample>> hmap = new HashMap<String, List<Sample>>();
@@ -52,14 +71,16 @@ public class Algorithms {
 	// ***************************PRIVATE*****************************
 
 	/**
-	 * All calculations for algorithm 2:
-	 * 
-	 * @param hmap
-	 *            a given HashMap of macs and samples
-	 * @param sample
-	 *            a given sample.
-	 * @param num
-	 *            a given number for filtering.
+	 * Algorithm 2: 
+	 * Runs over all the WiFiNetworks in the given sample with no coordinates, 
+	 * and collects all the needed sample for calculating the user location for this samples.
+	 * It gets rid from all the multiple samples for every Mac using Set.
+	 * Sends them to a function that calculates their PI.
+	 * Sorts all the samples by PI from strongest to the weakest, takes a number of wanted samples - with a given num and removes the others.
+	 * Sets the coordinates that were found and returns the updated sample.
+	 * @param hmap a given HashMap of macs and samples
+	 * @param sample a given sample.
+	 * @param num a given number for filtering.
 	 * @return the given sample with the user coordinates we found.
 	 */
 	private Sample calcAlgo2(HashMap<String, List<Sample>> hmap, Sample sample, int num) {

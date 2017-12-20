@@ -3,7 +3,11 @@ package src;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+/**
+ * This class contains all the calculations needed for both algorithm 1 & 2.
+ * @author Kineret Ruth Nahary & Yakir Amar
+ *
+ */
 public class Calculate {
 
 	private int diffNoSignal = 100, noSignal = -120, minDiff = 3, norm = 10000, power = 2;
@@ -14,14 +18,10 @@ public class Calculate {
 	 * modify the new sample with the same information of the given sample, adds
 	 * a PI ,and the specific network (of the given mac).
 	 * 
-	 * @param list
-	 *            a given SamplesList.
-	 * @param index
-	 *            a given index.
-	 * @param wn
-	 *            a given WiFiNetwork.
-	 * @param s
-	 *            a given new Sample to be modified.
+	 * @param list a given SamplesList.
+	 * @param index a given index.
+	 * @param wn a given WiFiNetwork.
+	 * @param s a given new Sample to be modified.
 	 */
 	public void modifyPIAlgo1(SamplesList list, String mac, int num, List<String> lines) {
 		List<Sample> temp = new ArrayList<Sample>();
@@ -54,11 +54,15 @@ public class Calculate {
 		
 		if(temp.size()>0){
 			sort_RemoveWiFiNetworks(temp, num);
-			lines.add(setCoordinatesAlgo1(temp, num, mac));
+			lines.add(setCoordinatesAlgo1(temp, mac));
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param sampleList a given list of samples.
+	 * @param num a given number for the amount of strongest samples to take after sorting them.
+	 */
 	@SuppressWarnings("unchecked")
 	public void sort_RemoveWiFiNetworks(List<Sample> sampleList, int num) {
 		Collections.sort( sampleList, new PI_Comparator()); // sort by IP
@@ -69,23 +73,27 @@ public class Calculate {
 		}
 	}
 	/**
-	 * 
-	 * @param s
-	 * @param temp
-	 * @param num
-	 * @param list
+	 * This function sends the given samples and mac to a function that will calculate the mac's strongest location.
+	 * Then it will create and return a line with all the information needed to be written in the new file.
+	 * @param s a given list of samples.
+	 * @param mac a given mac.
+	 * @return return a line with all the updated sample's information.
 	 */
 
-	public String setCoordinatesAlgo1(List<Sample> temp, int num,String mac) {
-		Coordinate point = calcCoordinate(temp);
-		String ssid=temp.get(0).getCommonNetworks().get(0).getSSID();
-		String frequency = temp.get(0).getCommonNetworks().get(0).getFrecuency();
-		String signal =temp.get(0).getCommonNetworks().get(0).getSignal();
-		String time = temp.get(0).getTime();
+	public String setCoordinatesAlgo1(List<Sample> s,String mac) {
+		Coordinate point = calcCoordinate(s);
+		String ssid=s.get(0).getCommonNetworks().get(0).getSSID();
+		String frequency = s.get(0).getCommonNetworks().get(0).getFrecuency();
+		String signal =s.get(0).getCommonNetworks().get(0).getSignal();
+		String time = s.get(0).getTime();
 		return mac+","+ssid+","+frequency+","+signal+","+point.getLat() + ","+point.getLon() + ","+point.getAlt() + ","+time+",Aprrox. w-center Algo1";
 
 	}
-	
+	/**
+	 * This function calculate the coordinates parameters by summing all the parameters and divides them by the weight.
+	 * @param sampleList a given list of samples.
+	 * @return
+	 */
 	public Coordinate calcCoordinate(List<Sample> sampleList) {
 		double weight = 0, lat = 0, lon = 0, alt = 0;
 		double signal;
