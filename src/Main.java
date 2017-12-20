@@ -29,6 +29,8 @@ public class Main {
  * fileOutput = the merged CSV file's path without coordinates.
  *  number =  a number of samples to be taken for the calculation.
  *  Call function userLocation in class ArrangeCSV.
+ *  
+ *  UNCOMMENT THE WANTED OPTION!
  */
 	public static void main(String[] args) {
 
@@ -36,7 +38,7 @@ public class Main {
 		
 		String diractory_Path = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\Ex2\\data\\BM1\\Wifi_scans";
 		MergeCSVfiles t = new MergeCSVfiles(diractory_Path);
-//		t.sortDirFiles();
+		t.sortDirFiles();
 
 		
 		
@@ -56,7 +58,7 @@ public class Main {
 		int number =4;
 		
 //		a.macStrongestLocation(filePath, number); //algo 1
-		a.userLocation(filePath, fileOutput, number); //algo 2
+//		a.userLocation(filePath, fileOutput, number); //algo 2
 	}
 
 }
