@@ -30,7 +30,7 @@ public class CoordinateTest {
 		Coordinate A=new Coordinate();
 		
 		double result=A.distance(3.2,3.1,3,4);
-		assertEquals(6399842.974597481,result,0.01);
+		assertEquals(6399842.974597481,result,0.00000000000001);
 		
 	}
 
