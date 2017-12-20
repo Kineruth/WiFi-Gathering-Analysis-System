@@ -2,8 +2,8 @@ package src;
 
 /**
  * Date: 23-11-2017
+ * Updated: 20-12-2017
  * This class is the main class ,to run the whole project. 
- * The user needs to enter a path for a directory - for class MergeCSVFiles, and a path to an arranged CSV file - for class ConvertToKML
  * @author Kineret Ruth Nahary & Yakir Amar
  *
  */
