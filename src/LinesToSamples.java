@@ -6,11 +6,25 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This class reads from a CSV file and convert the lines into Samples.
+ * @author Kineret Ruth Nahary & Yakir Amar
+ *
+ */
 public class LinesToSamples {
+	
+	/**
+	 * Default Constructor.
+	 */
 	public LinesToSamples() {
 	}
 
+	/**
+	 * 
+	 * @param filePath a specific file path to be read from.
+	 * Every line in the file is converted to a string.
+	 * @return a list of all the lines.
+	 */
 	public List<String[]> readCSV(String filePath) {
 		List<String[]> linesUnited = new ArrayList<String[]>();
 		try {
@@ -44,9 +58,8 @@ public class LinesToSamples {
 		return linesUnited;
 	}
 	/**
-	 * This function creates WiFiNetworks and a list of samples to be written in the file and shown on google earth's map.
-	 * 
-	 * @param linesUnited a given list of lines = samples.
+	 * This function converts every String line into a Sample with WiFiNetworks.
+	 * @param linesUnited a given list of lines from CSV file.
 	 * @return a list of samples.
 	 */
 	public SamplesList convertLines(List<String[]> linesUnited) {

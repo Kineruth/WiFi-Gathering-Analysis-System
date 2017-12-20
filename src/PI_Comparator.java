@@ -1,9 +1,14 @@
 package src;
 
 import java.util.Comparator;
-
+/**
+ * This class is of type comparator.
+ * It compares every two samples by their PI value,
+ * needed in order to sort a list of samples by their PI.
+ * @author Kineret Ruth Nahary & Yakir Amar
+ *
+ */
 public class PI_Comparator implements Comparator {
-
 	@Override
 	public int compare(Object obj1, Object obj2){
 		Sample s1 = (Sample) obj1;

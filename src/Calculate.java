@@ -92,7 +92,7 @@ public class Calculate {
 	/**
 	 * This function calculate the coordinates parameters by summing all the parameters and divides them by the weight.
 	 * @param sampleList a given list of samples.
-	 * @return
+	 * @return a coordinate with the calculated parameters.
 	 */
 	public Coordinate calcCoordinate(List<Sample> sampleList) {
 		double weight = 0, lat = 0, lon = 0, alt = 0;
@@ -117,29 +117,16 @@ public class Calculate {
 	}
 
 	/**
-	 * Algorithm 2 calculation calculates PI for every sample. It modifies the
+	 * Algorithm 2 calculation: calculates the PI for every sample and modifies it. 
 	 * given samples' PI.
-	 * 
-	 * @param s
-	 *            a given Sample.
-	 * @param list
-	 *            a given List <Sample>.
-	 * @param num
-	 *            a given number for filtering.
+	 * @param s a given Sample.
+	 * @param list a given List <Sample>.
+	 * @param num a given number for filtering.
 	 */
 	public void modifyPI(Sample s, List<Sample> list) {
 		String mac = "";
 		double weight = 0, PI = 1;
 		double diff;
-		if(list.isEmpty()){
-			for (WiFiNetwork wn : s.getCommonNetworks()) {
-				diff = this.diffNoSignal;
-				weight = this.norm
-						/ (Math.pow(diff, this.sigDiff) * Math.pow(Double.parseDouble(wn.getSignal()), this.power));
-				PI *= weight;
-			}
-//			list.get(i).setPI(PI); 
-		}
 		for (int i = 0; i < list.size(); i++) { //run over all samples
 			for (WiFiNetwork wn : s.getCommonNetworks()) { //run over all wifi's in given sample
 				mac = wn.getMAC();
