@@ -68,7 +68,7 @@ public class Calculate {
 		Collections.sort( sampleList, new PI_Comparator()); // sort by IP
 		if (sampleList.size()> num) {
 			//remove unwanted samples
-			for (int i = num + 1; i < sampleList.size(); i++)
+			for (int i = num; i < sampleList.size(); i++)
 				sampleList.remove(i); 
 		}
 	}
