@@ -1,10 +1,12 @@
-package src;
+package src.Algorithm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import src.WiFiNetwork;
 /**
  * This class has all the function for the two algorithms.
  *  It runs over all samples and sends them to the needed functions.
