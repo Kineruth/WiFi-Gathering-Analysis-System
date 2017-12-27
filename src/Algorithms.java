@@ -1,4 +1,4 @@
-package src.Algorithm;
+package src;
 
 import java.util.ArrayList;
 import java.util.HashMap;
