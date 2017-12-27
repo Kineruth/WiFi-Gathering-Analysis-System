@@ -1,4 +1,4 @@
-package Algorithms;
+package src;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,9 +7,6 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import KML.LinesToSamples;
-import MergedCSV.Sample;
 /**
  * This class exports CSV files with 2 options: one that has all the Macs' strongest location,
  *  the other with the user location when every sample was scanned.

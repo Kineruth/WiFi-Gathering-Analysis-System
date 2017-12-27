@@ -1,4 +1,4 @@
-package MergedCSV;
+package src;
 /**
  * Date: 23-11-2017
  * This class converts a given time to match the KML format in google earth.

@@ -1,4 +1,4 @@
-package KML;
+package src;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import MergedCSV.Sample;
-import MergedCSV.WiFiNetwork;
 /**
  * This class reads from a CSV file and convert the lines into Samples.
  * @author Kineret Ruth Nahary & Yakir Amar

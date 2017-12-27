@@ -1,8 +1,6 @@
-package Algorithms;
+package src;
 
 import java.util.Comparator;
-
-import MergedCSV.Sample;
 /**
  * This class is of type comparator.
  * It compares every two samples by their PI value,

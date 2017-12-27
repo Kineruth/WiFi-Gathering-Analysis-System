@@ -1,4 +1,4 @@
-package JUnit;
+package src;
 
 import static org.junit.Assert.*;
 
@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import org.junit.Test;
-
-import Algorithms.PI_Comparator;
-import MergedCSV.Sample;
 
 public class PI_ComparatorTest {
 

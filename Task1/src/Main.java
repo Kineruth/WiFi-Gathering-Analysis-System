@@ -1,8 +1,4 @@
-package RunMain;
-
-import Algorithms.ArrangeCSV;
-import KML.ConvertCSVToKML;
-import MergedCSV.MergeCSVfiles;
+package src;
 
 /**
  * Date: 23-11-2017

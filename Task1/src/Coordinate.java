@@ -1,4 +1,4 @@
-package KML;
+package src;
 /**
  * Date: 23-11-2017
  * This class represents a point on earth using latitude & longitude.

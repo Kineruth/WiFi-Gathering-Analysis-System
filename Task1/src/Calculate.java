@@ -1,12 +1,8 @@
-package Algorithms;
+package src;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import KML.Coordinate;
-import MergedCSV.Sample;
-import MergedCSV.WiFiNetwork;
 /**
  * This class contains all the calculations needed for both algorithm 1 & 2.
  * @author Kineret Ruth Nahary & Yakir Amar

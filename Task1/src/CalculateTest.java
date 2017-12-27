@@ -1,14 +1,9 @@
-package JUnit;
+package src;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import org.junit.Test;
-
-import Algorithms.Calculate;
-import KML.Coordinate;
-import MergedCSV.Sample;
-import MergedCSV.WiFiNetwork;
 
 public class CalculateTest {
 
