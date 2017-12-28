@@ -3,6 +3,7 @@ package MergedCSV;
 import java.io.BufferedReader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -31,6 +32,7 @@ public class MergeCSVfiles {
 	private ArrayList<File> files;
 	private String directoryPath, newFileName;
 	private boolean headerCreated = false;
+	private List<Sample> samples;
 
 	
 	/**
@@ -42,28 +44,43 @@ public class MergeCSVfiles {
 		this.directoryPath = directory;
 		this.files = new ArrayList<File>();
 		this.newFileName=null;
+		this.samples = new ArrayList<Sample>();
 	}
 
 	/**
-	 * This function gets all the files from a given directory and sends them to be read from.
-	 * @exception Exception e for any failure .
+	 * This function gets all the files from a given directory and sends them to be read from..
 	 */
 	public void sortDirFiles() {
+		getSamplesFromFiles();
+		writeFile(this.samples);
+		System.out.println("Done Creating CSV file!");
+	}
+	
+	/**
+	 * This function sends all the files from a given directory to be converted to samples and added to this class samples list.
+	 */
+	public void getSamplesFromFiles(){
 		try {
 			File directory = new File(this.directoryPath);
 
 			if (directory.isDirectory()) {
-				listf(this.directoryPath, this.files);
+				listFiles(this.directoryPath, this.files);
 				for (int i = 0; i < this.files.size(); i++)
-					readFile(this.files.get(i).getPath());
-				System.out.println("Done Creating CSV file!");
+					this.samples.addAll(readFile(this.files.get(i).getPath()));		
 			}
 		} catch (Exception e) {
 			System.out.println("Error while running the files!");
 		}
 
 	}
-
+/**
+ * 
+ * @return this samples list.
+ */
+	public List<Sample> getSamples(){
+		return this.samples;
+	}
+	
 	// ***************************PRIVATE*****************************
 /**
  * This function adds all the CSV files from a given directory recursively to an ArrayList of files.
@@ -71,7 +88,7 @@ public class MergeCSVfiles {
  * @param dirPath a given directory's path.
  * @param files a given ArrayList of files.
  */
-	private void listf(String dirPath, ArrayList<File> files) {
+	private void listFiles(String dirPath, ArrayList<File> files) {
 		File directory = new File(dirPath);
 		// get all the files from a directory
 		File[] fList = directory.listFiles();
@@ -79,25 +96,28 @@ public class MergeCSVfiles {
 			if (file.isFile() && file.getName().endsWith(".csv"))
 				files.add(file);
 			else if (file.isDirectory())
-				listf(file.getAbsolutePath(), files);
+				listFiles(file.getAbsolutePath(), files);
 		}
 	}
+	
+
 
 	/**
 	 * This function reads a given file, takes all the wanted WiFi networks, arranges them to be written in a new file.
 	 * @param filePath a given file's path.
-	 * @exception IOException if fails reading from file.
+	 * @throws FileNotFoundException 
 	 */
-	private void readFile(String filePath) {
+	private List<Sample> readFile(String filePath) throws FileNotFoundException {
+		
+		String str, device;
+		String[] line;
+		WiFiNetwork network;
+		Sample sample = new Sample();
+		List<Sample> samplesList = new ArrayList<Sample>();
+		FileReader fr = new FileReader(filePath);
+		BufferedReader br = new BufferedReader(fr);
+		
 		try {
-			String str, device;
-			String[] line;
-			WiFiNetwork network;
-			Sample sample = new Sample();
-			List<Sample> unitedSamples = new ArrayList<Sample>();
-			FileReader fr = new FileReader(filePath);
-			BufferedReader br = new BufferedReader(fr);
-
 			str = br.readLine();
 			line = str.split(",");
 			//Get device model
@@ -120,7 +140,7 @@ public class MergeCSVfiles {
 						if (sample.checkToAddToSample(line[3], line[6], line[7], line[8])) {
 							sample.addNetwork(network);
 						} else {
-							unitedSamples.add(sample);
+							samplesList.add(sample);
 							sample = new Sample(device, line[3], line[6], line[7], line[8],0);
 							sample.addNetwork(network);
 						}
@@ -130,12 +150,13 @@ public class MergeCSVfiles {
 
 			br.close();
 			fr.close();
-			writeFile(unitedSamples);
+//			writeFile(unitedSamples);
 
 		} catch (IOException ex) {
 			System.out.print("Error reading file\n" + ex);
 			System.exit(2);
 		}
+		return samplesList;
 	}
 
 	// https://stackoverflow.com/questions/5797208/java-how-do-i-write-a-file-to-a-specified-directory
