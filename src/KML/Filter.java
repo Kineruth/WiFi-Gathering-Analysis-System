@@ -55,13 +55,23 @@ public class Filter {
  * Predicate removeIf: https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort
  * @param linesUnited a given list of lines from the CSV file. 
  */
-	public void filterByTime(List<Sample> samples, int maxY, int maxM, int maxD, int minY, int minM, int minD, int maxH, int maxMin, int minH, int minMin) {		
-			Predicate<Sample> samplePredicate = s -> !(Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])<=maxY && Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])>=minY
+	public void filterByTime(List<Sample> samples,int choice, int maxY, int maxM, int maxD, int minY, int minM, int minD, int maxH, int maxMin, int minH, int minMin) {		
+			if(choice ==1){ //samples within this time
+		Predicate<Sample> samplePredicate = s -> !(Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])<=maxY && Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])>=minY
 					&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])<=maxM && Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])>=minM
 					&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])<=maxD && Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])>=minD
 					&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])<=maxH &&Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])>= minH
 					&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[1]) <= maxMin && Integer.parseInt(s.getTime().split(" ")[1].split(":")[1])>= minMin);
 			samples.removeIf(samplePredicate);
+			}
+			else{ //samples outside this time
+				Predicate<Sample> samplePredicate = s -> (Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])<=maxY && Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])>=minY
+						&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])<=maxM && Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])>=minM
+						&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])<=maxD && Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])>=minD
+						&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])<=maxH &&Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])>= minH
+						&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[1]) <= maxMin && Integer.parseInt(s.getTime().split(" ")[1].split(":")[1])>= minMin);
+				samples.removeIf(samplePredicate);
+			}
 	}
 /**
   * This function filters the lines by the user choice of location and radius.
@@ -70,25 +80,14 @@ public class Filter {
  * @param linesUnited a given list of lines from the CSV file. 
  * @exception Exception e if the user entered invalid input.
  */
-	public void filterByPlace(List<Sample> samples) {
-		Scanner sc = new Scanner(System.in);
-		try {
-
-			System.out.println("We'll get from you a point(LAN,LON) & a km radius for the location\nEnter Latitude : ");
-			String userLat = sc.nextDouble() + "";
-			System.out.println("Enter Longitude : ");
-			String userLon = sc.nextDouble() + "";
-			System.out.println("Enter Radius (km) : ");
-			String userRadius = sc.nextDouble() + "";
-
-			Coordinate p1 = new Coordinate(userLat, userLon,0+""); //we don't care about the alt 
-
-			Predicate<Sample> samplePredicate = s-> !(p1.pointInCircle(new Coordinate(s.getLAT(), s.getLON(),s.getALT()),Double.parseDouble(userRadius)));
+	public void filterByPlace(List<Sample> samples, double maxLAT,double maxLON, double maxALT, double minLAT, double minLON, double minALT) {
+//			Coordinate p1 = new Coordinate(userLat, userLon,0+""); 
+//			Predicate<Sample> samplePredicate = s-> !(p1.pointInCircle(new Coordinate(s.getLAT(), s.getLON(),s.getALT()),Double.parseDouble(userRadius)));
+	// do we need a radius?! 
+		Predicate<Sample> samplePredicate = s-> !(Double.parseDouble(s.getLAT())<=maxLAT && Double.parseDouble(s.getLAT())>=minLAT
+				&&Double.parseDouble(s.getLON())<= maxLON && Double.parseDouble(s.getLON())>= minLON
+				&&Double.parseDouble(s.getALT())<= maxALT && Double.parseDouble(s.getALT())>= minALT);
 			samples.removeIf(samplePredicate);
-			
-		} catch (Exception e) {
-			System.out.println("Entered invalid input! Converting file without filtering");
-		}
 	}
 /**
  * This function filters the lines by the user choice of device ID.
