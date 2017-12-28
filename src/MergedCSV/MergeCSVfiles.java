@@ -33,6 +33,7 @@ public class MergeCSVfiles {
 	private String directoryPath, newFileName;
 	private boolean headerCreated = false;
 	private List<Sample> samples;
+	private FileFormat fm = new FileFormat();
 
 	
 	/**
@@ -64,7 +65,7 @@ public class MergeCSVfiles {
 			File directory = new File(this.directoryPath);
 
 			if (directory.isDirectory()) {
-				listFiles(this.directoryPath, this.files);
+				listFiles(this.directoryPath);
 				for (int i = 0; i < this.files.size(); i++)
 					this.samples.addAll(readFile(this.files.get(i).getPath()));		
 			}
@@ -83,20 +84,21 @@ public class MergeCSVfiles {
 	
 	// ***************************PRIVATE*****************************
 /**
- * This function adds all the CSV files from a given directory recursively to an ArrayList of files.
+ * This function adds all the CSV files from a given directory recursively to this class ArrayList of files.
  * Taken from https://stackoverflow.com/questions/14676407/list-all-files-in-the-folder-and-also-sub-folders
  * @param dirPath a given directory's path.
- * @param files a given ArrayList of files.
+ * @throws FileNotFoundException 
  */
-	private void listFiles(String dirPath, ArrayList<File> files) {
+	private void listFiles(String dirPath) throws FileNotFoundException {
 		File directory = new File(dirPath);
 		// get all the files from a directory
 		File[] fList = directory.listFiles();
 		for (File file : fList) {
-			if (file.isFile() && file.getName().endsWith(".csv"))
-				files.add(file);
+			//check if curent file is in right wigle format
+			if(this.fm.checkWigleFormat(file)==true)
+				this.files.add(file);
 			else if (file.isDirectory())
-				listFiles(file.getAbsolutePath(), files);
+				listFiles(file.getAbsolutePath());
 		}
 	}
 	
