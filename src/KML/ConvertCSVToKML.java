@@ -53,8 +53,7 @@ public class ConvertCSVToKML {
 		try {
 			// Get only CSV files
 			if(fm.checkMergedCSVFormat(this.file)){
-				// Add to file's name timeStamp & change file type to KML
-//				this.filePath = this.filePath.replaceFirst(".csv", (" - " + timeStamp + ".kml"));
+				// change file type to KML
 				this.filePath = this.filePath.replaceFirst(".csv", (".kml"));
 				readFile();
 				System.out.println("Done writing KML file!");
@@ -76,10 +75,12 @@ public class ConvertCSVToKML {
 
 		LinesToSamples ls = new LinesToSamples();
 		Filter f = new Filter();
-		List<String[]> linesUnited = ls.readCSV(this.file.getPath());
-
-		f.filterFile(linesUnited);
-		writeFile(ls.convertLines(linesUnited));
+//		List<String[]> linesUnited = ls.readCSV(this.file.getPath());
+//		f.filterFile(linesUnited);
+//		writeFile(ls.convertLines(linesUnited));
+		List<Sample> samples =  ls.convertLines(ls.readCSV(this.file.getPath()));
+		f.filterFile(samples);
+		writeFile(samples);
 
 	}
 

@@ -3,6 +3,9 @@ package KML;
 import java.util.*;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
+
+import MergedCSV.Sample;
 /**
  * Date: 23-11-2017
  * This class represents a filter tool. It gets the user choice to filter the networks or not.
@@ -18,7 +21,7 @@ public class Filter {
  * @param linesUnited a given list of lines from the CSV file. 
  * @exception Exception e if the program fails running..
  */
-	public void filterFile(List<String[]> linesUnited) {
+	public void filterFile(List<Sample> linesUnited) {
 		Scanner sc = new Scanner(System.in);
 		try {
 			System.out.println("Do you want to filter your file information?\n1. Yes\n2. No");
@@ -56,7 +59,7 @@ public class Filter {
  * @param linesUnited a given list of lines from the CSV file. 
  * @exception Exception e if the user entered invalid input.
  */
-	private void filterByTime(List<String[]> linesUnited) {
+	private void filterByTime(List<Sample> samples) {
 		Scanner sc = new Scanner(System.in);
 		try {
 
@@ -64,9 +67,10 @@ public class Filter {
 			String userDate = sc.nextLine();
 			System.out.println("Enter hour (1 to 24) : ");
 			int userHour = sc.nextInt();
-
-			linesUnited.removeIf(line -> !(line[0].split(" ")[0].equals(userDate)
-					&& (line[0].split(" ")[1].split(":")[0].equals(userHour))));
+			
+			Predicate<Sample> samplePredicate = s -> !(s.getTime().split(" ")[0].equals(userDate) && s.getTime().split(" ")[1].split(":")[0].equals(userHour) );
+			samples.removeIf(samplePredicate);
+			
 		} catch (Exception e) {
 			System.out.println("Entered invalid input! Converting file without filtering");
 		}
@@ -78,7 +82,7 @@ public class Filter {
  * @param linesUnited a given list of lines from the CSV file. 
  * @exception Exception e if the user entered invalid input.
  */
-	private void filterByPlace(List<String[]> linesUnited) {
+	private void filterByPlace(List<Sample> samples) {
 		Scanner sc = new Scanner(System.in);
 		try {
 
@@ -90,8 +94,10 @@ public class Filter {
 			String userRadius = sc.nextDouble() + "";
 
 			Coordinate p1 = new Coordinate(userLat, userLon,0+""); //we don't care about the alt 
-			linesUnited
-					.removeIf(line -> !(p1.pointInCircle(new Coordinate(line[2], line[3],0+""), Double.parseDouble(userLat))));
+
+			Predicate<Sample> samplePredicate = s-> !(p1.pointInCircle(new Coordinate(s.getLAT(), s.getLON(),s.getALT()),Double.parseDouble(userRadius)));
+			samples.removeIf(samplePredicate);
+			
 		} catch (Exception e) {
 			System.out.println("Entered invalid input! Converting file without filtering");
 		}
@@ -103,13 +109,17 @@ public class Filter {
  * @param linesUnited a given list of lines from the CSV file. 
  * @exception Exception e if the user entered invalid input.
  */
-	private void filterByID(List<String[]> linesUnited) {
+	private void filterByID(List<Sample> samples) {
 		Scanner sc = new Scanner(System.in);
 		try {
 			System.out.println("Enter your chosen ID : ");
 			String userDeviceID = sc.nextLine();
-
-			linesUnited.removeIf(line -> !(userDeviceID.equals(line[1])));
+//			, String input
+			Predicate<Sample> samplePredicate = s-> !(s.getID().equals(userDeviceID));
+//			Predicate<Sample> samplePredicate = s-> !(s.getID().equals(input));//for GUI
+			samples.removeIf(samplePredicate);
+			
+			
 		} catch (Exception e) {
 			System.out.println("Entered invalid input! Converting file without filtering");
 		}
@@ -118,7 +128,7 @@ public class Filter {
  *This function checks the user'd choice of filtering and sends to the wanted filter.
  * @param linesUnited a given list of lines from the CSV file. 
  */
-	private void filterLines(List<String[]> linesUnited) {
+	private void filterLines(List<Sample> linesUnited) {
 		if (this.choice == 1)
 			filterByTime(linesUnited);
 		else if (this.choice == 2)

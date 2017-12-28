@@ -40,7 +40,7 @@ public class Main {
 
 		/* ONE: */
 		
-		String diractory_Path = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\Ex2\\data\\BM1\\Wifi_scans";
+		String diractory_Path = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task1\\data";
 		MergeCSVfiles t = new MergeCSVfiles(diractory_Path);
 //		t.sortDirFiles();
 
@@ -48,7 +48,7 @@ public class Main {
 		
 		/* TWO: */
 	
-		String csv_Path = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\Ex2\\data\\BM1\\Wifi_scans - 2017.12.28.13.31.12.csv";
+		String csv_Path = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task1\\data - 2017.12.28.18.18.07.csv";
 		ConvertCSVToKML k =	new ConvertCSVToKML(csv_Path);
 		k.createFile();
 
