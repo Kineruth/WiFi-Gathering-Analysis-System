@@ -5,7 +5,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
+/**
+ * This class represents a checking tool to check whether the file is in a spesific format we want,
+ * a Wigle CSF file or a merged CSV file.
+ * @author Kineret Ruth Nahary & Yakir Amar
+ *
+ */
 public class FileFormat {
 
 	/**
@@ -48,17 +53,27 @@ public class FileFormat {
 	}
 	
 	/**
-	 * 
-	 * @param f
+	 * This function checks if the file is a merged CSV file. 
+	 * It checks if there are at least 10 values or at most 46 values in the file's line.
+	 * @param f a given file
 	 * @return true if the file has the right format, false if not.
-	 * @throws FileNotFoundException
+	 * @throws IOException 
 	 */
-	public boolean checkMergedCSVFormat(File f) throws FileNotFoundException{
+	public boolean checkMergedCSVFormat(File f) throws IOException{
 		FileReader fr = new FileReader(f.getPath());
 		BufferedReader br = new BufferedReader(fr);
 		String str[];
 		if (f.isFile() && f.getName().endsWith(".csv")){
-			
+			String line = br.readLine();
+			if(line!=null){
+				str = line.split(",");
+				if(str.length==46 && str[1].equals("ID")){
+					line = br.readLine();//skip header
+					if(str.length<10 || str.length>46) return false;
+					}
+				if(str.length<10 || str.length>46) return false;
+			}
+			else return false;
 		}
 		else return false;
 		return true;

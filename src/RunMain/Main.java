@@ -42,15 +42,15 @@ public class Main {
 		
 		String diractory_Path = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\Ex2\\data\\BM1\\Wifi_scans";
 		MergeCSVfiles t = new MergeCSVfiles(diractory_Path);
-		t.sortDirFiles();
+//		t.sortDirFiles();
 
 		
 		
 		/* TWO: */
 	
-		String csv_Path = "C:\\Users\\admin\\git\\Task1\\Wigle Wifi App - Exports - Examples - 2017.12.14.00.04.53.csv";
+		String csv_Path = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\Ex2\\data\\BM1\\Wifi_scans - 2017.12.28.13.31.12.csv";
 		ConvertCSVToKML k =	new ConvertCSVToKML(csv_Path);
-//		k.createFile();
+		k.createFile();
 
 		
 		

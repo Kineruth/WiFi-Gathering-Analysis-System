@@ -94,11 +94,13 @@ public class MergeCSVfiles {
 		// get all the files from a directory
 		File[] fList = directory.listFiles();
 		for (File file : fList) {
-			//check if curent file is in right wigle format
+			//check if current file is in right wigle format
 			if(this.fm.checkWigleFormat(file)==true)
 				this.files.add(file);
 			else if (file.isDirectory())
 				listFiles(file.getAbsolutePath());
+			else 
+				System.out.println("File not in the right format!");
 		}
 	}
 	

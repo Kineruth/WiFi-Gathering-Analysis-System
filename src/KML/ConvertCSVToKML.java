@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import MergedCSV.FileFormat;
 import MergedCSV.Sample;
 import MergedCSV.WiFiNetwork;
 import de.micromata.opengis.kml.v_2_2_0.Document;
@@ -32,6 +33,7 @@ import de.micromata.opengis.kml.v_2_2_0.TimeStamp;
 public class ConvertCSVToKML {
 	private File file;
 	private String filePath;
+	private FileFormat fm = new FileFormat();
 
 	/**
 	 * Parameterized constructor.
@@ -50,13 +52,15 @@ public class ConvertCSVToKML {
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 		try {
 			// Get only CSV files
-			if (this.file.isFile() && this.file.getName().endsWith(".csv")) {
+			if(fm.checkMergedCSVFormat(this.file)){
 				// Add to file's name timeStamp & change file type to KML
-				this.filePath = this.filePath.replaceFirst(".csv", (" - " + timeStamp + ".kml"));
+//				this.filePath = this.filePath.replaceFirst(".csv", (" - " + timeStamp + ".kml"));
 				this.filePath = this.filePath.replaceFirst(".csv", (".kml"));
 				readFile();
 				System.out.println("Done writing KML file!");
 			}
+			else 
+				System.out.println("File not in the right format!");
 		} catch (Exception e) {
 			System.out.println("Error running the program!");
 		}
