@@ -100,7 +100,7 @@ public class Algorithms {
 			}
 		}
 		list.addAll(set);
-		calc.modifyPI(sample,  list);
+		calc.modifyPIAlgo2(sample,  list);
 		this.calc.sort_RemoveWiFiNetworks(list, num);
 		
 		Coordinate point = calc.calcCoordinate(list);

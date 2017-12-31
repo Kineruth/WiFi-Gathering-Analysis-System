@@ -127,7 +127,7 @@ public class Calculate {
 	 * @param list a given List <Sample>.
 	 * @param num a given number for filtering.
 	 */
-	public void modifyPI(Sample s, List<Sample> list) {
+	public void modifyPIAlgo2(Sample s, List<Sample> list) {
 		String mac = "";
 		double weight = 0, PI = 1;
 		double diff;

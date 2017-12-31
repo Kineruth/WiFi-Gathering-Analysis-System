@@ -51,28 +51,37 @@ public class Filter {
 
 /**
  * This function filter the lines by the user choice of time.
+ * Filters the samples within the stated range,
  * Filters using Predicate - checks if the user's date and hour is as in the line, if not - removes the line.
  * Predicate removeIf: https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort
  * @param linesUnited a given list of lines from the CSV file. 
  */
-	public void filterByTime(List<Sample> samples,int choice, int maxY, int maxM, int maxD, int minY, int minM, int minD, int maxH, int maxMin, int minH, int minMin) {		
-			if(choice ==1){ //samples within this time
+	public void withGivenTime(List<Sample> samples, int maxY, int maxM, int maxD, int minY, int minM, int minD, int maxH, int maxMin, int minH, int minMin) {		
 		Predicate<Sample> samplePredicate = s -> !(Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])<=maxY && Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])>=minY
 					&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])<=maxM && Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])>=minM
 					&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])<=maxD && Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])>=minD
 					&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])<=maxH &&Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])>= minH
 					&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[1]) <= maxMin && Integer.parseInt(s.getTime().split(" ")[1].split(":")[1])>= minMin);
 			samples.removeIf(samplePredicate);
-			}
-			else{ //samples outside this time
-				Predicate<Sample> samplePredicate = s -> (Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])<=maxY && Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])>=minY
-						&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])<=maxM && Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])>=minM
-						&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])<=maxD && Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])>=minD
-						&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])<=maxH &&Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])>= minH
-						&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[1]) <= maxMin && Integer.parseInt(s.getTime().split(" ")[1].split(":")[1])>= minMin);
-				samples.removeIf(samplePredicate);
-			}
+
 	}
+	
+	/**
+	 * This function filter the lines by the user choice of time.
+	 * Filters the samples for excluding it the stated range.
+	 * Filters using Predicate - checks if the user's date and hour is as in the line, if not - removes the line.
+	 * Predicate removeIf: https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort
+	 * @param linesUnited a given list of lines from the CSV file. 
+	 */
+		public void withoutGivenTime(List<Sample> samples,int maxY, int maxM, int maxD, int minY, int minM, int minD, int maxH, int maxMin, int minH, int minMin) {		
+					Predicate<Sample> samplePredicate = s -> (Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])<=maxY && Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])>=minY
+							&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])<=maxM && Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])>=minM
+							&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])<=maxD && Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])>=minD
+							&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])<=maxH &&Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])>= minH
+							&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[1]) <= maxMin && Integer.parseInt(s.getTime().split(" ")[1].split(":")[1])>= minMin);
+					samples.removeIf(samplePredicate);
+}
+		
 /**
   * This function filters the lines by the user choice of location and radius.
  * Filters using Predicate - checks if  the line's point is within the user's point's radius , if not - removes the line.
@@ -83,30 +92,37 @@ public class Filter {
 	public void filterByPlace(List<Sample> samples, double maxLAT,double maxLON, double maxALT, double minLAT, double minLON, double minALT) {
 //			Coordinate p1 = new Coordinate(userLat, userLon,0+""); 
 //			Predicate<Sample> samplePredicate = s-> !(p1.pointInCircle(new Coordinate(s.getLAT(), s.getLON(),s.getALT()),Double.parseDouble(userRadius)));
-	// do we need a radius?! 
+	
+		/* do we need a radius?!  */
 		Predicate<Sample> samplePredicate = s-> !(Double.parseDouble(s.getLAT())<=maxLAT && Double.parseDouble(s.getLAT())>=minLAT
 				&&Double.parseDouble(s.getLON())<= maxLON && Double.parseDouble(s.getLON())>= minLON
 				&&Double.parseDouble(s.getALT())<= maxALT && Double.parseDouble(s.getALT())>= minALT);
 			samples.removeIf(samplePredicate);
 	}
+	
 /**
  * This function filters the lines by the user choice of device ID.
+ * Filters the samples - removes all except specific given device.
  * Filters using Predicate - checks if  the user's device ID is as stated in the line , if not - removes the line.
  * Predicate removeIf: https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort
  * @param linesUnited a given list of lines from the CSV file. 
- * @exception Exception e if the user entered invalid input.
  */
-	public void filterByID(List<Sample> samples, int num, String device) {
-			//1 for only specific given device
-			if(num==1){
+	public void filterByID(List<Sample> samples, String device) {
 				Predicate<Sample> samplePredicate = s-> !(s.getID().equals(device));
-			samples.removeIf(samplePredicate);
-			}
-			else{ //2 for all excluding specific given device
-				Predicate<Sample> samplePredicate = s-> (s.getID().equals(device));
-				samples.removeIf(samplePredicate);
-			}			
+			samples.removeIf(samplePredicate);	
 	}
+	
+	/**
+	 * This function filters the lines by the user choice of device ID.
+	 * Filters all the samples -removes only specific given device
+	 * Filters using Predicate - checks if  the user's device ID is as stated in the line , if not - removes the line.
+	 * Predicate removeIf: https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort
+	 * @param linesUnited a given list of lines from the CSV file. 
+	 */
+		public void excludingGivenID(List<Sample> samples, String device) {
+					Predicate<Sample> samplePredicate = s-> (s.getID().equals(device));
+					samples.removeIf(samplePredicate);	
+		}
 ///**
 // *This function checks the user'd choice of filtering and sends to the wanted filter.
 // * @param linesUnited a given list of lines from the CSV file. 
