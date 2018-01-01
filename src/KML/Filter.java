@@ -41,7 +41,7 @@ public class Filter {
 					System.out.println("Not in the options! Enter again");
 					this.choice = sc.nextInt();
 				}
-//				filterLines(linesUnited);
+				filterLines(linesUnited);
 			}
 		} catch (Exception e) {
 			System.out.println("Entered invalid input! Converting file without filtering");
@@ -49,92 +49,93 @@ public class Filter {
 
 	}
 
+
+	// ***************************PRIVATE*****************************
+
 /**
  * This function filter the lines by the user choice of time.
- * Filters the samples within the stated range,
  * Filters using Predicate - checks if the user's date and hour is as in the line, if not - removes the line.
- * Predicate removeIf: https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort
- * @param linesUnited a given list of lines from the CSV file. 
- */
-	public void withGivenTime(List<Sample> samples, int maxY, int maxM, int maxD, int minY, int minM, int minD, int maxH, int maxMin, int minH, int minMin) {		
-		Predicate<Sample> samplePredicate = s -> !(Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])<=maxY && Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])>=minY
-					&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])<=maxM && Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])>=minM
-					&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])<=maxD && Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])>=minD
-					&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])<=maxH &&Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])>= minH
-					&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[1]) <= maxMin && Integer.parseInt(s.getTime().split(" ")[1].split(":")[1])>= minMin);
-			samples.removeIf(samplePredicate);
-
-	}
-	
-	/**
-	 * This function filter the lines by the user choice of time.
-	 * Filters the samples for excluding it the stated range.
-	 * Filters using Predicate - checks if the user's date and hour is as in the line, if not - removes the line.
-	 * Predicate removeIf: https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort
-	 * @param linesUnited a given list of lines from the CSV file. 
-	 */
-		public void withoutGivenTime(List<Sample> samples,int maxY, int maxM, int maxD, int minY, int minM, int minD, int maxH, int maxMin, int minH, int minMin) {		
-					Predicate<Sample> samplePredicate = s -> (Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])<=maxY && Integer.parseInt(s.getTime().split(" ")[0].split("-")[0])>=minY
-							&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])<=maxM && Integer.parseInt(s.getTime().split(" ")[0].split("-")[1])>=minM
-							&& Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])<=maxD && Integer.parseInt(s.getTime().split(" ")[0].split("-")[2])>=minD
-							&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])<=maxH &&Integer.parseInt(s.getTime().split(" ")[1].split(":")[0])>= minH
-							&& Integer.parseInt(s.getTime().split(" ")[1].split(":")[1]) <= maxMin && Integer.parseInt(s.getTime().split(" ")[1].split(":")[1])>= minMin);
-					samples.removeIf(samplePredicate);
-}
-		
-/**
-  * This function filters the lines by the user choice of location and radius.
- * Filters using Predicate - checks if  the line's point is within the user's point's radius , if not - removes the line.
- * Predicate removeIf: https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort
+ * Predicate removeIf: https://stackoverflow.com/questions/9146224/arraylist-filter
  * @param linesUnited a given list of lines from the CSV file. 
  * @exception Exception e if the user entered invalid input.
  */
-	public void filterByPlace(List<Sample> samples, double maxLAT,double maxLON, double maxALT, double minLAT, double minLON, double minALT) {
-//			Coordinate p1 = new Coordinate(userLat, userLon,0+""); 
-//			Predicate<Sample> samplePredicate = s-> !(p1.pointInCircle(new Coordinate(s.getLAT(), s.getLON(),s.getALT()),Double.parseDouble(userRadius)));
-	
-		/* do we need a radius?!  */
-		Predicate<Sample> samplePredicate = s-> !(Double.parseDouble(s.getLAT())<=maxLAT && Double.parseDouble(s.getLAT())>=minLAT
-				&&Double.parseDouble(s.getLON())<= maxLON && Double.parseDouble(s.getLON())>= minLON
-				&&Double.parseDouble(s.getALT())<= maxALT && Double.parseDouble(s.getALT())>= minALT);
+	private void filterByTime(List<Sample> samples) {
+		Scanner sc = new Scanner(System.in);
+		try {
+
+			System.out.println("Enter : date (yyyy-mm-dd) : ");
+			String userDate = sc.nextLine();
+			System.out.println("Enter hour (1 to 24) : ");
+			int userHour = sc.nextInt();
+			
+			Predicate<Sample> samplePredicate = s -> !(s.getTime().split(" ")[0].equals(userDate) && s.getTime().split(" ")[1].split(":")[0].equals(userHour) );
 			samples.removeIf(samplePredicate);
+			
+		} catch (Exception e) {
+			System.out.println("Entered invalid input! Converting file without filtering");
+		}
 	}
-	
+/**
+  * This function filters the lines by the user choice of location and radius.
+ * Filters using Predicate - checks if  the line's point is within the user's point's radius , if not - removes the line.
+ * Predicate removeIf: https://stackoverflow.com/questions/9146224/arraylist-filter
+ * @param linesUnited a given list of lines from the CSV file. 
+ * @exception Exception e if the user entered invalid input.
+ */
+	private void filterByPlace(List<Sample> samples) {
+		Scanner sc = new Scanner(System.in);
+		try {
+
+			System.out.println("We'll get from you a point(LAN,LON) & a km radius for the location\nEnter Latitude : ");
+			String userLat = sc.nextDouble() + "";
+			System.out.println("Enter Longitude : ");
+			String userLon = sc.nextDouble() + "";
+			System.out.println("Enter Radius (km) : ");
+			String userRadius = sc.nextDouble() + "";
+
+			Coordinate p1 = new Coordinate(userLat, userLon,0+""); //we don't care about the alt 
+
+			Predicate<Sample> samplePredicate = s-> !(p1.pointInCircle(new Coordinate(s.getLAT(), s.getLON(),s.getALT()),Double.parseDouble(userRadius)));
+			samples.removeIf(samplePredicate);
+			
+		} catch (Exception e) {
+			System.out.println("Entered invalid input! Converting file without filtering");
+		}
+	}
 /**
  * This function filters the lines by the user choice of device ID.
- * Filters the samples - removes all except specific given device.
  * Filters using Predicate - checks if  the user's device ID is as stated in the line , if not - removes the line.
- * Predicate removeIf: https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort
+ * Predicate removeIf: https://stackoverflow.com/questions/9146224/arraylist-filter
+ * @param linesUnited a given list of lines from the CSV file. 
+ * @exception Exception e if the user entered invalid input.
+ */
+	private void filterByID(List<Sample> samples) {
+		Scanner sc = new Scanner(System.in);
+		try {
+			System.out.println("Enter your chosen ID : ");
+			String userDeviceID = sc.nextLine();
+//			, String input
+			Predicate<Sample> samplePredicate = s-> !(s.getID().equals(userDeviceID));
+//			Predicate<Sample> samplePredicate = s-> !(s.getID().equals(input));//for GUI
+			samples.removeIf(samplePredicate);
+			
+			
+		} catch (Exception e) {
+			System.out.println("Entered invalid input! Converting file without filtering");
+		}
+	}
+/**
+ *This function checks the user'd choice of filtering and sends to the wanted filter.
  * @param linesUnited a given list of lines from the CSV file. 
  */
-	public void filterByID(List<Sample> samples, String device) {
-				Predicate<Sample> samplePredicate = s-> !(s.getID().equals(device));
-			samples.removeIf(samplePredicate);	
+	private void filterLines(List<Sample> linesUnited) {
+		if (this.choice == 1)
+			filterByTime(linesUnited);
+		else if (this.choice == 2)
+			filterByPlace(linesUnited);
+		else
+			filterByID(linesUnited);
+
 	}
-	
-	/**
-	 * This function filters the lines by the user choice of device ID.
-	 * Filters all the samples -removes only specific given device
-	 * Filters using Predicate - checks if  the user's device ID is as stated in the line , if not - removes the line.
-	 * Predicate removeIf: https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort
-	 * @param linesUnited a given list of lines from the CSV file. 
-	 */
-		public void excludingGivenID(List<Sample> samples, String device) {
-					Predicate<Sample> samplePredicate = s-> (s.getID().equals(device));
-					samples.removeIf(samplePredicate);	
-		}
-///**
-// *This function checks the user'd choice of filtering and sends to the wanted filter.
-// * @param linesUnited a given list of lines from the CSV file. 
-// */
-//	private void filterLines(List<Sample> linesUnited) {
-//		if (this.choice == 1)
-//			filterByTime(linesUnited);
-//		else if (this.choice == 2)
-//			filterByPlace(linesUnited);
-//		else
-//			filterByID(linesUnited);
-//
-//	}
 
 }
