@@ -5,8 +5,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import GUI_Filter.Wraper;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
@@ -19,7 +25,7 @@ import java.awt.event.ActionEvent;
 public class Add extends JFrame {
 
 	private JPanel contentPane;
-
+	private Wraper wraper ;
 	/**
 	 * Launch the application.
 	 */
@@ -54,6 +60,16 @@ public class Add extends JFrame {
 		btnWigleFolder.setIcon(new ImageIcon(img8));
 		btnWigleFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(e.getSource().equals(btnWigleFolder))
+				{
+					JFileChooser chooser = new JFileChooser();
+					chooser.setCurrentDirectory(new java.io.File("."));
+					chooser.setDialogTitle("Choose Folder");
+					chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+					chooser.setAcceptAllFileFilterUsed(false);
+					if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+						wraper.folderAdded(chooser.getSelectedFile().getPath());
+				}
 			}
 		});
 		btnWigleFolder.setBackground(new Color(204, 255, 255));
@@ -63,6 +79,17 @@ public class Add extends JFrame {
 		contentPane.add(btnWigleFolder);
 		
 		JButton btnMergeCsv = new JButton("Merged CSV File:");
+		btnMergeCsv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("csv", "csv");
+				chooser.setFileFilter(filter);
+				chooser.setDialogTitle("Choose Csv File");
+				if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					wraper.mergedFileAdded(chooser.getSelectedFile().getAbsolutePath());
+				}
+			}
+		});
 		Image img9=new ImageIcon(this.getClass().getResource("/merge2.png")).getImage();
 		btnMergeCsv.setIcon(new ImageIcon(img9));
 		btnMergeCsv.setForeground(new Color(128, 0, 0));
