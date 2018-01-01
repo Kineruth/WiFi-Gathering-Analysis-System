@@ -48,7 +48,7 @@ public class Frame {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(153, 204, 255));
 		frame.getContentPane().setFont(new Font("Arial", Font.BOLD, 28));
-		frame.setBounds(100, 100, 788, 532);
+		frame.setBounds(500, 200, 900, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -57,39 +57,40 @@ public class Frame {
 		btnAdd.setIcon(new ImageIcon(img));
 		btnAdd.setForeground(new Color(128, 0, 0));
 		btnAdd.addActionListener(new ActionListener() {
+			/**
+			 * Sends to a new window to add files to database.
+			 */
 			public void actionPerformed(ActionEvent arg0) {	
-				
 				Add add2=new Add();
-				add2.setVisible(true);
-				
+				add2.setVisible(true);	
 			}
 		});
 		
 		btnAdd.setBackground(new Color(255, 255, 255));
-		btnAdd.setFont(new Font("Arial", Font.BOLD, 20));
-		btnAdd.setBounds(50, 167, 176, 100);
+		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnAdd.setBounds(90, 250, 176, 100);
 		frame.getContentPane().add(btnAdd);
 		
 		JButton btnClearAll = new JButton("Clear Data");
 		Image img2=new ImageIcon(this.getClass().getResource("/clear.png")).getImage();
 		btnClearAll.setIcon(new ImageIcon(img2));
-		btnClearAll.setFont(new Font("Arial", Font.BOLD, 20));
+		btnClearAll.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnClearAll.setForeground(new Color(128, 0, 0));
 		btnClearAll.setBackground(new Color(255, 255, 255));
-		btnClearAll.setBounds(269, 167, 176, 100);
+		btnClearAll.setBounds(340, 250, 176, 100);
 		frame.getContentPane().add(btnClearAll);
 		
-		JButton btnCreatKml = new JButton("Create KML");
+		JButton btnCreatKml = new JButton("Save As KML");
 		Image img3=new ImageIcon(this.getClass().getResource("/kml.png")).getImage();
 		btnCreatKml.setIcon(new ImageIcon(img3));
-		btnCreatKml.setFont(new Font("Arial", Font.BOLD, 20));
+		btnCreatKml.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnCreatKml.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnCreatKml.setForeground(new Color(128, 0, 0));
 		btnCreatKml.setBackground(new Color(255, 255, 255));
-		btnCreatKml.setBounds(500, 167, 176, 100);
+		btnCreatKml.setBounds(590, 250, 176, 100);
 		frame.getContentPane().add(btnCreatKml);
 		
 		JButton btnRestore = new JButton("Restore Data");
@@ -97,9 +98,9 @@ public class Frame {
 		btnRestore.setIcon(new ImageIcon(img4));
 		btnRestore.setForeground(new Color(128, 0, 0));
 //		btnRestore.setHorizontalTextPosition(SwingContants.CENTER);
-		btnRestore.setFont(new Font("Arial", Font.BOLD, 20));
+		btnRestore.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnRestore.setBackground(new Color(255, 255, 255));
-		btnRestore.setBounds(500, 312, 176, 100);
+		btnRestore.setBounds(590, 400, 176, 100);
 		frame.getContentPane().add(btnRestore);
 		
 		JButton btnSaveAsMerge = new JButton("Save As CSV");
@@ -109,10 +110,10 @@ public class Frame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSaveAsMerge.setFont(new Font("Arial", Font.BOLD, 20));
+		btnSaveAsMerge.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnSaveAsMerge.setForeground(new Color(128, 0, 0));
 		btnSaveAsMerge.setBackground(new Color(255, 255, 255));
-		btnSaveAsMerge.setBounds(269, 312, 176, 100);
+		btnSaveAsMerge.setBounds(340, 400, 176, 100);
 		frame.getContentPane().add(btnSaveAsMerge);
 		
 		JButton btnFilter = new JButton("Filter");
@@ -125,16 +126,16 @@ public class Frame {
 		});
 		Image img6=new ImageIcon(this.getClass().getResource("/filter.png")).getImage();
 		btnFilter.setIcon(new ImageIcon(img6));
-		btnFilter.setFont(new Font("Arial", Font.BOLD, 20));
+		btnFilter.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnFilter.setForeground(new Color(128, 0, 0));
 		btnFilter.setBackground(new Color(255, 255, 255));
-		btnFilter.setBounds(50, 312, 176, 100);
+		btnFilter.setBounds(90, 400, 176, 100);
 		frame.getContentPane().add(btnFilter);
 		
 		JLabel label = new JLabel("");
 		Image img7=new ImageIcon(this.getClass().getResource("/database.png")).getImage();
 		label.setIcon(new ImageIcon(img7));
-		label.setBounds(285, 8, 176, 149);
+		label.setBounds(350, 40, 176, 149);
 		frame.getContentPane().add(label);
 	}
 }
