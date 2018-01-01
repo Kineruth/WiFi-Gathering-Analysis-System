@@ -3,15 +3,15 @@ import javax.swing.*;
 import java.awt.*;
  
 
-public class openWindow extends JFrame {
+public class OpenWindow extends JFrame {
 	private JLabel label;
-	public openWindow (){
+	public OpenWindow (){
 		label=new JLabel("              yakir amar");
 		add(label);
 		label.setBounds(40, 40, 100, 20);
 	}
 	public static void main(String args[]){
-		openWindow first= new openWindow();
+		OpenWindow first= new OpenWindow();
 		first.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		first.setSize(400,400);
 		first.setTitle("name");

@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class add extends JFrame {
+public class Add extends JFrame {
 	
 	
 
@@ -30,7 +30,7 @@ public class add extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					add frame = new add();
+					Add frame = new Add();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +42,7 @@ public class add extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public add() {
+	public Add() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 788, 532);
 		contentPane = new JPanel();

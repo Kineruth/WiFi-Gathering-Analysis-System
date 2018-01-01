@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.Calendar;
 import javax.swing.JRadioButton;
 
-public class tray extends JFrame {
+public class Tray extends JFrame {
 	private JTextField txtAddNumber;
 
 	/**
@@ -29,7 +29,7 @@ public class tray extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					tray frame = new tray();
+					Tray frame = new Tray();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +41,7 @@ public class tray extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public tray() {
+	public Tray() {
 		getContentPane().setBackground(new Color(153, 255, 0));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

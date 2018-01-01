@@ -24,7 +24,7 @@ import javax.swing.JSlider;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
-public class filter extends JFrame {
+public class FilterChoice extends JFrame {
 
 	private JPanel contentPane;
 
@@ -35,7 +35,7 @@ public class filter extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					filter frame = new filter();
+					FilterChoice frame = new FilterChoice();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +47,7 @@ public class filter extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public filter() {
+	public FilterChoice() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 788, 532);
 		contentPane = new JPanel();
@@ -61,7 +61,7 @@ public class filter extends JFrame {
 		btnLocation.setIcon(new ImageIcon(img10));
 		btnLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				location_filter f=new location_filter();
+				LocationFilter f=new LocationFilter();
 				f.setVisible(true);	
 			}
 		});

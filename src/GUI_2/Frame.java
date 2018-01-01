@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
-public class frame2 {
+public class Frame {
 
 	private JFrame frame;
 
@@ -25,7 +25,7 @@ public class frame2 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame2 window = new frame2();
+					Frame window = new Frame();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +37,7 @@ public class frame2 {
 	/**
 	 * Create the application.
 	 */
-	public frame2() {
+	public Frame() {
 		initialize();
 	}
 
@@ -59,7 +59,7 @@ public class frame2 {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
 				
-				add add2=new add();
+				Add add2=new Add();
 				add2.setVisible(true);
 				
 			}
@@ -117,7 +117,7 @@ public class frame2 {
 		btnFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				filter filt=new filter();
+				FilterChoice filt=new FilterChoice();
 				filt.setVisible(true);	
 			}
 		});
