@@ -47,12 +47,12 @@ public class Frame {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(153, 204, 255));
-		frame.getContentPane().setFont(new Font("Times New Roman", Font.BOLD, 15));
+		frame.getContentPane().setFont(new Font("Arial", Font.BOLD, 28));
 		frame.setBounds(100, 100, 788, 532);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnAdd = new JButton("add");
+		JButton btnAdd = new JButton("Add Files");
 		Image img=new ImageIcon(this.getClass().getResource("/add.png")).getImage();
 		btnAdd.setIcon(new ImageIcon(img));
 		btnAdd.setForeground(new Color(128, 0, 0));
@@ -64,56 +64,58 @@ public class Frame {
 				
 			}
 		});
+		
 		btnAdd.setBackground(new Color(255, 255, 255));
-		btnAdd.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnAdd.setBounds(30, 167, 159, 61);
+		btnAdd.setFont(new Font("Arial", Font.BOLD, 20));
+		btnAdd.setBounds(50, 167, 176, 100);
 		frame.getContentPane().add(btnAdd);
 		
-		JButton btnClearAll = new JButton("clear all");
+		JButton btnClearAll = new JButton("Clear Data");
 		Image img2=new ImageIcon(this.getClass().getResource("/clear.png")).getImage();
 		btnClearAll.setIcon(new ImageIcon(img2));
-		btnClearAll.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		btnClearAll.setFont(new Font("Arial", Font.BOLD, 20));
 		btnClearAll.setForeground(new Color(128, 0, 0));
 		btnClearAll.setBackground(new Color(255, 255, 255));
-		btnClearAll.setBounds(218, 188, 142, 41);
+		btnClearAll.setBounds(269, 167, 176, 100);
 		frame.getContentPane().add(btnClearAll);
 		
-		JButton btnCreatKml = new JButton("creat kml");
+		JButton btnCreatKml = new JButton("Create KML");
 		Image img3=new ImageIcon(this.getClass().getResource("/kml.png")).getImage();
 		btnCreatKml.setIcon(new ImageIcon(img3));
-		btnCreatKml.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		btnCreatKml.setFont(new Font("Arial", Font.BOLD, 20));
 		btnCreatKml.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnCreatKml.setForeground(new Color(128, 0, 0));
 		btnCreatKml.setBackground(new Color(255, 255, 255));
-		btnCreatKml.setBounds(406, 187, 137, 41);
+		btnCreatKml.setBounds(500, 167, 176, 100);
 		frame.getContentPane().add(btnCreatKml);
 		
-		JButton btnRestore = new JButton("restore");
+		JButton btnRestore = new JButton("Restore Data");
 		Image img4=new ImageIcon(this.getClass().getResource("/restore.png")).getImage();
 		btnRestore.setIcon(new ImageIcon(img4));
 		btnRestore.setForeground(new Color(128, 0, 0));
-		btnRestore.setFont(new Font("Times New Roman", Font.BOLD, 16));
+//		btnRestore.setHorizontalTextPosition(SwingContants.CENTER);
+		btnRestore.setFont(new Font("Arial", Font.BOLD, 20));
 		btnRestore.setBackground(new Color(255, 255, 255));
-		btnRestore.setBounds(563, 279, 137, 41);
+		btnRestore.setBounds(500, 312, 176, 100);
 		frame.getContentPane().add(btnRestore);
 		
-		JButton btnSaveAsMerge = new JButton("save as merge csv");
+		JButton btnSaveAsMerge = new JButton("Save As CSV");
 		Image img5=new ImageIcon(this.getClass().getResource("/csv.png")).getImage();
 		btnSaveAsMerge.setIcon(new ImageIcon(img5));
 		btnSaveAsMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSaveAsMerge.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		btnSaveAsMerge.setFont(new Font("Arial", Font.BOLD, 20));
 		btnSaveAsMerge.setForeground(new Color(128, 0, 0));
 		btnSaveAsMerge.setBackground(new Color(255, 255, 255));
-		btnSaveAsMerge.setBounds(269, 332, 204, 41);
+		btnSaveAsMerge.setBounds(269, 312, 176, 100);
 		frame.getContentPane().add(btnSaveAsMerge);
 		
-		JButton btnFilter = new JButton("filter");
+		JButton btnFilter = new JButton("Filter");
 		btnFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -123,16 +125,16 @@ public class Frame {
 		});
 		Image img6=new ImageIcon(this.getClass().getResource("/filter.png")).getImage();
 		btnFilter.setIcon(new ImageIcon(img6));
-		btnFilter.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		btnFilter.setFont(new Font("Arial", Font.BOLD, 20));
 		btnFilter.setForeground(new Color(128, 0, 0));
 		btnFilter.setBackground(new Color(255, 255, 255));
-		btnFilter.setBounds(30, 312, 176, 80);
+		btnFilter.setBounds(50, 312, 176, 100);
 		frame.getContentPane().add(btnFilter);
 		
 		JLabel label = new JLabel("");
 		Image img7=new ImageIcon(this.getClass().getResource("/database.png")).getImage();
 		label.setIcon(new ImageIcon(img7));
-		label.setBounds(222, 13, 176, 149);
+		label.setBounds(285, 8, 176, 149);
 		frame.getContentPane().add(label);
 	}
 }

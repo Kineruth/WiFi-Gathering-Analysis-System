@@ -14,7 +14,7 @@ import MergedCSV.Sample;
  * @author Kineret Ruth Nahary & Yakir Amar
  *
  */
-public class Filter {
+public class KML_User_Filter {
 	private int choice;
 /**
  * This function gets the user choice of filtering and filters the list of lines, every line is a sample.
@@ -114,7 +114,6 @@ public class Filter {
 		try {
 			System.out.println("Enter your chosen ID : ");
 			String userDeviceID = sc.nextLine();
-//			, String input
 			Predicate<Sample> samplePredicate = s-> !(s.getID().equals(userDeviceID));
 //			Predicate<Sample> samplePredicate = s-> !(s.getID().equals(input));//for GUI
 			samples.removeIf(samplePredicate);

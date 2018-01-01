@@ -73,7 +73,7 @@ public class ConvertCSVToKML {
 	private void readFile() throws FileNotFoundException, MalformedURLException {
 
 		LinesToSamples ls = new LinesToSamples();
-		Filter f = new Filter();
+		KML_User_Filter f = new KML_User_Filter();
 		List<Sample> samples =  ls.convertLines(ls.readCSV(this.file.getPath()));
 //		f.filterFile(samples);
 		writeFile(samples);
