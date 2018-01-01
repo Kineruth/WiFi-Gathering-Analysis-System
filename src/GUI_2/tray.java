@@ -12,6 +12,12 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JSlider;
+import javax.swing.JTextPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
+import javax.swing.JRadioButton;
 
 public class tray extends JFrame {
 	private JTextField txtAddNumber;
@@ -49,8 +55,12 @@ public class tray extends JFrame {
 		getContentPane().add(txtAddNumber);
 		txtAddNumber.setColumns(10);
 		
-		JSlider slider = new JSlider();
-		slider.setBounds(112, 120, 200, 26);
-		getContentPane().add(slider);
+		JTextPane textPane = new JTextPane();
+		textPane.setBounds(137, 174, 6, 22);
+		getContentPane().add(textPane);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
+		rdbtnNewRadioButton.setBounds(185, 75, 132, 80);
+		getContentPane().add(rdbtnNewRadioButton);
 	}
 }

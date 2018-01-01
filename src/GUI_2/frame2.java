@@ -48,7 +48,7 @@ public class frame2 {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(153, 204, 255));
 		frame.getContentPane().setFont(new Font("Times New Roman", Font.BOLD, 15));
-		frame.setBounds(100, 100, 591, 339);
+		frame.setBounds(100, 100, 788, 532);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -58,16 +58,15 @@ public class frame2 {
 		btnAdd.setForeground(new Color(128, 0, 0));
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
-				frame.dispose();
+				
 				add add2=new add();
 				add2.setVisible(true);
-				
 				
 			}
 		});
 		btnAdd.setBackground(new Color(255, 255, 255));
 		btnAdd.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnAdd.setBounds(30, 187, 134, 41);
+		btnAdd.setBounds(30, 167, 159, 61);
 		frame.getContentPane().add(btnAdd);
 		
 		JButton btnClearAll = new JButton("clear all");
@@ -98,7 +97,7 @@ public class frame2 {
 		btnRestore.setForeground(new Color(128, 0, 0));
 		btnRestore.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		btnRestore.setBackground(new Color(255, 255, 255));
-		btnRestore.setBounds(406, 241, 137, 41);
+		btnRestore.setBounds(563, 279, 137, 41);
 		frame.getContentPane().add(btnRestore);
 		
 		JButton btnSaveAsMerge = new JButton("save as merge csv");
@@ -111,13 +110,13 @@ public class frame2 {
 		btnSaveAsMerge.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		btnSaveAsMerge.setForeground(new Color(128, 0, 0));
 		btnSaveAsMerge.setBackground(new Color(255, 255, 255));
-		btnSaveAsMerge.setBounds(184, 241, 204, 41);
+		btnSaveAsMerge.setBounds(269, 332, 204, 41);
 		frame.getContentPane().add(btnSaveAsMerge);
 		
 		JButton btnFilter = new JButton("filter");
 		btnFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				
 				filter filt=new filter();
 				filt.setVisible(true);	
 			}
@@ -127,7 +126,7 @@ public class frame2 {
 		btnFilter.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		btnFilter.setForeground(new Color(128, 0, 0));
 		btnFilter.setBackground(new Color(255, 255, 255));
-		btnFilter.setBounds(30, 241, 142, 41);
+		btnFilter.setBounds(30, 312, 176, 80);
 		frame.getContentPane().add(btnFilter);
 		
 		JLabel label = new JLabel("");
