@@ -180,7 +180,7 @@ public class Sample {
 	 * This function compares the given parameters with this Sample parameters
 	 * to check if they are equal.
 	 * 
-	 * @param Time
+	 * @param Time_F
 	 *            a given time.
 	 * @param LAT
 	 *            a given latitude.

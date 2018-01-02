@@ -26,13 +26,14 @@ import javax.swing.DropMode;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JPanel;
+import java.awt.SystemColor;
 
-public class Frame {
+public class MainFrame {
 	
 //	private DataBase db = new DataBase();
 	private Wraper wraper = new Wraper();
 	private JFrame frame;
-	private JTextField txtSamples;
 
 	/**
 	 * Launch the application.
@@ -41,7 +42,7 @@ public class Frame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Frame window = new Frame();
+					MainFrame window = new MainFrame();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +54,7 @@ public class Frame {
 	/**
 	 * Create the application.
 	 */
-	public Frame() {
+	public MainFrame() {
 		initialize();
 	}
 
@@ -258,18 +259,43 @@ public class Frame {
 		btnClearAll.setForeground(new Color(128, 0, 0));
 		btnClearAll.setBackground(new Color(255, 255, 255));
 		btnClearAll.setBounds(636, 434, 267, 41);
-		frame.getContentPane().add(btnClearAll);	
+		frame.getContentPane().add(btnClearAll);
 		
-		txtSamples = new JTextField();
-		txtSamples.setBackground(UIManager.getColor("Button.background"));
-		txtSamples.setForeground(new Color(25, 25, 112));
-		txtSamples.setHorizontalAlignment(SwingConstants.LEFT);
-//		txtSamples.setDropMode(DropMode.ON);
-		txtSamples.setFont(new Font("Tahoma", Font.BOLD, 18));
-		txtSamples.setText("Samples: ");
-		txtSamples.setBounds(66, 532, 146, 26);
-		frame.getContentPane().add(txtSamples);
-		txtSamples.setColumns(10);
+		JPanel panel = new JPanel();
+		panel.setBackground(UIManager.getColor("Button.light"));
+		panel.setBounds(50, 537, 237, 41);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Samples : ");
+		lblNewLabel.setFont(new Font("Sitka Text", Font.BOLD, 17));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(15, 0, 92, 36);
+		panel.add(lblNewLabel);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setFont(new Font("Sitka Text", Font.BOLD, 17));
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setBounds(122, 0, 100, 36);
+		panel.add(label_1);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.controlHighlight);
+		panel_1.setBounds(368, 537, 201, 41);
+		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblMacs = new JLabel("Macs : ");
+		lblMacs.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMacs.setFont(new Font("Sitka Text", Font.BOLD, 17));
+		lblMacs.setBounds(0, 0, 92, 36);
+		panel_1.add(lblMacs);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_2.setFont(new Font("Sitka Text", Font.BOLD, 17));
+		label_2.setBounds(86, 0, 100, 36);
+		panel_1.add(label_2);
 		
 	}
 }
