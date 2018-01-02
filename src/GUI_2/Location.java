@@ -26,6 +26,8 @@ public class Location extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private static int filterChoice;
+
 
 	/**
 	 * Launch the application.
@@ -34,7 +36,7 @@ public class Location extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Location frame = new Location();
+					Location frame = new Location(filterChoice);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,8 +48,9 @@ public class Location extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Location() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public Location(int i) {
+		this.filterChoice = i;
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 814, 544);
 		getContentPane().setLayout(null);
 		getContentPane().setLayout(null);
@@ -91,6 +94,7 @@ public class Location extends JFrame {
 		JButton button = new JButton("Save Current Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//send to be saved as serialized txt
 			}
 		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -147,6 +151,12 @@ public class Location extends JFrame {
 		JButton button_2 = new JButton("Filter");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (radioButton.isSelected()) {
+					//send 0 to filter with range
+				}
+				if (radioButton_1.isSelected()) {
+					//send 1 without
+				}
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 17));

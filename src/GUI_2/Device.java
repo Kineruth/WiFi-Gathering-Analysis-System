@@ -22,6 +22,7 @@ public class Device extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private static int filterChoice;
 
 	/**
 	 * Launch the application.
@@ -30,7 +31,7 @@ public class Device extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Device frame = new Device();
+					Device frame = new Device(filterChoice);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,8 +43,9 @@ public class Device extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Device() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public Device(int i) {
+		this.filterChoice = i;
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 448, 429);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -76,6 +78,12 @@ public class Device extends JFrame {
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if (radioButton.isSelected()) {
+					//send 0 to filter with device
+				}
+				if (radioButton_1.isSelected()) {
+					//send 1 without
+				}
 			}
 		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -85,6 +93,7 @@ public class Device extends JFrame {
 		JButton button_1 = new JButton("Save Current Filter");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//send to be saved as serialized txt
 			}
 		});
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));

@@ -11,35 +11,38 @@ import MergedCSV.FileFormat;
 import MergedCSV.MergeCSVfiles;
 
 public class Wraper {
-	private DataBase db = new DataBase();
-	
-	
-	public void folderAdded(String folderPath) {
+
+	public void folderAdded(DataBase db, String folderPath) {
 		MergeCSVfiles mg = new MergeCSVfiles(folderPath);
-		this.db.addData(mg.getSamplesFromFiles());
+		db.addData(mg.getSamplesFromFiles());
 	}
-	
-	public void mergedFileAdded(String filePath) throws IOException{
-		FileFormat fm = new FileFormat() ;
-		LinesToSamples ls = new LinesToSamples() ;
+
+	public void mergedFileAdded(DataBase db, String filePath) throws IOException {
+		FileFormat fm = new FileFormat();
+		LinesToSamples ls = new LinesToSamples();
 		File f = new File(filePath);
-		if(fm.checkMergedCSVFormat(f))
-		this.db.addData(ls.convertLines(ls.readCSV(filePath)));
+		if (fm.checkMergedCSVFormat(f))
+			db.addData(ls.convertLines(ls.readCSV(filePath)));
 	}
-	
-	public void saveMergedCSV(){
+
+	public void saveMergedCSV(DataBase db) {
 		MergeCSVfiles mg = new MergeCSVfiles();
-		mg.writeFile(this.db.getDataBase());
+		mg.writeFile(db.getDataBase());
 	}
-	
-	public void saveAsKML() throws FileNotFoundException, MalformedURLException{
+
+	public void saveAsKML(DataBase db) throws FileNotFoundException, MalformedURLException {
 		ConvertCSVToKML kml = new ConvertCSVToKML();
-		kml.writeFile(this.db.getDataBase());
+		kml.writeFile(db.getDataBase());
 	}
-	
-	public void clearance(){
-		System.out.println("Samples amount before delete: "+this.db.getDataBase().size());
-		this.db.deleteAllData();
-		System.out.println("Samples amount after delete: "+this.db.getDataBase().size());
+
+	public void clearance(DataBase db) {
+		System.out.println("Samples amount before delete: " + db.getDataBase().size());
+		db.deleteAllData();
+		System.out.println("Samples amount after delete: " + db.getDataBase().size());
+	}
+
+	public void filterSamples(DataBase db, int choice){
+		if
+		
 	}
 }

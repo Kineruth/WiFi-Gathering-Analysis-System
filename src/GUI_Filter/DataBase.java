@@ -12,11 +12,13 @@ import de.micromata.opengis.kml.v_2_2_0.Point;
 public class DataBase {
 
 	private List<Sample> lsp;
+	private List<Sample> filteredLsp;
 	/**
 	 * Default constructor.
 	 */
 	public DataBase(){
 		this.lsp = new ArrayList<Sample>();	
+		this.filteredLsp = new ArrayList<Sample>();	
 	}
 	/**
 	 * Copy constructor.
@@ -53,6 +55,13 @@ public class DataBase {
 	 */
 	public List<Sample> restoreData(){
 		return this.lsp;
+	}
+	
+	public void setFilteredData(List<Sample> s){
+		this.filteredLsp = new ArrayList<Sample>(s);
+	}
+	public List<Sample> getFilteredData(){
+		return this.filteredLsp;
 	}
 	/**
 	 * This function sends a given sample without coordinates to be calculated and 

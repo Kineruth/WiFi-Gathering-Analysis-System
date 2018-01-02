@@ -23,15 +23,21 @@ import java.awt.event.ActionEvent;
 public class Time extends JFrame {
 
 	private JPanel contentPane;
+	private static int filterChoice;
+
+	// public Time(int i) {
+	// this.filterChoice = i;
+	// }
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Time frame = new Time();
+					Time frame = new Time(filterChoice);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,57 +49,66 @@ public class Time extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Time() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public Time(int i) {
+		this.filterChoice = i;
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 608, 424);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JSpinner spinner = new JSpinner();
-		spinner.setModel(new SpinnerDateModel(new Date(1514844000000L), new Date(1514844000000L), null, Calendar.DAY_OF_YEAR));
+		spinner.setModel(
+				new SpinnerDateModel(new Date(1514844000000L), new Date(1514844000000L), null, Calendar.DAY_OF_YEAR));
 		spinner.setFont(new Font("Tahoma", Font.BOLD, 18));
 		spinner.setBounds(180, 105, 184, 42);
 		contentPane.add(spinner);
-		
+
 		JLabel label = new JLabel("Time format: HH:MM  DD/MM/YY\r\n");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Sitka Text", Font.BOLD, 24));
 		label.setBounds(0, 16, 586, 73);
 		contentPane.add(label);
-		
+
 		JRadioButton radioButton = new JRadioButton("Filter with time\r\n");
 		radioButton.setSelected(true);
 		radioButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		radioButton.setBounds(180, 180, 195, 25);
 		contentPane.add(radioButton);
-		
+
 		JRadioButton radioButton_1 = new JRadioButton("Filter without time\r\n");
 		radioButton_1.setSelected(true);
 		radioButton_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		radioButton_1.setBounds(180, 219, 219, 25);
 		contentPane.add(radioButton_1);
-		
+
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (radioButton.isSelected()) {
+					//send 0 to filter with range
+				}
+				if (radioButton_1.isSelected()) {
+					//send 1 without
+				}
 			}
 		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button.setBounds(180, 256, 195, 29);
 		contentPane.add(button);
-		
+
 		JButton button_1 = new JButton("Save Current Filter");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//send to be saved as serialized txt
 			}
 		});
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_1.setBackground(new Color(0, 102, 102));
 		button_1.setBounds(180, 295, 196, 29);
 		contentPane.add(button_1);
-		
+
 		ButtonGroup group1 = new ButtonGroup();
 		group1.add(radioButton);
 		group1.add(radioButton_1);

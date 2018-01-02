@@ -101,12 +101,12 @@ public class Device_F extends JFrame {
 		JRadioButton radioButton_3 = new JRadioButton("Add Time Filter");
 		radioButton_3.setSelected(true);
 		radioButton_3.setFont(new Font("Dialog", Font.BOLD, 17));
-		radioButton_3.setBounds(495, 370, 166, 25);
+		radioButton_3.setBounds(495, 369, 166, 25);
 		contentPane.add(radioButton_3);
 		
 		JRadioButton radioButton_4 = new JRadioButton("Or Device Filter");
 		radioButton_4.setFont(new Font("Dialog", Font.BOLD, 16));
-		radioButton_4.setBounds(495, 403, 177, 25);
+		radioButton_4.setBounds(495, 459, 177, 25);
 		contentPane.add(radioButton_4);
 		
 		JRadioButton radioButton_5 = new JRadioButton("Or Time Filter");
@@ -116,13 +116,33 @@ public class Device_F extends JFrame {
 		
 		JRadioButton radioButton_6 = new JRadioButton("Or Location Filter");
 		radioButton_6.setFont(new Font("Dialog", Font.BOLD, 16));
-		radioButton_6.setBounds(495, 459, 177, 25);
+		radioButton_6.setBounds(495, 398, 177, 25);
 		contentPane.add(radioButton_6);
 		
 		JButton button_2 = new JButton("Next");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//send to the next to filter
+				if (rdbtnAddLocationFilter.isSelected()) {
+					Location l = new Location(0);
+					l.setVisible(true);
+
+				}
+				if (radioButton_6.isSelected()) {
+					Location l = new Location(1);
+					l.setVisible(true);
+				}
+				if (radioButton_3.isSelected()) {
+					Time t = new Time(0);
+					t.setVisible(true);
+				}
+				if (radioButton_5.isSelected()) {
+					Time t = new Time(1);
+					t.setVisible(true);
+				}
+				if (radioButton_4.isSelected()) {
+					Device d = new Device(1);
+					d.setVisible(true);
+				}
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 17));

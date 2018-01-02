@@ -76,6 +76,7 @@ public class Time_F extends JFrame {
 		JButton button_1 = new JButton("Save Current Filter");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//send to be saved as serialized txt
 			}
 		});
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -85,23 +86,23 @@ public class Time_F extends JFrame {
 
 		JRadioButton radioButton_2 = new JRadioButton("Or Location Filter");
 		radioButton_2.setFont(new Font("Dialog", Font.BOLD, 16));
-		radioButton_2.setBounds(486, 447, 177, 25);
+		radioButton_2.setBounds(486, 424, 177, 25);
 		contentPane.add(radioButton_2);
 
 		JRadioButton radioButton_3 = new JRadioButton("Or Time Filter");
 		radioButton_3.setFont(new Font("Dialog", Font.BOLD, 16));
-		radioButton_3.setBounds(486, 419, 153, 25);
+		radioButton_3.setBounds(486, 452, 153, 25);
 		contentPane.add(radioButton_3);
 
 		JRadioButton radioButton_4 = new JRadioButton("Or Device Filter");
 		radioButton_4.setFont(new Font("Dialog", Font.BOLD, 16));
-		radioButton_4.setBounds(486, 391, 177, 25);
+		radioButton_4.setBounds(486, 395, 177, 25);
 		contentPane.add(radioButton_4);
 
 		JRadioButton rdbtnAddLocationFilter = new JRadioButton("Add Location Filter");
 		rdbtnAddLocationFilter.setSelected(true);
 		rdbtnAddLocationFilter.setFont(new Font("Dialog", Font.BOLD, 17));
-		rdbtnAddLocationFilter.setBounds(486, 358, 177, 25);
+		rdbtnAddLocationFilter.setBounds(486, 362, 177, 25);
 		contentPane.add(rdbtnAddLocationFilter);
 
 		JRadioButton radioButton_6 = new JRadioButton("Add Device Filter");
@@ -112,6 +113,27 @@ public class Time_F extends JFrame {
 		JButton button_2 = new JButton("Next");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (rdbtnAddLocationFilter.isSelected()) {
+					Location l = new Location(0);
+					l.setVisible(true);
+
+				}
+				if (radioButton_2.isSelected()) {
+					Location l = new Location(1);
+					l.setVisible(true);
+				}
+				if (radioButton_6.isSelected()) {
+					Device d = new Device(0);
+					d.setVisible(true);
+				}
+				if (radioButton_4.isSelected()) {
+					Device d = new Device(1);
+					d.setVisible(true);
+				}
+				if (radioButton_3.isSelected()) {
+					Time t = new Time(1);
+					t.setVisible(true);
+				}
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 17));
