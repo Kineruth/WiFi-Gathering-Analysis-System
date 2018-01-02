@@ -48,7 +48,7 @@ public class FilterChoice extends JFrame {
 	 * Create the frame.
 	 */
 	public FilterChoice() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 788, 532);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
@@ -89,15 +89,15 @@ public class FilterChoice extends JFrame {
 		btnId.setBounds(252, 196, 170, 82);
 		contentPane.add(btnId);
 		
-		JButton btnBack = new JButton("back");
-		Image img13=new ImageIcon(this.getClass().getResource("/back2.png")).getImage();
-		btnBack.setIcon(new ImageIcon(img13));
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});
-		btnBack.setBounds(12, 13, 108, 25);
-		contentPane.add(btnBack);
+//		JButton btnBack = new JButton("back");
+//		Image img13=new ImageIcon(this.getClass().getResource("/back2.png")).getImage();
+//		btnBack.setIcon(new ImageIcon(img13));
+//		btnBack.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				setVisible(false);
+//			}
+//		});
+//		btnBack.setBounds(12, 13, 108, 25);
+//		contentPane.add(btnBack);
 	}
 }

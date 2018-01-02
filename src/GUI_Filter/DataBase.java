@@ -20,6 +20,14 @@ public class DataBase {
 		this.lsp = lsp.stream().distinct().collect(Collectors.toList());
 	}
 	
+	public List<Sample> getDataBase() {
+		return this.lsp;
+	}
+
+	public void setDataBase(List<Sample> lsp) {
+		this.lsp = lsp;
+	}
+
 	public void deleteAllData(){
 		this.lsp.removeAll(null);
 	}

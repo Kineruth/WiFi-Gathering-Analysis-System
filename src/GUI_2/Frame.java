@@ -10,12 +10,18 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+
+import GUI_Filter.Wraper;
+
 import javax.swing.JLabel;
 
 public class Frame {
-
+	
+	private Wraper wraper;
 	private JFrame frame;
 
 	/**
@@ -81,7 +87,7 @@ public class Frame {
 		/*
 		  * Clear Data button:
 		  */
-		JButton btnClearAll = new JButton("Clear Data");
+		JButton btnClearAll = new JButton("Clearance");
 		Image img2=new ImageIcon(this.getClass().getResource("/clear.png")).getImage();
 		btnClearAll.setIcon(new ImageIcon(img2));
 		btnClearAll.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -112,7 +118,7 @@ public class Frame {
 		 /*
 		  * Restore button:
 		  */
-		JButton btnRestore = new JButton("Restore Data");
+		JButton btnRestore = new JButton("Restore");
 		Image img4=new ImageIcon(this.getClass().getResource("/restore.png")).getImage();
 		btnRestore.setIcon(new ImageIcon(img4));
 		btnRestore.setForeground(new Color(128, 0, 0));
@@ -131,6 +137,7 @@ public class Frame {
 		btnSaveAsMerge.setIcon(new ImageIcon(img5));
 		btnSaveAsMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				wraper.saveMergedCSV();
 			}
 		});
 		btnSaveAsMerge.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -148,6 +155,11 @@ public class Frame {
 		btnCreatKml.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnCreatKml.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					wraper.saveAsKML();
+				} catch (FileNotFoundException | MalformedURLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnCreatKml.setForeground(new Color(128, 0, 0));

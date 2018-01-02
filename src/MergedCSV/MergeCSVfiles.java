@@ -32,10 +32,17 @@ public class MergeCSVfiles {
 	private ArrayList<File> files;
 	private String directoryPath, newFileName;
 	private boolean headerCreated = false;
-	private List<Sample> samples;
+//	private List<Sample> samples = new ArrayList<Sample>();
 	private FileFormat fm = new FileFormat();
 
-	
+	/**
+	 * Default constructor.
+	 */
+	public MergeCSVfiles(){
+		this.directoryPath = null;
+		this.newFileName = "C:\\Users\\admin\\Desktop\\New_Merged_File.csv";
+		this.files = new ArrayList<File>();
+	}
 	/**
 	 * Parameterized constructor.
 	 * 
@@ -43,44 +50,38 @@ public class MergeCSVfiles {
 	 */
 	public MergeCSVfiles(String directory) {
 		this.directoryPath = directory;
+		this.newFileName=this.directoryPath + " -  New_Merged_File.csv";
 		this.files = new ArrayList<File>();
-		this.newFileName=null;
-		this.samples = new ArrayList<Sample>();
 	}
 
 	/**
 	 * This function gets all the files from a given directory and sends them to be read from..
 	 */
 	public void sortDirFiles() {
-		getSamplesFromFiles();
-		writeFile(this.samples);
+		
+		writeFile(getSamplesFromFiles());
 		System.out.println("Done Creating CSV file!");
 	}
 	
 	/**
 	 * This function sends all the files from a given directory to be converted to samples and added to this class samples list.
 	 */
-	public void getSamplesFromFiles(){
+	public List<Sample> getSamplesFromFiles(){
+		File directory = new File(this.directoryPath);
+		List<Sample> samples = new ArrayList<Sample>();
 		try {
-			File directory = new File(this.directoryPath);
-
 			if (directory.isDirectory()) {
 				listFiles(this.directoryPath);
 				for (int i = 0; i < this.files.size(); i++)
-					this.samples.addAll(readFile(this.files.get(i).getPath()));		
+					samples.addAll(readFile(this.files.get(i).getPath()));		
 			}
+			
 		} catch (Exception e) {
-			System.out.println("Error while running the files!");
+			System.out.println("Error reading files!");
 		}
+			return samples;
+	}
 
-	}
-/**
- * 
- * @return this samples list.
- */
-	public List<Sample> getSamples(){
-		return this.samples;
-	}
 	
 	// ***************************PRIVATE*****************************
 /**
@@ -171,12 +172,11 @@ public class MergeCSVfiles {
  * @param list an arrayList of Samples.
  * @exception throws IOException if fails writing to the file.
  */
-	private void writeFile(List<Sample> list) {
+	public void writeFile(List<Sample> list) {
 		try {
 			// Gets the timeStamp
-			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-			// file name+timeStamp&path as the directory
-			this.newFileName=this.directoryPath + " - " + timeStamp + ".csv";
+//			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+			// file name+timeStamp&path as the directory				
 			FileWriter fw = new FileWriter(this.newFileName, true);
 			PrintWriter outs = new PrintWriter(fw);
 			String info;

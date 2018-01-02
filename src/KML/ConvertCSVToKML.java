@@ -36,8 +36,15 @@ public class ConvertCSVToKML {
 	private FileFormat fm = new FileFormat();
 
 	/**
+	 * Default constructor.
+	 */
+	public ConvertCSVToKML(){
+		this.filePath = "C:\\Users\\admin\\Desktop\\New_KML_File.kml";;
+		this.file = null;
+	}
+	
+	/**
 	 * Parameterized constructor.
-	 * 
 	 * @param filePath a given file's path.
 	 */
 	public ConvertCSVToKML(String filePath) {
@@ -49,7 +56,7 @@ public class ConvertCSVToKML {
 	 * This function takes only a CSV file and creates a KML Google earth file from it.
 	 */
 	public void createFile() {
-		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+//		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 		try {
 			// Get only CSV files
 			if(fm.checkMergedCSVFormat(this.file)){
@@ -70,7 +77,7 @@ public class ConvertCSVToKML {
 	 * @throws MalformedURLException 
 	 * @throws FileNotFoundException 
 	 */
-	private void readFile() throws FileNotFoundException, MalformedURLException {
+	public void readFile() throws FileNotFoundException, MalformedURLException {
 
 		LinesToSamples ls = new LinesToSamples();
 		KML_User_Filter f = new KML_User_Filter();
@@ -80,7 +87,7 @@ public class ConvertCSVToKML {
 
 	}
 
-	// ***************************PRIVATE*****************************
+	
 
 	/**
 	 * This class writes the KML file, it sorts by the user's chosen filter than writes the file in a KML format.
@@ -88,7 +95,7 @@ public class ConvertCSVToKML {
 	 * @throws FileNotFoundException  if it fails finding the file.
 	 * @throws MalformedURLException  if it fails writing the KML file.
 	 */
-	private void writeFile(List<Sample> s) throws FileNotFoundException, MalformedURLException {
+	public void writeFile(List<Sample> s) throws FileNotFoundException, MalformedURLException {
 		Kml kml = new Kml();
 		Document doc = kml.createAndSetDocument();
 		int counter =0; //counting points on map.
@@ -107,6 +114,7 @@ public class ConvertCSVToKML {
 
 	}
 	
+	// ***************************PRIVATE*****************************
 	/**
 	 * This function returns a WiFiNetwork's description for the KML file.
 	 * 

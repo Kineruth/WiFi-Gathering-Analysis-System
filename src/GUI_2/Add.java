@@ -20,6 +20,7 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class Add extends JFrame {
@@ -86,7 +87,11 @@ public class Add extends JFrame {
 				chooser.setFileFilter(filter);
 				chooser.setDialogTitle("Choose Csv File");
 				if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					wraper.mergedFileAdded(chooser.getSelectedFile().getAbsolutePath());
+					try {
+						wraper.mergedFileAdded(chooser.getSelectedFile());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});
