@@ -6,10 +6,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JRadioButton;
+import javax.swing.JButton;
+import java.awt.Color;
 
 public class Device_F extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -32,11 +39,74 @@ public class Device_F extends JFrame {
 	 */
 	public Device_F() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 819, 545);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblSelectADevice = new JLabel("Select a device");
+		lblSelectADevice.setFont(new Font("Sitka Text", Font.BOLD, 26));
+		lblSelectADevice.setBounds(36, 143, 224, 97);
+		contentPane.add(lblSelectADevice);
+		
+		textField = new JTextField();
+		textField.setBounds(273, 174, 166, 37);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JRadioButton rdbtnFilterWithDevice = new JRadioButton("Filter with device\r\n");
+		rdbtnFilterWithDevice.setSelected(true);
+		rdbtnFilterWithDevice.setFont(new Font("Tahoma", Font.BOLD, 16));
+		rdbtnFilterWithDevice.setBounds(21, 341, 195, 25);
+		contentPane.add(rdbtnFilterWithDevice);
+		
+		JRadioButton rdbtnFilterWithoutDevice = new JRadioButton("Filter without device\r\n");
+		rdbtnFilterWithoutDevice.setFont(new Font("Tahoma", Font.BOLD, 16));
+		rdbtnFilterWithoutDevice.setBounds(21, 380, 219, 25);
+		contentPane.add(rdbtnFilterWithoutDevice);
+		
+		JButton button = new JButton("Filter");
+		button.setFont(new Font("Tahoma", Font.BOLD, 17));
+		button.setBounds(21, 417, 195, 29);
+		contentPane.add(button);
+		
+		JButton button_1 = new JButton("Save Current Filter");
+		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));
+		button_1.setBackground(new Color(0, 102, 102));
+		button_1.setBounds(21, 456, 196, 29);
+		contentPane.add(button_1);
+		
+		JRadioButton rdbtnAddLocationFilter = new JRadioButton("Add Location Filter");
+		rdbtnAddLocationFilter.setFont(new Font("Dialog", Font.BOLD, 16));
+		rdbtnAddLocationFilter.setBounds(495, 341, 166, 25);
+		contentPane.add(rdbtnAddLocationFilter);
+		
+		JRadioButton radioButton_3 = new JRadioButton("Add Time Filter");
+		radioButton_3.setSelected(true);
+		radioButton_3.setFont(new Font("Dialog", Font.BOLD, 17));
+		radioButton_3.setBounds(495, 370, 166, 25);
+		contentPane.add(radioButton_3);
+		
+		JRadioButton radioButton_4 = new JRadioButton("Or Device Filter");
+		radioButton_4.setFont(new Font("Dialog", Font.BOLD, 16));
+		radioButton_4.setBounds(495, 403, 177, 25);
+		contentPane.add(radioButton_4);
+		
+		JRadioButton radioButton_5 = new JRadioButton("Or Time Filter");
+		radioButton_5.setFont(new Font("Dialog", Font.BOLD, 16));
+		radioButton_5.setBounds(495, 431, 153, 25);
+		contentPane.add(radioButton_5);
+		
+		JRadioButton radioButton_6 = new JRadioButton("Or Location Filter");
+		radioButton_6.setFont(new Font("Dialog", Font.BOLD, 16));
+		radioButton_6.setBounds(495, 459, 177, 25);
+		contentPane.add(radioButton_6);
+		
+		JButton button_2 = new JButton("Next");
+		button_2.setFont(new Font("Tahoma", Font.BOLD, 17));
+		button_2.setBackground(new Color(0, 102, 102));
+		button_2.setBounds(692, 460, 97, 25);
+		contentPane.add(button_2);
 	}
-
 }
