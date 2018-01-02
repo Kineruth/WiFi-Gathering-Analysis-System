@@ -12,17 +12,18 @@ import MergedCSV.MergeCSVfiles;
 
 public class Wraper {
 	private DataBase db = new DataBase();
-
+	
 	public void folderAdded(String folderPath) {
 		MergeCSVfiles mg = new MergeCSVfiles(folderPath);
 		this.db.addData(mg.getSamplesFromFiles());
 	}
 	
-	public void mergedFileAdded(File f) throws IOException{
+	public void mergedFileAdded(String filePath) throws IOException{
 		FileFormat fm = new FileFormat() ;
 		LinesToSamples ls = new LinesToSamples() ;
+		File f = new File(filePath);
 		if(fm.checkMergedCSVFormat(f))
-		this.db.addData(ls.convertLines(ls.readCSV(f.getPath())));
+		this.db.addData(ls.convertLines(ls.readCSV(filePath)));
 	}
 	
 	public void saveMergedCSV(){
@@ -33,5 +34,9 @@ public class Wraper {
 	public void saveAsKML() throws FileNotFoundException, MalformedURLException{
 		ConvertCSVToKML kml = new ConvertCSVToKML();
 		kml.writeFile(this.db.getDataBase());
+	}
+	
+	public void clearance(){
+		this.db.deleteAllData();
 	}
 }

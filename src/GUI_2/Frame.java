@@ -5,24 +5,34 @@ import sun.audio.*;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
+import GUI_Filter.DataBase;
 import GUI_Filter.Wraper;
 
 import javax.swing.JLabel;
+import javax.swing.JTextPane;
+import javax.swing.DropMode;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Frame {
 	
-	private Wraper wraper;
+//	private DataBase db = new DataBase();
+	private Wraper wraper = new Wraper();
 	private JFrame frame;
+	private JTextField txtSamples;
 
 	/**
 	 * Launch the application.
@@ -57,75 +67,92 @@ public class Frame {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(153, 204, 255));
 		frame.getContentPane().setFont(new Font("Arial", Font.BOLD, 28));
-		frame.setBounds(500, 200, 900, 650);
+		frame.setBounds(500, 200, 951, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		/*
-		  * Add Files button:
+		  * Main image parameters:
+		  */
+		JLabel label = new JLabel("");
+		Image img7=new ImageIcon(this.getClass().getResource("/database.png")).getImage();
+		label.setIcon(new ImageIcon(img7));
+		label.setBounds(406, 48, 176, 149);
+		frame.getContentPane().add(label);
+		
+		/*
+		  * Add Folder button:
 		  */
 		
-		JButton btnAdd = new JButton("Add Files");
+		JButton btnAddWigleFolder = new JButton("Add WiGLE Folder");
 		Image img=new ImageIcon(this.getClass().getResource("/add.png")).getImage();
-		btnAdd.setIcon(new ImageIcon(img));
-		btnAdd.setForeground(new Color(128, 0, 0));
-		btnAdd.addActionListener(new ActionListener() {
-			/**
-			 * Sends to a new window to add files to database.
-			 */
+		btnAddWigleFolder.setIcon(new ImageIcon(img));
+		btnAddWigleFolder.setForeground(new Color(128, 0, 0));
+		btnAddWigleFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
-				Add add2=new Add();
-				add2.setVisible(true);	
+				if(arg0.getSource().equals(btnAddWigleFolder))
+				{
+					JFileChooser chooser = new JFileChooser();
+					chooser.setCurrentDirectory(new java.io.File("."));
+					chooser.setDialogTitle("Choose Folder");
+					chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+					chooser.setAcceptAllFileFilterUsed(false);
+					if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+						wraper.folderAdded(chooser.getSelectedFile().getAbsolutePath());						
+					}	
+				}
 			}
 		});
 		
-		btnAdd.setBackground(new Color(255, 255, 255));
-		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnAdd.setBounds(90, 250, 200, 80);
-		frame.getContentPane().add(btnAdd);
+		btnAddWigleFolder.setBackground(new Color(255, 255, 255));
+		btnAddWigleFolder.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnAddWigleFolder.setBounds(40, 261, 267, 41);
+		frame.getContentPane().add(btnAddWigleFolder);
 		
 		/*
-		  * Clear Data button:
+		  * Add File button:
 		  */
-		JButton btnClearAll = new JButton("Clearance");
-		Image img2=new ImageIcon(this.getClass().getResource("/clear.png")).getImage();
-		btnClearAll.setIcon(new ImageIcon(img2));
-		btnClearAll.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnClearAll.setForeground(new Color(128, 0, 0));
-		btnClearAll.setBackground(new Color(255, 255, 255));
-		btnClearAll.setBounds(90, 400, 200, 80);
-		frame.getContentPane().add(btnClearAll);		
-		
-		/*
-		  * Filter button:
-		  */
-		JButton btnFilter = new JButton("Filter");
-		btnFilter.addActionListener(new ActionListener() {
+		JButton btnAddMergedFile = new JButton("Add Merged File");
+		btnAddMergedFile.setIcon(new ImageIcon(img));
+		btnAddMergedFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				FilterChoice filt=new FilterChoice();
-				filt.setVisible(true);	
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("csv", "csv");
+				chooser.setFileFilter(filter);
+				chooser.setDialogTitle("Choose Csv File");
+				if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+						System.out.println(chooser.getSelectedFile().getAbsolutePath());
+						try {
+							wraper.mergedFileAdded(chooser.getSelectedFile().getAbsolutePath());
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+				}
 			}
 		});
-		Image img6=new ImageIcon(this.getClass().getResource("/filter.png")).getImage();
-		btnFilter.setIcon(new ImageIcon(img6));
-		btnFilter.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnFilter.setForeground(new Color(128, 0, 0));
-		btnFilter.setBackground(new Color(255, 255, 255));
-		btnFilter.setBounds(340, 250, 200, 80);
-		frame.getContentPane().add(btnFilter);
-		
+		btnAddMergedFile.setForeground(new Color(128, 0, 0));
+		btnAddMergedFile.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnAddMergedFile.setBackground(Color.WHITE);
+		btnAddMergedFile.setBounds(40, 318, 267, 41);
+		frame.getContentPane().add(btnAddMergedFile);
+				
 		 /*
 		  * Restore button:
 		  */
 		JButton btnRestore = new JButton("Restore");
+		btnRestore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//get samples from database before filtering
+				//need to add function
+			}
+		});
 		Image img4=new ImageIcon(this.getClass().getResource("/restore.png")).getImage();
 		btnRestore.setIcon(new ImageIcon(img4));
 		btnRestore.setForeground(new Color(128, 0, 0));
 //		btnRestore.setHorizontalTextPosition(SwingContants.CENTER);
 		btnRestore.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnRestore.setBackground(new Color(255, 255, 255));
-		btnRestore.setBounds(340, 400, 200, 80); 
+		btnRestore.setBounds(636, 377, 267, 41); 
 		frame.getContentPane().add(btnRestore);
 		
 		
@@ -143,7 +170,7 @@ public class Frame {
 		btnSaveAsMerge.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnSaveAsMerge.setForeground(new Color(128, 0, 0));
 		btnSaveAsMerge.setBackground(new Color(255, 255, 255)); 
-		btnSaveAsMerge.setBounds(590, 250, 200, 80); 
+		btnSaveAsMerge.setBounds(40, 434, 267, 41); 
 		frame.getContentPane().add(btnSaveAsMerge);
 		
 		/*
@@ -164,16 +191,73 @@ public class Frame {
 		});
 		btnCreatKml.setForeground(new Color(128, 0, 0));
 		btnCreatKml.setBackground(new Color(255, 255, 255));
-		btnCreatKml.setBounds(590, 400, 200, 80);  
+		btnCreatKml.setBounds(40, 375, 267, 43);  
 		frame.getContentPane().add(btnCreatKml);
+
+
+		/*
+		  * Filter buttons:
+		  */
+		JButton btnFilter = new JButton("Filter By Time");
+		btnFilter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				FilterChoice filt=new FilterChoice();
+				filt.setVisible(true);	
+			}
+		});
+		Image img6=new ImageIcon(this.getClass().getResource("/filter.png")).getImage();
+		btnFilter.setIcon(new ImageIcon(img6));
+		btnFilter.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnFilter.setForeground(new Color(128, 0, 0));
+		btnFilter.setBackground(new Color(255, 255, 255));
+		btnFilter.setBounds(350, 318, 246, 41);
+		frame.getContentPane().add(btnFilter);
+		
+		JButton btnFilterByDevice = new JButton("Filter By Device");
+		btnFilterByDevice.setIcon(new ImageIcon(img6));
+		btnFilterByDevice.setForeground(new Color(128, 0, 0));
+		btnFilterByDevice.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnFilterByDevice.setBackground(Color.WHITE);
+		btnFilterByDevice.setBounds(350, 376, 246, 41);
+		frame.getContentPane().add(btnFilterByDevice);
+		
+		JButton btnFilterByLocation = new JButton("Filter By Location");
+		btnFilterByLocation.setIcon(new ImageIcon(img6));
+		btnFilterByLocation.setForeground(new Color(128, 0, 0));
+		btnFilterByLocation.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnFilterByLocation.setBackground(Color.WHITE);
+		btnFilterByLocation.setBounds(350, 434, 246, 41);
+		frame.getContentPane().add(btnFilterByLocation);
 		
 		/*
-		  * Main image parameters:
+		  * Clear Data button:
 		  */
-		JLabel label = new JLabel("");
-		Image img7=new ImageIcon(this.getClass().getResource("/database.png")).getImage();
-		label.setIcon(new ImageIcon(img7));
-		label.setBounds(350, 40, 176, 149);
-		frame.getContentPane().add(label);
+		JButton btnClearAll = new JButton("Clearance");
+		btnClearAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				wraper.clearance();
+			}
+		});
+		
+		Image img2=new ImageIcon(this.getClass().getResource("/clear.png")).getImage();
+		btnClearAll.setIcon(new ImageIcon(img2));
+		btnClearAll.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnClearAll.setForeground(new Color(128, 0, 0));
+		btnClearAll.setBackground(new Color(255, 255, 255));
+		btnClearAll.setBounds(636, 434, 267, 41);
+		frame.getContentPane().add(btnClearAll);	
+		
+		txtSamples = new JTextField();
+		txtSamples.setBackground(UIManager.getColor("Button.background"));
+		txtSamples.setForeground(new Color(25, 25, 112));
+		txtSamples.setHorizontalAlignment(SwingConstants.LEFT);
+//		txtSamples.setDropMode(DropMode.ON);
+		txtSamples.setFont(new Font("Tahoma", Font.BOLD, 18));
+		txtSamples.setText("Samples: ");
+		txtSamples.setBounds(66, 532, 146, 26);
+		frame.getContentPane().add(txtSamples);
+		txtSamples.setColumns(10);
+		
 	}
 }
