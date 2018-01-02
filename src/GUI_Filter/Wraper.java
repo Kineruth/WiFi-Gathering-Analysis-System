@@ -41,8 +41,26 @@ public class Wraper {
 		System.out.println("Samples amount after delete: " + db.getDataBase().size());
 	}
 
-	public void filterSamples(DataBase db, int choice){
-		if
+	public void oneFilter(DataBase db, int choice){
+		if(choice==0){//not Filter
+			
+		}
+		if(choice==1){//original Filter
+			
+		}
 		
 	}
+	
+	public void twoFilters(DataBase db, int choice1, int choice2){
+		if(choice==0){//Filter by add
+			
+		}
+		if(choice==1){
+			
+		}
+		if(choice==2){
+			
+		}
+		
+	} 
 }

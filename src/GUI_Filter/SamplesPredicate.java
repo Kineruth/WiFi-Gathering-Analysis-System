@@ -14,7 +14,7 @@ public class SamplesPredicate {
 	 * @param f a given filter.
 	 * @return a filtered list of samples.
 	 */
-	public static List<Sample> filterWithPredicate(List<Sample> samples, Filter f){
+	public List<Sample> filterWithPredicate(List<Sample> samples, Filter f){
 		List<Sample> temp = new ArrayList<Sample>(samples);
 		Predicate<Sample> samplePredicate = s-> f.checkSample(s);
 		temp.removeIf(samplePredicate);

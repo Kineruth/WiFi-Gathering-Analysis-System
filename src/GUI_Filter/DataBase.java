@@ -9,7 +9,7 @@ import KML.Coordinate;
 import MergedCSV.Sample;
 import de.micromata.opengis.kml.v_2_2_0.Point;
 
-public class DataBase {
+public abstract class DataBase implements List<Sample> {
 
 	private List<Sample> lsp;
 	private List<Sample> filteredLsp;
