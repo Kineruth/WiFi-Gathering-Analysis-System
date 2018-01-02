@@ -10,8 +10,10 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class Device_F extends JFrame {
 
@@ -45,13 +47,15 @@ public class Device_F extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblSelectADevice = new JLabel("Select a device");
-		lblSelectADevice.setFont(new Font("Sitka Text", Font.BOLD, 26));
-		lblSelectADevice.setBounds(36, 143, 224, 97);
+		JLabel lblSelectADevice = new JLabel("Select A Device :");
+		lblSelectADevice.setBackground(new Color(240, 240, 240));
+		lblSelectADevice.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSelectADevice.setFont(new Font("Sitka Text", Font.BOLD, 27));
+		lblSelectADevice.setBounds(254, 61, 224, 97);
 		contentPane.add(lblSelectADevice);
 		
 		textField = new JTextField();
-		textField.setBounds(273, 174, 166, 37);
+		textField.setBounds(264, 174, 208, 37);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -108,5 +112,18 @@ public class Device_F extends JFrame {
 		button_2.setBackground(new Color(0, 102, 102));
 		button_2.setBounds(692, 460, 97, 25);
 		contentPane.add(button_2);
+		
+		ButtonGroup group1 = new ButtonGroup();
+		group1.add(rdbtnFilterWithDevice);
+		group1.add(rdbtnFilterWithoutDevice);
+		rdbtnFilterWithDevice.setSelected(true);
+
+		ButtonGroup group2 = new ButtonGroup();
+		group2.add(rdbtnAddLocationFilter);
+		group2.add(radioButton_3);
+		group2.add(radioButton_4);
+		group2.add(radioButton_5);
+		group2.add(radioButton_6);
+		rdbtnAddLocationFilter.setSelected(true);
 	}
 }
