@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Location extends JFrame {
 	private JTextField textField;
@@ -87,6 +89,10 @@ public class Location extends JFrame {
 		panel.add(textField_5);
 		
 		JButton button = new JButton("Save Current Filter");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button.setBackground(new Color(0, 102, 102));
 		button.setBounds(267, 425, 196, 29);
@@ -139,6 +145,10 @@ public class Location extends JFrame {
 		panel.add(label_4);
 		
 		JButton button_2 = new JButton("Filter");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_2.setBounds(267, 386, 195, 29);
 		panel.add(button_2);

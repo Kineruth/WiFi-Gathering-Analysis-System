@@ -15,6 +15,8 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Device extends JFrame {
 
@@ -72,11 +74,19 @@ public class Device extends JFrame {
 		contentPane.add(radioButton_1);
 		
 		JButton button = new JButton("Filter");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button.setBounds(115, 282, 195, 29);
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("Save Current Filter");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_1.setBackground(new Color(0, 102, 102));
 		button_1.setBounds(115, 321, 196, 29);

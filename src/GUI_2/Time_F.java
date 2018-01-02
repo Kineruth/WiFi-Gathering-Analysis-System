@@ -19,6 +19,8 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Time_F extends JFrame {
 
@@ -63,11 +65,19 @@ public class Time_F extends JFrame {
 		contentPane.add(rdbtnFilterWithTime);
 
 		JButton button = new JButton("Filter");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button.setBounds(12, 405, 195, 29);
 		contentPane.add(button);
 
 		JButton button_1 = new JButton("Save Current Filter");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_1.setBackground(new Color(0, 102, 102));
 		button_1.setBounds(12, 444, 196, 29);
@@ -100,6 +110,10 @@ public class Time_F extends JFrame {
 		contentPane.add(radioButton_6);
 
 		JButton button_2 = new JButton("Next");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_2.setBackground(new Color(0, 102, 102));
 		button_2.setBounds(683, 448, 97, 25);

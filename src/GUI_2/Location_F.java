@@ -164,6 +164,10 @@ public class Location_F extends JFrame {
 		contentPane.add(rdbtnOrLocationFilter);
 		
 		JButton btnNext = new JButton("Next");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNext.setBackground(new Color(0, 102, 102));
 		btnNext.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnNext.setBounds(685, 455, 97, 25);
@@ -222,6 +226,10 @@ public class Location_F extends JFrame {
 		
 		
 		JButton btnNewButton = new JButton("Filter");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnNewButton.setBounds(14, 412, 195, 29);
 		contentPane.add(btnNewButton);
