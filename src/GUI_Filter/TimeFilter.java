@@ -1,12 +1,13 @@
 package GUI_Filter;
 
-import java.util.List;
-import java.util.function.Predicate;
-
 import MergedCSV.Sample;
 
 public class TimeFilter implements Filter{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1625053601231834310L;
 	private int maxY,  maxM,  maxD,  minY,  minM,  minD,  maxH,  maxMin,  minH,  minMin;
 		
 			/**
