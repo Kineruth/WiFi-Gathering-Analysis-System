@@ -61,7 +61,7 @@ public class FilterChoice extends JFrame {
 		btnLocation.setIcon(new ImageIcon(img10));
 		btnLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LocationFilter f=new LocationFilter();
+				Location_F f=new Location_F();
 				f.setVisible(true);	
 			}
 		});

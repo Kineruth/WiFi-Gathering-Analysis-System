@@ -198,23 +198,29 @@ public class Frame {
 		/*
 		  * Filter buttons:
 		  */
-		JButton btnFilter = new JButton("Filter By Time");
-		btnFilter.addActionListener(new ActionListener() {
+		JButton btnTimeFilter = new JButton("Filter By Time");
+		btnTimeFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Time_F time=new Time_F();
+				time.setVisible(true);
 				
-				FilterChoice filt=new FilterChoice();
-				filt.setVisible(true);	
 			}
 		});
 		Image img6=new ImageIcon(this.getClass().getResource("/filter.png")).getImage();
-		btnFilter.setIcon(new ImageIcon(img6));
-		btnFilter.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnFilter.setForeground(new Color(128, 0, 0));
-		btnFilter.setBackground(new Color(255, 255, 255));
-		btnFilter.setBounds(350, 318, 246, 41);
-		frame.getContentPane().add(btnFilter);
+		btnTimeFilter.setIcon(new ImageIcon(img6));
+		btnTimeFilter.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnTimeFilter.setForeground(new Color(128, 0, 0));
+		btnTimeFilter.setBackground(new Color(255, 255, 255));
+		btnTimeFilter.setBounds(350, 318, 246, 41);
+		frame.getContentPane().add(btnTimeFilter);
 		
 		JButton btnFilterByDevice = new JButton("Filter By Device");
+		btnFilterByDevice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Device_F device=new Device_F();
+				device.setVisible(true);
+			}
+		});
 		btnFilterByDevice.setIcon(new ImageIcon(img6));
 		btnFilterByDevice.setForeground(new Color(128, 0, 0));
 		btnFilterByDevice.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -223,6 +229,12 @@ public class Frame {
 		frame.getContentPane().add(btnFilterByDevice);
 		
 		JButton btnFilterByLocation = new JButton("Filter By Location");
+		btnFilterByLocation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Location_F loc=new Location_F();
+				loc.setVisible(true);	
+			}
+		});
 		btnFilterByLocation.setIcon(new ImageIcon(img6));
 		btnFilterByLocation.setForeground(new Color(128, 0, 0));
 		btnFilterByLocation.setFont(new Font("Tahoma", Font.BOLD, 20));

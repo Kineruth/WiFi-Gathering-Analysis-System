@@ -13,6 +13,7 @@ import MergedCSV.MergeCSVfiles;
 public class Wraper {
 	private DataBase db = new DataBase();
 	
+	
 	public void folderAdded(String folderPath) {
 		MergeCSVfiles mg = new MergeCSVfiles(folderPath);
 		this.db.addData(mg.getSamplesFromFiles());
@@ -37,6 +38,8 @@ public class Wraper {
 	}
 	
 	public void clearance(){
+		System.out.println("Samples amount before delete: "+this.db.getDataBase().size());
 		this.db.deleteAllData();
+		System.out.println("Samples amount after delete: "+this.db.getDataBase().size());
 	}
 }

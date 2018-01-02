@@ -10,7 +10,7 @@ import javax.swing.JSlider;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
-public class LocationFilter extends JFrame {
+public class Location_F extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -36,7 +36,7 @@ public class LocationFilter extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LocationFilter frame = new LocationFilter();
+					Location_F frame = new Location_F();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +48,7 @@ public class LocationFilter extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LocationFilter() {
+	public Location_F() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 788, 532);
 		contentPane = new JPanel();

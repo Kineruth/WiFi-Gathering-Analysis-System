@@ -11,10 +11,24 @@ import de.micromata.opengis.kml.v_2_2_0.Point;
 
 public class DataBase {
 
-	private List<Sample> lsp;	
-	
-	
-	
+	private List<Sample> lsp;
+	/**
+	 * Default constructor.
+	 */
+	public DataBase(){
+		this.lsp = new ArrayList<Sample>();	
+	}
+	/**
+	 * Copy constructor.
+	 * @param other other given list of samples.
+	 */
+	public DataBase(List<Sample> other){
+		this.lsp = other;
+	}
+	/**
+	 * Adds new samples to the database.
+	 * @param samples a given list of samples.
+	 */
 	public void addData(List<Sample> samples){
 		this.lsp.addAll(samples);
 		this.lsp = lsp.stream().distinct().collect(Collectors.toList());
@@ -27,11 +41,16 @@ public class DataBase {
 	public void setDataBase(List<Sample> lsp) {
 		this.lsp = lsp;
 	}
-
+/**
+ * Deletes all samples from the database.
+ */
 	public void deleteAllData(){
-		this.lsp.removeAll(null);
+		this.lsp.removeAll(lsp);
 	}
-	
+	/**
+	 * This function saves the database from before the filter was done.
+	 * @return untouched database.
+	 */
 	public List<Sample> restoreData(){
 		return this.lsp;
 	}
