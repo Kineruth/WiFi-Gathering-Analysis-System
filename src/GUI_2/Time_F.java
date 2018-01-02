@@ -109,7 +109,7 @@ public class Time_F extends JFrame {
 		spinner.setFont(new Font("Tahoma", Font.BOLD, 18));
 		spinner.setModel(
 				new SpinnerDateModel(new Date(1514757600000L), new Date(1514757600000L), null, Calendar.DAY_OF_YEAR));
-		spinner.setBounds(278, 154, 171, 42);
+		spinner.setBounds(278, 154, 184, 42);
 		contentPane.add(spinner);
 
 		JLabel lblNewLabel = new JLabel("Time format: HH:MM  DD/MM/YY\r\n");
