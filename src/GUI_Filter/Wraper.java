@@ -12,38 +12,41 @@ import MergedCSV.MergeCSVfiles;
 
 public class Wraper {
 
-	public void folderAdded(DataBase db, String folderPath) {
+	public static void folderAdded( String folderPath) {
 		MergeCSVfiles mg = new MergeCSVfiles(folderPath);
-		db.addData(mg.getSamplesFromFiles());
+		 DataBase.addData(mg.getSamplesFromFiles());
 	}
 
-	public void mergedFileAdded(DataBase db, String filePath) throws IOException {
+	public static void mergedFileAdded(String filePath) throws IOException {
 		FileFormat fm = new FileFormat();
 		LinesToSamples ls = new LinesToSamples();
 		File f = new File(filePath);
 		if (fm.checkMergedCSVFormat(f))
-			db.addData(ls.convertLines(ls.readCSV(filePath)));
+			 DataBase.addData(ls.convertLines(ls.readCSV(filePath)));
 	}
 
-	public void saveMergedCSV(DataBase db) {
+	public static void saveMergedCSV() {
 		MergeCSVfiles mg = new MergeCSVfiles();
-		mg.writeFile(db.getDataBase());
+		mg.writeFile(DataBase.dataBase);
 	}
 
-	public void saveAsKML(DataBase db) throws FileNotFoundException, MalformedURLException {
+	public static void saveAsKML() throws FileNotFoundException, MalformedURLException {
 		ConvertCSVToKML kml = new ConvertCSVToKML();
-		kml.writeFile(db.getDataBase());
+		kml.writeFile(DataBase.dataBase);
 	}
 
-	public void clearance(DataBase db) {
-		System.out.println("Samples amount before delete: " + db.getDataBase().size());
-		db.deleteAllData();
-		System.out.println("Samples amount after delete: " + db.getDataBase().size());
+	public static void clearance() {
+		System.out.println("Samples amount before delete: " +  DataBase.dataBase.size());
+		DataBase.deleteAllData();
+		System.out.println("Samples amount after delete: " +DataBase.dataBase.size());
 	}
 
-	public void oneFilter(DataBase db, int choice){
+	public static void oneFilter(int choice, Filter f){
 		if(choice==0){//not Filter
-			
+			OriginalFilter f1 = new OriginalFilter(f);
+			SamplesPredicate p = new SamplesPredicate();
+			DataBase.setCopyDataBase();
+			p.filterWithPredicate(DataBase.copyDataBase, f1);
 		}
 		if(choice==1){//original Filter
 			
@@ -51,16 +54,16 @@ public class Wraper {
 		
 	}
 	
-	public void twoFilters(DataBase db, int choice1, int choice2){
-		if(choice==0){//Filter by add
-			
-		}
-		if(choice==1){
-			
-		}
-		if(choice==2){
-			
-		}
-		
-	} 
+//	public void twoFilters(int choice1, int choice2){
+//		if(choice1==0){//Filter by add
+//			
+//		}
+//		if(choice==1){
+//			
+//		}
+//		if(choice==2){
+//			
+//		}
+//		
+//	} 
 }

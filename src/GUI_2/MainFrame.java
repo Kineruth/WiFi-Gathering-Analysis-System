@@ -31,8 +31,7 @@ import java.awt.SystemColor;
 
 public class MainFrame {
 	
-//	private DataBase db = new DataBase();
-	private Wraper wraper = new Wraper();
+//	private Wraper wraper = new Wraper();
 	private JFrame frame;
 
 	/**
@@ -68,7 +67,7 @@ public class MainFrame {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(153, 204, 255));
 		frame.getContentPane().setFont(new Font("Arial", Font.BOLD, 28));
-		frame.setBounds(500, 200, 951, 650);
+		frame.setBounds(500, 200, 954, 647);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -99,7 +98,7 @@ public class MainFrame {
 					chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 					chooser.setAcceptAllFileFilterUsed(false);
 					if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-						wraper.folderAdded(chooser.getSelectedFile().getAbsolutePath());						
+						Wraper.folderAdded(chooser.getSelectedFile().getAbsolutePath());						
 					}	
 				}
 			}
@@ -107,13 +106,13 @@ public class MainFrame {
 		
 		btnAddWigleFolder.setBackground(new Color(255, 255, 255));
 		btnAddWigleFolder.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnAddWigleFolder.setBounds(40, 261, 267, 41);
+		btnAddWigleFolder.setBounds(40, 261, 266, 41);
 		frame.getContentPane().add(btnAddWigleFolder);
 		
 		/*
 		  * Add File button:
 		  */
-		JButton btnAddMergedFile = new JButton("Add Merged File");
+		JButton btnAddMergedFile = new JButton("  Add Merged File");
 		btnAddMergedFile.setIcon(new ImageIcon(img));
 		btnAddMergedFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -124,7 +123,7 @@ public class MainFrame {
 				if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 						System.out.println(chooser.getSelectedFile().getAbsolutePath());
 						try {
-							wraper.mergedFileAdded(chooser.getSelectedFile().getAbsolutePath());
+							Wraper.mergedFileAdded(chooser.getSelectedFile().getAbsolutePath());
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
@@ -134,7 +133,7 @@ public class MainFrame {
 		btnAddMergedFile.setForeground(new Color(128, 0, 0));
 		btnAddMergedFile.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnAddMergedFile.setBackground(Color.WHITE);
-		btnAddMergedFile.setBounds(40, 318, 267, 41);
+		btnAddMergedFile.setBounds(40, 318, 266, 41);
 		frame.getContentPane().add(btnAddMergedFile);
 				
 		 /*
@@ -153,7 +152,7 @@ public class MainFrame {
 //		btnRestore.setHorizontalTextPosition(SwingContants.CENTER);
 		btnRestore.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnRestore.setBackground(new Color(255, 255, 255));
-		btnRestore.setBounds(636, 377, 267, 41); 
+		btnRestore.setBounds(636, 377, 266, 41); 
 		frame.getContentPane().add(btnRestore);
 		
 		
@@ -165,7 +164,7 @@ public class MainFrame {
 		btnSaveAsMerge.setIcon(new ImageIcon(img5));
 		btnSaveAsMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				wraper.saveMergedCSV();
+				Wraper.saveMergedCSV();
 			}
 		});
 		btnSaveAsMerge.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -184,7 +183,7 @@ public class MainFrame {
 		btnCreatKml.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					wraper.saveAsKML();
+					Wraper.saveAsKML();
 				} catch (FileNotFoundException | MalformedURLException e1) {
 					e1.printStackTrace();
 				}
@@ -249,7 +248,7 @@ public class MainFrame {
 		JButton btnClearAll = new JButton("Clearance");
 		btnClearAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				wraper.clearance();
+				Wraper.clearance();
 			}
 		});
 		
@@ -258,11 +257,11 @@ public class MainFrame {
 		btnClearAll.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnClearAll.setForeground(new Color(128, 0, 0));
 		btnClearAll.setBackground(new Color(255, 255, 255));
-		btnClearAll.setBounds(636, 434, 267, 41);
+		btnClearAll.setBounds(636, 434, 266, 41);
 		frame.getContentPane().add(btnClearAll);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(UIManager.getColor("Button.light"));
+		panel.setBackground(new Color(230, 230, 250));
 		panel.setBounds(50, 537, 237, 41);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
@@ -274,13 +273,14 @@ public class MainFrame {
 		panel.add(lblNewLabel);
 		
 		JLabel label_1 = new JLabel("");
+		label_1.setBackground(new Color(240, 230, 140));
 		label_1.setFont(new Font("Sitka Text", Font.BOLD, 17));
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setBounds(122, 0, 100, 36);
 		panel.add(label_1);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(SystemColor.controlHighlight);
+		panel_1.setBackground(new Color(250, 235, 215));
 		panel_1.setBounds(368, 537, 201, 41);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
@@ -296,6 +296,31 @@ public class MainFrame {
 		label_2.setFont(new Font("Sitka Text", Font.BOLD, 17));
 		label_2.setBounds(86, 0, 100, 36);
 		panel_1.add(label_2);
+		
+		JButton btnAlgorithm = new JButton("Algorithm 2 - Samples");
+		btnAlgorithm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Algorithm2 a = new Algorithm2();
+				a.setVisible(true);
+			}
+		});
+		btnAlgorithm.setForeground(new Color(128, 0, 0));
+		btnAlgorithm.setFont(new Font("Tahoma", Font.BOLD, 19));
+		btnAlgorithm.setBackground(Color.WHITE);
+		btnAlgorithm.setBounds(636, 318, 266, 41);
+		frame.getContentPane().add(btnAlgorithm);
+		
+		JButton btnAlgorithm_1 = new JButton("Algorithm 1 - Macs");
+		btnAlgorithm_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//send to ger all macs -algo1 and show on map
+			}
+		});
+		btnAlgorithm_1.setForeground(new Color(128, 0, 0));
+		btnAlgorithm_1.setFont(new Font("Tahoma", Font.BOLD, 19));
+		btnAlgorithm_1.setBackground(Color.WHITE);
+		btnAlgorithm_1.setBounds(636, 261, 266, 41);
+		frame.getContentPane().add(btnAlgorithm_1);
 		
 	}
 }

@@ -11,58 +11,45 @@ import de.micromata.opengis.kml.v_2_2_0.Point;
 
 public abstract class DataBase implements List<Sample> {
 
-	private List<Sample> lsp;
-	private List<Sample> filteredLsp;
-	/**
-	 * Default constructor.
-	 */
-	public DataBase(){
-		this.lsp = new ArrayList<Sample>();	
-		this.filteredLsp = new ArrayList<Sample>();	
-	}
-	/**
-	 * Copy constructor.
-	 * @param other other given list of samples.
-	 */
-	public DataBase(List<Sample> other){
-		this.lsp = other;
-	}
+	public static List<Sample> dataBase=new ArrayList<Sample>();	;
+	public static List<Sample> copyDataBase;
+
 	/**
 	 * Adds new samples to the database.
 	 * @param samples a given list of samples.
 	 */
-	public void addData(List<Sample> samples){
-		this.lsp.addAll(samples);
-		this.lsp = lsp.stream().distinct().collect(Collectors.toList());
+	public static void addData(List<Sample> samples){
+		DataBase.dataBase.addAll(samples);
+		DataBase.dataBase.stream().distinct().collect(Collectors.toList());
 	}
 	
-	public List<Sample> getDataBase() {
-		return this.lsp;
-	}
+//	public List<Sample> getDataBase() {
+//		return DataBase.dataBase;
+//	}
 
-	public void setDataBase(List<Sample> lsp) {
-		this.lsp = lsp;
+	public static void setDataBase(List<Sample> lsp) {
+		DataBase.dataBase = lsp;
 	}
 /**
  * Deletes all samples from the database.
  */
-	public void deleteAllData(){
-		this.lsp.removeAll(lsp);
+	public static void deleteAllData(){
+		DataBase.dataBase.removeAll(DataBase.dataBase);
 	}
 	/**
 	 * This function saves the database from before the filter was done.
 	 * @return untouched database.
 	 */
-	public List<Sample> restoreData(){
-		return this.lsp;
+	public static List<Sample> restoreData(){
+		return DataBase.dataBase;
 	}
-	
-	public void setFilteredData(List<Sample> s){
-		this.filteredLsp = new ArrayList<Sample>(s);
+	/**
+	 * Creates a copy of the current database.
+	 */
+	public static void setCopyDataBase(){
+		DataBase.copyDataBase = new ArrayList<Sample>(DataBase.dataBase);
 	}
-	public List<Sample> getFilteredData(){
-		return this.filteredLsp;
-	}
+
 	/**
 	 * This function sends a given sample without coordinates to be calculated and 
 	 * returns its calculated coordinate.
@@ -73,7 +60,7 @@ public abstract class DataBase implements List<Sample> {
 		List<Sample> smp = new ArrayList<Sample>();
 		Algorithms algo = new Algorithms();
 		smp.add(s);
-		smp = algo.userLocation(this.lsp, smp, 4);
+		smp = algo.userLocation(DataBase.dataBase, smp, 4);
 		Sample sample = new Sample(smp.get(0));
 		Coordinate p =new Coordinate(sample.getLAT(),sample.getLON(),sample.getALT());
 		return  p;
