@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import GUI_Filter.Wraper;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -15,6 +18,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class Device_F extends JFrame {
@@ -85,7 +89,12 @@ public class Device_F extends JFrame {
 		JButton button_1 = new JButton("Save Current Filter");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//send to save current filter as txt
+				try {
+					Wraper.writeCurrentFilter(MainFrame.filter1) ;
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));

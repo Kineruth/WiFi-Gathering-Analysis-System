@@ -3,6 +3,8 @@ package GUI_Filter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import MergedCSV.Sample;
 
 public class SamplesPredicate {
@@ -12,12 +14,11 @@ public class SamplesPredicate {
 	 * Predicate removeIf: https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort .
 	 * @param samples a given list of samples.
 	 * @param f a given filter.
-	 * @return a filtered list of samples.
 	 */
-	public List<Sample> filterWithPredicate(List<Sample> samples, Filter f){
-		List<Sample> temp = new ArrayList<Sample>(samples);
-		Predicate<Sample> samplePredicate = s-> f.checkSample(s);
-		temp.removeIf(samplePredicate);
-		return temp;
+	public static void filterWithPredicate(Filter f){
+//		List<Sample> temp = new ArrayList<Sample>(samples);
+//		Predicate<Sample> samplePredicate = s-> f.checkSample(s);
+//		temp.removeIf(samplePredicate);
+		DataBase.dataBase = new ArrayList<Sample>(DataBase.dataBase.stream().filter(s-> f.checkSample(s)).collect(Collectors.<Sample>toList()));
 	}
 }

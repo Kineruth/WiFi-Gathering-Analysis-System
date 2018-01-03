@@ -1,9 +1,14 @@
 package GUI_Filter;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
 
 import KML.ConvertCSVToKML;
 import KML.LinesToSamples;
@@ -41,29 +46,37 @@ public class Wraper {
 		System.out.println("Samples amount after delete: " +DataBase.dataBase.size());
 	}
 
-	public static void oneFilter(int choice, Filter f){
-		if(choice==0){//not Filter
-			OriginalFilter f1 = new OriginalFilter(f);
-			SamplesPredicate p = new SamplesPredicate();
-			DataBase.setCopyDataBase();
-			p.filterWithPredicate(DataBase.copyDataBase, f1);
-		}
-		if(choice==1){//original Filter
-			
-		}
-		
+public static void writeCurrentFilter(Filter f) throws IOException{
+	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+	FileOutputStream fOut;
+	try {
+		fOut = new FileOutputStream(new File("C:\\Users\\admin\\Desktop\\Filter - "+timeStamp+".txt"));
+		ObjectOutputStream objOut = new ObjectOutputStream(fOut);
+
+	// Write objects to file
+	objOut.writeObject(f);
+
+	objOut.close();
+	fOut.close();
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
-	
-//	public void twoFilters(int choice1, int choice2){
-//		if(choice1==0){//Filter by add
-//			
-//		}
-//		if(choice==1){
-//			
-//		}
-//		if(choice==2){
-//			
-//		}
-//		
-//	} 
+}
+
+//public static void readFilterFile(File f){
+//	FileInputStream fi = new FileInputStream(new File("myObjects.txt"));
+//	ObjectInputStream oi = new ObjectInputStream(fi);
+//
+//	// Read objects
+//	Person pr1 = (Person) oi.readObject();
+//	Person pr2 = (Person) oi.readObject();
+//
+//	System.out.println(pr1.toString());
+//	System.out.println(pr2.toString());
+//
+//	oi.close();
+//	fi.close();
+//}
+
 }

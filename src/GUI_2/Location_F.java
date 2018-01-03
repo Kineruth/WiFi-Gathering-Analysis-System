@@ -5,6 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import GUI_Filter.NotFilter;
+import GUI_Filter.OriginalFilter;
+import GUI_Filter.SamplesPredicate;
+import GUI_Filter.TimeFilter;
+import GUI_Filter.Wraper;
+
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -12,6 +19,7 @@ import javax.swing.JRadioButton;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -128,7 +136,12 @@ public class Location_F extends JFrame {
 		JButton btnSaveFilter = new JButton("Save Current Filter");
 		btnSaveFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//send to save current file as txt serialized.
+				try {
+					Wraper.writeCurrentFilter(MainFrame.filter1) ;
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnSaveFilter.setBackground(new Color(0, 102, 102));
@@ -253,12 +266,25 @@ public class Location_F extends JFrame {
 		JButton btnNewButton = new JButton("Filter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//				if(minY>maxY || minM > maxM || minD>maxD || minH > maxH || minMin>maxMin){
+//					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
+//				}
+//				else{
+//					if (rdbtnFilterWithTime.isSelected()) { // original filter
+//						MainFrame.filter1 = new OriginalFilter(new TimeFilter(maxY, maxM, maxD, minY, minM, minD, maxH, maxMin, minH, minMin));
+//						SamplesPredicate.filterWithPredicate(MainFrame.filter1);
+//					}
+//					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
+//						MainFrame.filter1 = new NotFilter(new TimeFilter(maxY, maxM, maxD, minY, minM, minD, maxH, maxMin, minH, minMin));
+//						SamplesPredicate.filterWithPredicate(MainFrame.filter1);
+//					}
+//				}
 				if (rdbtnNewRadioButton.isSelected()) {
-					//send 0 to filter with given range, 1 without it
+					//Original filter
 					
 				}
 				if(rdbtnWithoutRange.isSelected()){
-					//send 1 to filter without range.
+					//Not filter
 				}
 
 			}

@@ -40,7 +40,8 @@ public class MergeCSVfiles {
 	 */
 	public MergeCSVfiles(){
 		this.directoryPath = null;
-		this.newFileName = "C:\\Users\\admin\\Desktop\\New_Merged_File.csv";
+		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+		this.newFileName = "C:\\Users\\admin\\Desktop\\New_Merged_File - "+timeStamp+".csv";
 		this.files = new ArrayList<File>();
 	}
 	/**
@@ -50,7 +51,8 @@ public class MergeCSVfiles {
 	 */
 	public MergeCSVfiles(String directory) {
 		this.directoryPath = directory;
-		this.newFileName=this.directoryPath + " -  New_Merged_File.csv";
+		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+		this.newFileName=this.directoryPath + " -  New_Merged_File -"+timeStamp+".csv";
 		this.files = new ArrayList<File>();
 	}
 
@@ -175,7 +177,6 @@ public class MergeCSVfiles {
 	public void writeFile(List<Sample> list) {
 		try {
 			// Gets the timeStamp
-//			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 			// file name+timeStamp&path as the directory				
 			FileWriter fw = new FileWriter(this.newFileName, true);
 			PrintWriter outs = new PrintWriter(fw);

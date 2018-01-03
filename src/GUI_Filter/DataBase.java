@@ -11,6 +11,11 @@ import de.micromata.opengis.kml.v_2_2_0.Point;
 
 public abstract class DataBase implements List<Sample> {
 
+	/**
+	 * DataBade is the one we will work on, and everytime we want to filter,
+	 * we will make a copy of it so when we want to restore the original,
+	 * we could set the database to the copy.
+	 */
 	public static List<Sample> dataBase=new ArrayList<Sample>();	;
 	public static List<Sample> copyDataBase;
 
@@ -40,8 +45,8 @@ public abstract class DataBase implements List<Sample> {
 	 * This function saves the database from before the filter was done.
 	 * @return untouched database.
 	 */
-	public static List<Sample> restoreData(){
-		return DataBase.dataBase;
+	public static void restoreData(){
+		DataBase.dataBase = new ArrayList<Sample>(DataBase.copyDataBase);
 	}
 	/**
 	 * Creates a copy of the current database.

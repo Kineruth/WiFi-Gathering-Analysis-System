@@ -9,7 +9,31 @@ public class TimeFilter implements Filter{
 	 */
 	private static final long serialVersionUID = -1625053601231834310L;
 	private int maxY,  maxM,  maxD,  minY,  minM,  minD,  maxH,  maxMin,  minH,  minMin;
-		
+	/**
+	 * 
+	 * @param maxY
+	 * @param maxM
+	 * @param maxD
+	 * @param minY
+	 * @param minM
+	 * @param minD
+	 * @param maxH
+	 * @param maxMin
+	 * @param minH
+	 * @param minMin
+	 */
+	public TimeFilter( int maxY,  int maxM,  int maxD,  int minY,  int minM,  int minD,  int maxH,  int maxMin,  int minH,  int minMin){
+		this.maxY =maxY ;
+		this.maxM = maxM;
+		this.maxD = maxD;
+		this.maxH = maxH;
+		this.maxMin =maxMin ;
+		this.minY = minY;
+		this.minM = minM;
+		this.minD = minD ;
+		this.minH=minH ; 
+		this.minMin=minMin;
+	}
 			/**
 			 * This function filter the lines by the user choice of time.
 			 * Filters the samples within the stated range,
