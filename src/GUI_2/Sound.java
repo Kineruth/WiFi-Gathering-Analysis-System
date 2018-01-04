@@ -1,6 +1,9 @@
 package GUI_2;
 
 import java.awt.event.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 
 import javax.swing.*;
 import sun.audio.*;
@@ -34,7 +37,7 @@ public class Sound {
 		
 		
 		try{
-		BGM = new AudioStream(new FileInputStream("music.wav"));
+		BGM = new AudioStream(new FileInputStream("gm.wav"));
 		MD=BGM.getData();
 		loop= new sun.audio.ContinuousAudioDataStream(MD);
 		}catch(IOException error){}
