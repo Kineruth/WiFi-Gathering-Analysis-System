@@ -316,7 +316,8 @@ public class MainFrame {
 		JButton btnAlgorithm_1 = new JButton("Algorithm 1 - Macs");
 		btnAlgorithm_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// send to ger all macs -algo1 and show on map
+				Algorithm1 a = new Algorithm1();
+				a.setVisible(true);
 			}
 		});
 		btnAlgorithm_1.setForeground(new Color(128, 0, 0));
@@ -328,22 +329,8 @@ public class MainFrame {
 		JButton btnUploadFilter = new JButton("Upload Filter\r\n");
 		btnUploadFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DataBase.setCopyDataBase();
-				JFileChooser chooser = new JFileChooser();
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "txt");
-				chooser.setFileFilter(filter);
-				chooser.setDialogTitle("Choose Csv File");
-				if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					System.out.println(chooser.getSelectedFile().getAbsolutePath());
-					try {
-//						Filter f = Wraper.readFilterFile(chooser.getSelectedFile().getAbsolutePath());
-						//NOT WORKING!
-						SamplesPredicate.filterWithPredicate(Wraper.readFilterFile(chooser.getSelectedFile().getAbsolutePath()));
-					} catch (ClassNotFoundException | IOException e1) {
-						JOptionPane.showMessageDialog(new JFrame(), "Error :: Could Not Upload Given File!");
-						e1.printStackTrace();
-					}
-				}
+				UploadFilter uf = new UploadFilter();
+				uf.setVisible(true);
 			}
 		});
 		btnUploadFilter.setForeground(new Color(128, 0, 0));
@@ -352,10 +339,10 @@ public class MainFrame {
 		btnUploadFilter.setBounds(348, 442, 246, 41);
 		frame.getContentPane().add(btnUploadFilter);
 		 
-		//Save original dataBase before making any changes
-		if(btnAlgorithm_1.isSelected() || btnAlgorithm.isSelected() || btnFilterByLocation.isSelected() || btnFilterByDevice.isSelected() || btnTimeFilter.isSelected()){
-			DataBase.setCopyDataBase();
-		}
+//		//Save original dataBase before making any changes
+//		if(btnAlgorithm_1.isSelected() || btnAlgorithm.isSelected() || btnFilterByLocation.isSelected() || btnFilterByDevice.isSelected() || btnTimeFilter.isSelected()){
+//			DataBase.setCopyDataBase();
+//		}
 
 	}
 }

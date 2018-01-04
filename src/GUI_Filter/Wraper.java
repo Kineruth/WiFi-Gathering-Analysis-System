@@ -13,6 +13,8 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,6 +24,7 @@ import KML.ConvertCSVToKML;
 import KML.LinesToSamples;
 import MergedCSV.FileFormat;
 import MergedCSV.MergeCSVfiles;
+import MergedCSV.Sample;
 
 public class Wraper {
 
@@ -59,12 +62,13 @@ public class Wraper {
 		System.out.println("Samples amount after delete: " +DataBase.dataBase.size());
 	}
 
+	
 public static void writeCurrentFilter(Filter f) throws IOException{
 	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-	FileOutputStream fOut;
+	FileOutputStream fOut = null;
 	ObjectOutputStream objOut;
 	try {
-		fOut = new FileOutputStream(new File("C:\\Users\\admin\\Desktop\\Filter - "+timeStamp+".txt"));
+		fOut = new FileOutputStream("C:\\Users\\admin\\Desktop\\Filter - "+timeStamp+".txt");
 		objOut = new ObjectOutputStream(fOut);
 
 	// Write objects to file
@@ -89,26 +93,28 @@ public static void writeCurrentFilter(Filter f) throws IOException{
  */
 public static Filter readFilterFile(String filterFilePath) throws IOException, ClassNotFoundException{
 	
-//	 FileInputStream fis = new FileInputStream(filterFilePath);
-//     ObjectInputStream ois = new ObjectInputStream(fis);//sends to EOFexception
-	
-//	ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-//	ObjectInputStream ois = new ObjectInputStream(bais);
-	
+	Filter filter ;
 	InputStream fis = new FileInputStream(filterFilePath);
 	ObjectInputStream ois = new ObjectInputStream(fis);
 
-     Filter filter = (Filter) ois.readObject();
-     System.out.println(filter.toString().toString()); //doesnt reach here
+     filter = (Filter) ois.readObject();
 	ois.close();
 	fis.close();
+	JOptionPane.showMessageDialog(new JFrame(), "Filter Uploaded Succesfully!");
 	return filter;
 
 
 }
-public static void createAlgo1Map(){
+public static void createAlgo1Map(String mac){
+	List<Sample> temp = new ArrayList<Sample>(DataBase.dataBase);
 	Algorithms a = new Algorithms();
-	a.strongestMacLocation(DataBase.dataBase, 4);
+	List<Sample> s=a.strongestMacLocation(temp, 4);
+	for (Sample smp: s) {
+		if(smp.getCommonNetworks().get(0).getMAC().equals(mac)){
+			JOptionPane.showMessageDialog(new JFrame(), "LAT: "+smp.getLAT()+", LON: "+smp.getLON()+", ALT"+smp.getALT());
+		}
+	}
+	
 }
 
 }
