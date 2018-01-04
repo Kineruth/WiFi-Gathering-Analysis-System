@@ -1,13 +1,17 @@
 package GUI_Filter;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JFrame;
@@ -23,7 +27,7 @@ public class Wraper {
 	public static void folderAdded( String folderPath) {
 		MergeCSVfiles mg = new MergeCSVfiles(folderPath);
 		 DataBase.addData(mg.getSamplesFromFiles());
-		 JOptionPane.showMessageDialog(new JFrame(), "Files in Folder Added To DataBase");
+		 JOptionPane.showMessageDialog(new JFrame(), "Folder Added Succesfully!");
 	}
 
 	public static void mergedFileAdded(String filePath) throws IOException {
@@ -32,20 +36,20 @@ public class Wraper {
 		File f = new File(filePath);
 		if (fm.checkMergedCSVFormat(f))
 			 DataBase.addData(ls.convertLines(ls.readCSV(filePath)));
-		JOptionPane.showMessageDialog(new JFrame(), "File Added To DataBase");
+		JOptionPane.showMessageDialog(new JFrame(), "File Added Succesfully !");
 	}
 
 	public static void saveMergedCSV() {
 		MergeCSVfiles mg = new MergeCSVfiles();
 		mg.writeFile(DataBase.dataBase);
-		JOptionPane.showMessageDialog(new JFrame(), "File Saved To Desktop");
+		JOptionPane.showMessageDialog(new JFrame(), "File Saved To Desktop!");
 
 	}
 
 	public static void saveAsKML() throws FileNotFoundException, MalformedURLException {
 		ConvertCSVToKML kml = new ConvertCSVToKML();
 		kml.writeFile(DataBase.dataBase);
-		JOptionPane.showMessageDialog(new JFrame(), "File Saved To Desktop");
+		JOptionPane.showMessageDialog(new JFrame(), "File Saved To Desktop!");
 	}
 
 	public static void clearance() {
@@ -67,7 +71,7 @@ public static void writeCurrentFilter(Filter f) throws IOException{
 
 	objOut.close();
 	fOut.close();
-	JOptionPane.showMessageDialog(new JFrame(), "Filter Saved To Desktop");
+	JOptionPane.showMessageDialog(new JFrame(), "Filter Saved To Desktop!");
 	} catch (FileNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -84,14 +88,22 @@ public static void writeCurrentFilter(Filter f) throws IOException{
  */
 public static Filter readFilterFile(String filterFilePath) throws IOException, ClassNotFoundException{
 	
-	 FileInputStream fis = new FileInputStream(filterFilePath);
-     ObjectInputStream ois = new ObjectInputStream(fis);
+//	 FileInputStream fis = new FileInputStream(filterFilePath);
+//     ObjectInputStream ois = new ObjectInputStream(fis);//sends to EOFexception
+	
+//	ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+//	ObjectInputStream ois = new ObjectInputStream(bais);
+	
+	InputStream fis = new FileInputStream(filterFilePath);
+	ObjectInputStream ois = new ObjectInputStream(fis);
 
-     Filter filter = (OriginalFilter) ois.readObject();
-     
+     Filter filter = (Filter) ois.readObject();
+     System.out.println(filter.toString().toString()); //doesnt reach here
 	ois.close();
 	fis.close();
 	return filter;
+
+
 }
 
 }
