@@ -25,6 +25,7 @@ import KML.LinesToSamples;
 import MergedCSV.FileFormat;
 import MergedCSV.MergeCSVfiles;
 import MergedCSV.Sample;
+import MergedCSV.WiFiNetwork;
 
 public class Wraper {
 
@@ -65,6 +66,7 @@ public class Wraper {
 	
 public static void writeCurrentFilter(Filter f) throws IOException{
 	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+	f.toString();
 	FileOutputStream fOut = null;
 	ObjectOutputStream objOut;
 	try {
@@ -94,7 +96,7 @@ public static void writeCurrentFilter(Filter f) throws IOException{
 public static Filter readFilterFile(String filterFilePath) throws IOException, ClassNotFoundException{
 	
 	Filter filter ;
-	InputStream fis = new FileInputStream(filterFilePath);
+	FileInputStream fis = new FileInputStream(filterFilePath);
 	ObjectInputStream ois = new ObjectInputStream(fis);
 
      filter = (Filter) ois.readObject();
@@ -105,16 +107,36 @@ public static Filter readFilterFile(String filterFilePath) throws IOException, C
 
 
 }
-public static void createAlgo1Map(String mac){
+public static void createAlgo1(String mac){
 	List<Sample> temp = new ArrayList<Sample>(DataBase.dataBase);
 	Algorithms a = new Algorithms();
 	List<Sample> s=a.strongestMacLocation(temp, 4);
 	for (Sample smp: s) {
 		if(smp.getCommonNetworks().get(0).getMAC().equals(mac)){
 			JOptionPane.showMessageDialog(new JFrame(), "LAT: "+smp.getLAT()+", LON: "+smp.getLON()+", ALT"+smp.getALT());
+			break;
 		}
 	}
 	
 }
 
+public static void createAlgo2(Sample s){
+	
+	
+}
+
+public static Sample convertToSample(String text) {
+	Sample s = new Sample();
+	String [] str= text.split(",");
+	s.setTime(str[0]);
+	s.setID(str[1]);
+	s.setLAT(str[2]);
+	s.setLON(str[3]);
+	s.setALT(str[4]);
+	for (int i = 5; i < str.length; i=i+4) {
+		WiFiNetwork wn = new WiFiNetwork(str[i], str[i+1], str[i+2], str[i+3]);
+		s.addNetwork(wn);
+	}
+	return s;	
+}
 }

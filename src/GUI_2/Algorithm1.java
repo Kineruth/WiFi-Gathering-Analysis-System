@@ -68,7 +68,7 @@ public class Algorithm1 extends JFrame {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Mac!");
 
 				else {
-					Wraper.createAlgo1Map(textField.getText());
+					Wraper.createAlgo1(textField.getText());
 				}
 			}
 		});
