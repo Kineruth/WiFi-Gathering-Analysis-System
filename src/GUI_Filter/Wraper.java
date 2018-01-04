@@ -10,6 +10,9 @@ import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import KML.ConvertCSVToKML;
 import KML.LinesToSamples;
 import MergedCSV.FileFormat;
@@ -20,6 +23,7 @@ public class Wraper {
 	public static void folderAdded( String folderPath) {
 		MergeCSVfiles mg = new MergeCSVfiles(folderPath);
 		 DataBase.addData(mg.getSamplesFromFiles());
+		 JOptionPane.showMessageDialog(new JFrame(), "Files in Folder Added To DataBase");
 	}
 
 	public static void mergedFileAdded(String filePath) throws IOException {
@@ -28,16 +32,20 @@ public class Wraper {
 		File f = new File(filePath);
 		if (fm.checkMergedCSVFormat(f))
 			 DataBase.addData(ls.convertLines(ls.readCSV(filePath)));
+		JOptionPane.showMessageDialog(new JFrame(), "File Added To DataBase");
 	}
 
 	public static void saveMergedCSV() {
 		MergeCSVfiles mg = new MergeCSVfiles();
 		mg.writeFile(DataBase.dataBase);
+		JOptionPane.showMessageDialog(new JFrame(), "File Saved To Desktop");
+
 	}
 
 	public static void saveAsKML() throws FileNotFoundException, MalformedURLException {
 		ConvertCSVToKML kml = new ConvertCSVToKML();
 		kml.writeFile(DataBase.dataBase);
+		JOptionPane.showMessageDialog(new JFrame(), "File Saved To Desktop");
 	}
 
 	public static void clearance() {
@@ -59,6 +67,7 @@ public static void writeCurrentFilter(Filter f) throws IOException{
 
 	objOut.close();
 	fOut.close();
+	JOptionPane.showMessageDialog(new JFrame(), "Filter Saved To Desktop");
 	} catch (FileNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -78,7 +87,7 @@ public static Filter readFilterFile(String filterFilePath) throws IOException, C
 	 FileInputStream fis = new FileInputStream(filterFilePath);
      ObjectInputStream ois = new ObjectInputStream(fis);
 
-     Filter filter = (Filter) ois.readObject();
+     Filter filter = (OriginalFilter) ois.readObject();
      
 	ois.close();
 	fis.close();

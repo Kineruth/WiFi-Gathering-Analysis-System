@@ -28,9 +28,6 @@ public abstract class DataBase implements List<Sample> {
 		DataBase.dataBase.stream().distinct().collect(Collectors.toList());
 	}
 	
-//	public List<Sample> getDataBase() {
-//		return DataBase.dataBase;
-//	}
 
 	public static void setDataBase(List<Sample> lsp) {
 		DataBase.dataBase = lsp;
@@ -46,6 +43,7 @@ public abstract class DataBase implements List<Sample> {
 	 * @return untouched database.
 	 */
 	public static void restoreData(){
+		System.out.println("copy size:"+ DataBase.copyDataBase.size());
 		DataBase.dataBase = new ArrayList<Sample>(DataBase.copyDataBase);
 	}
 	/**

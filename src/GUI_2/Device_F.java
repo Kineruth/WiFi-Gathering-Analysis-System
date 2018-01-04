@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import GUI_Filter.DataBase;
 import GUI_Filter.DeviceFilter;
 import GUI_Filter.NotFilter;
 import GUI_Filter.OriginalFilter;
@@ -89,6 +90,7 @@ public class Device_F extends JFrame {
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if (textField.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Device!");
 				} else {
@@ -97,7 +99,8 @@ public class Device_F extends JFrame {
 					}
 					if (rdbtnFilterWithoutDevice.isSelected()) {
 						MainFrame.filter1 = new NotFilter(new DeviceFilter(textField.getText()));
-						}
+					}
+					DataBase.setCopyDataBase();
 					SamplesPredicate.filterWithPredicate(MainFrame.filter1);
 				}
 			}
@@ -109,11 +112,19 @@ public class Device_F extends JFrame {
 		JButton button_1 = new JButton("Save Current Filter");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Wraper.writeCurrentFilter(MainFrame.no1Filter);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if (textField.getText().isEmpty())
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Device!");
+				else {
+					if (rdbtnFilterWithDevice.isSelected())
+						MainFrame.filter1 = new OriginalFilter(new DeviceFilter(textField.getText()));
+
+					if (rdbtnFilterWithoutDevice.isSelected())
+						MainFrame.filter1 = new NotFilter(new DeviceFilter(textField.getText()));
+					try {
+						Wraper.writeCurrentFilter(MainFrame.no1Filter);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -151,27 +162,36 @@ public class Device_F extends JFrame {
 		JButton button_2 = new JButton("Next");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (rdbtnAddLocationFilter.isSelected()) {
-					Location l = new Location("add");
-					l.setVisible(true);
+				if (textField.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Device!");
+				} else {
+					if (rdbtnFilterWithDevice.isSelected())
+						MainFrame.filter1 = new OriginalFilter(new DeviceFilter(textField.getText()));
 
+					if (rdbtnFilterWithoutDevice.isSelected())
+						MainFrame.filter1 = new NotFilter(new DeviceFilter(textField.getText()));
+					if (rdbtnAddLocationFilter.isSelected()) {
+						Location l = new Location("add");
+						l.setVisible(true);
+					}
+					if (radioButton_6.isSelected()) {
+						Location l = new Location("or");
+						l.setVisible(true);
+					}
+					if (radioButton_3.isSelected()) {
+						Time t = new Time("add");
+						t.setVisible(true);
+					}
+					if (radioButton_5.isSelected()) {
+						Time t = new Time("or");
+						t.setVisible(true);
+					}
+					if (radioButton_4.isSelected()) {
+						Device d = new Device("or");
+						d.setVisible(true);
+					}
 				}
-				if (radioButton_6.isSelected()) {
-					Location l = new Location("or");
-					l.setVisible(true);
-				}
-				if (radioButton_3.isSelected()) {
-					Time t = new Time("add");
-					t.setVisible(true);
-				}
-				if (radioButton_5.isSelected()) {
-					Time t = new Time("or");
-					t.setVisible(true);
-				}
-				if (radioButton_4.isSelected()) {
-					Device d = new Device("or");
-					d.setVisible(true);
-				}
+
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 17));

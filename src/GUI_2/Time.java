@@ -8,11 +8,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import GUI_Filter.AndFilter;
+import GUI_Filter.DataBase;
 import GUI_Filter.NotFilter;
 import GUI_Filter.OrFilter;
 import GUI_Filter.OriginalFilter;
 import GUI_Filter.SamplesPredicate;
 import GUI_Filter.TimeFilter;
+import GUI_Filter.Wraper;
 
 import javax.swing.JSpinner;
 import java.awt.Font;
@@ -27,6 +29,7 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.SpinnerNumberModel;
@@ -164,29 +167,20 @@ public class Time extends JFrame {
 		radioButton_1.setBounds(177, 304, 219, 25);
 		contentPane.add(radioButton_1);
 
-		MainFrame.filter2 = new TimeFilter((int) spinner_6.getValue(), (int) spinner_5.getValue(),
-				(int) spinner_4.getValue(), (int) spinner_7.getValue(), (int) spinner_8.getValue(),
-				(int) spinner_9.getValue(), (int) spinner.getValue(), (int) spinner_1.getValue(),
-				(int) spinner_2.getValue(), (int) spinner_3.getValue());
-
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (spinner.getValue().equals("") || spinner_8.getValue().equals("") || spinner_9.getValue().equals("")
-						|| spinner_7.getValue().equals("") || spinner_6.getValue().equals("")
-						|| spinner_5.getValue().equals("") || spinner_4.getValue().equals("")
-						|| spinner_3.getValue().equals("") || spinner_2.getValue().equals("")
-						|| spinner_1.getValue().equals("")) {
-					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Values!");
-				}
 				if ((int) spinner_9.getValue() > (int) spinner_4.getValue()
 						|| (int) spinner_8.getValue() > (int) spinner_5.getValue()
 						|| (int) spinner_7.getValue() > (int) spinner_6.getValue()
 						|| (int) spinner_3.getValue() > (int) spinner_1.getValue()
-						|| (int) spinner_2.getValue() > (int) spinner.getValue()) {
+						|| (int) spinner_2.getValue() > (int) spinner.getValue())
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
-				} else {
-
+				else {
+					MainFrame.filter2 = new TimeFilter((int) spinner_6.getValue(), (int) spinner_5.getValue(),
+							(int) spinner_4.getValue(), (int) spinner_7.getValue(), (int) spinner_8.getValue(),
+							(int) spinner_9.getValue(), (int) spinner.getValue(), (int) spinner_1.getValue(),
+							(int) spinner_2.getValue(), (int) spinner_3.getValue());
 					if (radioButton.isSelected()) {
 						// filter with range
 						if (Time.choice.equals("add"))
@@ -205,9 +199,12 @@ public class Time extends JFrame {
 						if (Time.choice.equals("or"))
 							MainFrame.connectFilter = new OrFilter(MainFrame.filter1, new NotFilter(MainFrame.filter2));
 					}
+					DataBase.setCopyDataBase();
 					SamplesPredicate.filterWithPredicate(MainFrame.connectFilter);
 				}
+
 			}
+
 		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button.setBounds(177, 341, 195, 29);
@@ -216,7 +213,41 @@ public class Time extends JFrame {
 		JButton button_1 = new JButton("Save Current Filter");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// send to be saved as serialized txt
+				if ((int) spinner_9.getValue() > (int) spinner_4.getValue()
+						|| (int) spinner_8.getValue() > (int) spinner_5.getValue()
+						|| (int) spinner_7.getValue() > (int) spinner_6.getValue()
+						|| (int) spinner_3.getValue() > (int) spinner_1.getValue()
+						|| (int) spinner_2.getValue() > (int) spinner.getValue())
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
+				else {
+					MainFrame.filter2 = new TimeFilter((int) spinner_6.getValue(), (int) spinner_5.getValue(),
+							(int) spinner_4.getValue(), (int) spinner_7.getValue(), (int) spinner_8.getValue(),
+							(int) spinner_9.getValue(), (int) spinner.getValue(), (int) spinner_1.getValue(),
+							(int) spinner_2.getValue(), (int) spinner_3.getValue());
+					if (radioButton.isSelected()) {
+						// filter with range
+						if (Time.choice.equals("add"))
+							MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
+									new OriginalFilter(MainFrame.filter2));
+						if (Time.choice.equals("or"))
+							MainFrame.connectFilter = new OrFilter(MainFrame.filter1,
+									new OriginalFilter(MainFrame.filter2));
+					}
+					if (radioButton_1.isSelected()) {
+						// without
+						if (Time.choice.equals("add"))
+							MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
+									new NotFilter(MainFrame.filter2));
+
+						if (Time.choice.equals("or"))
+							MainFrame.connectFilter = new OrFilter(MainFrame.filter1, new NotFilter(MainFrame.filter2));
+					}
+					try {
+						Wraper.writeCurrentFilter(MainFrame.connectFilter);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));
