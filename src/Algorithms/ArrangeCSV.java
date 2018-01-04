@@ -106,16 +106,26 @@ public class ArrangeCSV {
  * Writes a CSV file for algorithm 1.
  * @param s a given list of string containing the correct lines to be printed in the file.
  */
-	private void writeAlgo1File(List<String> s) { // need to be finished.
+	private void writeAlgo1File(List<Sample> s) { // need to be finished.
 		try {
 			FileWriter fw = new FileWriter(this.fileName);
 			PrintWriter outs = new PrintWriter(fw);
 			int counter = 1;
 			String header = "Number,MAC,SSID,Frequency,Signal,LAT,LON,ALT,Time,Aprrox. w-center Algo1";
 			outs.println(header);
+
 			if (s != null) {
-				for (String l : s) {
-					outs.println(counter + "," + l);
+				for (Sample l : s) {
+					String mac =  s.get(0).getCommonNetworks().get(0).getMAC();
+					String ssid=s.get(0).getCommonNetworks().get(0).getSSID();
+					String frequency = s.get(0).getCommonNetworks().get(0).getFrecuency();
+					String signal =s.get(0).getCommonNetworks().get(0).getSignal();
+					String time = s.get(0).getTime();
+					String lat =s.get(0).getLAT();
+					String lon =s.get(0).getLON();
+					String alt=s.get(0).getALT();
+
+					outs.println(counter + "," + mac+","+ssid+","+frequency+","+signal+","+lat+ ","+lon+ ","+alt+ ","+time+",Aprrox. w-center Algo1");
 					counter++;
 				}
 			}

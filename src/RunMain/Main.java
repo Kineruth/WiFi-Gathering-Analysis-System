@@ -50,18 +50,18 @@ public class Main {
 	
 		String csv_Path = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task1\\data - 2017.12.28.18.18.07.csv";
 		ConvertCSVToKML k =	new ConvertCSVToKML(csv_Path);
-		k.createFile();
+//		k.createFile();
 
 		
 		
 		/* THREE & FOUR: */
 		
 		ArrangeCSV a = new ArrangeCSV();
-		String filePath = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\testing\\Boaz_Files\\_comb_all_BM2_.csv";
+		String filePath = "C:\\Users\\admin\\git\\Task1\\docs\\Files_Used\\_comb_all_BM2_.csv";
 		String fileOutput="C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\testing\\Boaz_Files\\_comb_no_gps_ts1.csv";
 		int number =4;
 		
-//		a.macStrongestLocation(filePath, number); //algo 1
+		a.macStrongestLocation(filePath, number); //algo 1
 //		a.userLocation(filePath, fileOutput, number); //algo 2
 	}
 

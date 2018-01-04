@@ -27,7 +27,7 @@ public class Calculate {
 	 * @param wn a given WiFiNetwork.
 	 * @param s a given new Sample to be modified.
 	 */
-	public void modifyPIAlgo1(List<Sample> list, String mac, int num, List<String> lines) {
+	public void modifyPIAlgo1(List<Sample> list, String mac, int num, List<Sample> lines) {
 		List<Sample> temp = new ArrayList<Sample>();
 		Sample s = new Sample();
 		boolean found = false;
@@ -84,14 +84,20 @@ public class Calculate {
 	 * @return return a line with all the updated sample's information.
 	 */
 
-	public String setCoordinatesAlgo1(List<Sample> s,String mac) {
+	public Sample setCoordinatesAlgo1(List<Sample> s,String mac) {
 		Coordinate point = calcCoordinate(s);
-		String ssid=s.get(0).getCommonNetworks().get(0).getSSID();
-		String frequency = s.get(0).getCommonNetworks().get(0).getFrecuency();
-		String signal =s.get(0).getCommonNetworks().get(0).getSignal();
-		String time = s.get(0).getTime();
-		return mac+","+ssid+","+frequency+","+signal+","+point.getLat() + ","+point.getLon() + ","+point.getAlt() + ","+time+",Aprrox. w-center Algo1";
-
+		Sample newS = new Sample();
+		newS.addNetwork(s.get(0).getCommonNetworks().get(0));
+		newS.setLAT(point.getLat()+"");
+		newS.setLON(point.getLon()+"");
+		newS.setALT(point.getAlt()+"");
+		return newS;
+//		String ssid=s.get(0).getCommonNetworks().get(0).getSSID();
+//		String frequency = s.get(0).getCommonNetworks().get(0).getFrecuency();
+//		String signal =s.get(0).getCommonNetworks().get(0).getSignal();
+//		String time = s.get(0).getTime();
+//		return mac+","+ssid+","+frequency+","+signal+","+point.getLat() + ","+point.getLon() + ","+point.getAlt() + ","+time+",Aprrox. w-center Algo1";
+		
 	}
 	/**
 	 * This function calculate the coordinates parameters by summing all the parameters and divides them by the weight.

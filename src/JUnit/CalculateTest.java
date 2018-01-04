@@ -47,8 +47,18 @@ public class CalculateTest {
 		s1.add(sam2);
 		s1.add(sam1);
 		Coordinate point = c.calcCoordinate(s1);
-		String result = "f:c:3,ariel,2412,-50,"+point.getLat()+","+point.getLon()+","+point.getAlt()+",03-12-2017 8:37:10 AM,Aprrox. w-center Algo1";
-		String s = c.setCoordinatesAlgo1(s1, "f:c:3");
+		Sample result = new Sample();
+		result.setALT(point.getAlt()+"");
+		result.setLAT(point.getLat()+"");
+		result.setLON(point.getLon()+"");
+		result.setID("LG");
+		result.setPI(42.5);
+		result.setTime("03-12-2017 8:37:10 AM");
+		result.addNetwork(wn2);
+		
+		
+//		String result = "f:c:3,ariel,2412,-50,"+point.getLat()+","+point.getLon()+","+point.getAlt()+",03-12-2017 8:37:10 AM,Aprrox. w-center Algo1";
+		Sample s = c.setCoordinatesAlgo1(s1, "f:c:3");
 		assertEquals(result,s);
 	}
 

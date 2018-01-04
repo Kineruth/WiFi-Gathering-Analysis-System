@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import Algorithms.Algorithms;
 import KML.ConvertCSVToKML;
 import KML.LinesToSamples;
 import MergedCSV.FileFormat;
@@ -104,6 +105,10 @@ public static Filter readFilterFile(String filterFilePath) throws IOException, C
 	return filter;
 
 
+}
+public static void createAlgo1Map(){
+	Algorithms a = new Algorithms();
+	a.strongestMacLocation(DataBase.dataBase, 4);
 }
 
 }

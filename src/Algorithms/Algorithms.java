@@ -26,8 +26,8 @@ public class Algorithms {
 	 * @param num a given number for the amount of strongest samples to take after sorting them.
 	 * @return a list of arranged lines to be written in a new CSV file.
 	 */
-	public List<String> strongestMacLocation(List<Sample> sampleList, int num) {
-		List<String> lines = new ArrayList<String>();
+	public List<Sample> strongestMacLocation(List<Sample> sampleList, int num) {
+		List<Sample> lines = new ArrayList<Sample>();
 
 		for (int i = 0; i < sampleList.size(); i++) {
 			for (int j = 0; j < sampleList.get(i).getCommonNetworks().size(); j++) {
