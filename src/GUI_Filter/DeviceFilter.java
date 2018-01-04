@@ -9,6 +9,10 @@ public class DeviceFilter implements Filter{
 	 */
 	private static final long serialVersionUID = 7817571438387492159L;
 	private String ID;
+	
+	public DeviceFilter(String ID) {
+		this.ID = ID;
+	}
 
 			/**
 			 * This function filters the lines by the user choice of device ID.

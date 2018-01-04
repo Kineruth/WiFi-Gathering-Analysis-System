@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import GUI_Filter.LocationFilter;
 import GUI_Filter.NotFilter;
 import GUI_Filter.OriginalFilter;
 import GUI_Filter.SamplesPredicate;
@@ -71,11 +72,14 @@ public class Location_F extends JFrame {
 		textField = new JTextField();
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String input = textField.getText(); // receive input from text
-													// field
-				// send string to func
+				try {
+					Double.parseDouble(textField.getText());
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Double Number");
+				}
 			}
 		});
+
 		textField.setBounds(112, 119, 166, 50);
 		contentPane.add(textField);
 		textField.setColumns(10);
@@ -83,9 +87,12 @@ public class Location_F extends JFrame {
 		textField_1 = new JTextField();
 		textField_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String input = textField_1.getText(); // receive input from text
-														// field
-				System.out.println(input);
+				try {
+					Double.parseDouble(textField_1.getText());
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Double Number");
+				}
+
 			}
 		});
 		textField_1.setColumns(10);
@@ -95,7 +102,12 @@ public class Location_F extends JFrame {
 		textField_2 = new JTextField();
 		textField_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String input = textField_2.getText();
+				try {
+					Double.parseDouble(textField_2.getText());
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Double Number");
+				}
+
 			}
 		});
 		textField_2.setColumns(10);
@@ -105,7 +117,12 @@ public class Location_F extends JFrame {
 		textField_3 = new JTextField();
 		textField_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String input = textField_3.getText();
+				try {
+					Double.parseDouble(textField_3.getText());
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Double Number");
+				}
+
 			}
 		});
 		textField_3.setColumns(10);
@@ -115,7 +132,12 @@ public class Location_F extends JFrame {
 		textField_4 = new JTextField();
 		textField_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String input = textField_4.getText();
+				try {
+					Double.parseDouble(textField_4.getText());
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Double Number");
+				}
+
 			}
 		});
 		textField_4.setColumns(10);
@@ -125,8 +147,11 @@ public class Location_F extends JFrame {
 		textField_5 = new JTextField();
 		textField_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String input = textField_5.getText();
-//				JOptionPane.showMessageDialog(new JFrame(),"Must enter value");
+				try {
+					Double.parseDouble(textField_5.getText());
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Double Number");
+				}
 			}
 		});
 		textField_5.setColumns(10);
@@ -137,7 +162,7 @@ public class Location_F extends JFrame {
 		btnSaveFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Wraper.writeCurrentFilter(MainFrame.filter1) ;
+					Wraper.writeCurrentFilter(MainFrame.no1Filter);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -183,29 +208,30 @@ public class Location_F extends JFrame {
 		rdbtnOrLocationFilter.setFont(new Font("Dialog", Font.BOLD, 16));
 		rdbtnOrLocationFilter.setBounds(488, 454, 177, 25);
 		contentPane.add(rdbtnOrLocationFilter);
-
+		
+				
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnAddTimeFilter.isSelected()) {
-					Time t = new Time(0);
+					Time t = new Time("add");
 					t.setVisible(true);
 
 				}
 				if (rdbtnOrTimeFilter.isSelected()) {
-					Time t = new Time(1);
+					Time t = new Time("or");
 					t.setVisible(true);
 				}
 				if (rdbtnAddDeviceFilter.isSelected()) {
-					Device d = new Device(0);
+					Device d = new Device("add");
 					d.setVisible(true);
 				}
 				if (rdbtnOrDeviceFilter.isSelected()) {
-					Device d = new Device(1);
+					Device d = new Device("or");
 					d.setVisible(true);
 				}
 				if (rdbtnOrLocationFilter.isSelected()) {
-					Location l = new Location(1);
+					Location l = new Location("or");
 					l.setVisible(true);
 				}
 			}
@@ -266,25 +292,31 @@ public class Location_F extends JFrame {
 		JButton btnNewButton = new JButton("Filter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				if(minY>maxY || minM > maxM || minD>maxD || minH > maxH || minMin>maxMin){
-//					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
+//				if (textField_3.getText().equals("") || textField.getText().equals("")
+//						|| textField_4.getText().equals("") || textField_1.getText().equals("")
+//						|| textField_5.getText().equals("") || textField_2.getText().equals("")) {
+//					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Values!");
 //				}
-//				else{
-//					if (rdbtnFilterWithTime.isSelected()) { // original filter
-//						MainFrame.filter1 = new OriginalFilter(new TimeFilter(maxY, maxM, maxD, minY, minM, minD, maxH, maxMin, minH, minMin));
-//						SamplesPredicate.filterWithPredicate(MainFrame.filter1);
-//					}
-//					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-//						MainFrame.filter1 = new NotFilter(new TimeFilter(maxY, maxM, maxD, minY, minM, minD, maxH, maxMin, minH, minMin));
-//						SamplesPredicate.filterWithPredicate(MainFrame.filter1);
-//					}
-//				}
-				if (rdbtnNewRadioButton.isSelected()) {
-					//Original filter
-					
-				}
-				if(rdbtnWithoutRange.isSelected()){
-					//Not filter
+				if (Double.parseDouble(textField_3.getText()) > Double.parseDouble(textField.getText())
+						|| Double.parseDouble(textField_4.getText()) > Double.parseDouble(textField_1.getText())
+						|| Double.parseDouble(textField_5.getText()) > Double.parseDouble(textField_2.getText())) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
+				} else {
+					if (rdbtnNewRadioButton.isSelected()) {
+						// Original filter
+						MainFrame.filter1 = new OriginalFilter(new LocationFilter(
+								Double.parseDouble(textField.getText()), Double.parseDouble(textField_3.getText()),
+								Double.parseDouble(textField_1.getText()), Double.parseDouble(textField_4.getText()),
+								Double.parseDouble(textField_2.getText()), Double.parseDouble(textField_5.getText())));
+					}
+					if (rdbtnWithoutRange.isSelected()) {
+						// Not filter
+						MainFrame.filter1 = new NotFilter(new LocationFilter(Double.parseDouble(textField.getText()),
+								Double.parseDouble(textField_3.getText()), Double.parseDouble(textField_1.getText()),
+								Double.parseDouble(textField_4.getText()), Double.parseDouble(textField_2.getText()),
+								Double.parseDouble(textField_5.getText())));
+					}
+					SamplesPredicate.filterWithPredicate(MainFrame.no1Filter);
 				}
 
 			}

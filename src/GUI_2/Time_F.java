@@ -64,84 +64,71 @@ public class Time_F extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		
 		JLabel lblHhmmDdmmyy = new JLabel("HH:MM              DD/MM/YY");
 		lblHhmmDdmmyy.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHhmmDdmmyy.setFont(new Font("Sitka Text", Font.BOLD, 24));
 		lblHhmmDdmmyy.setBounds(192, 116, 370, 25);
 		contentPane.add(lblHhmmDdmmyy);
-		
-		int maxY,  maxM,  maxD,  minY,  minM,  minD,  maxH,  maxMin,  minH,  minMin;
-		
+
 		JSpinner spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(1, 1, 24, 1));
 		spinner.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		spinner.setBounds(202, 157, 55, 45);
 		contentPane.add(spinner);
-		maxH = (int) spinner.getValue();
-		
+
 		JSpinner spinner_1 = new JSpinner();
 		spinner_1.setModel(new SpinnerNumberModel(1, 1, 60, 1));
 		spinner_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		spinner_1.setBounds(272, 157, 55, 45);
 		contentPane.add(spinner_1);
-		maxMin =(int) spinner_1.getValue();
-		
+
 		JSpinner spinner_2 = new JSpinner();
 		spinner_2.setModel(new SpinnerNumberModel(1, 1, 31, 1));
 		spinner_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		spinner_2.setBounds(382, 157, 55, 45);
 		contentPane.add(spinner_2);
-		maxD =(int) spinner_2.getValue();
-		
+
 		JSpinner spinner_3 = new JSpinner();
 		spinner_3.setModel(new SpinnerNumberModel(1, 1, 12, 1));
 		spinner_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		spinner_3.setBounds(452, 157, 55, 45);
 		contentPane.add(spinner_3);
-		maxM =(int) spinner_3.getValue();
-		
+
 		JSpinner spinner_4 = new JSpinner();
 		spinner_4.setModel(new SpinnerNumberModel(1, 1, 3000, 1));
 		spinner_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		spinner_4.setBounds(522, 157, 87, 45);
 		contentPane.add(spinner_4);
-		maxY =(int) spinner_4.getValue();
-		
+
 		JSpinner spinner_5 = new JSpinner();
 		spinner_5.setModel(new SpinnerNumberModel(1, 1, 24, 1));
 		spinner_5.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		spinner_5.setBounds(202, 218, 55, 45);
 		contentPane.add(spinner_5);
-		minH =(int) spinner_5.getValue();
-		
+
 		JSpinner spinner_6 = new JSpinner();
 		spinner_6.setModel(new SpinnerNumberModel(1, 1, 60, 1));
 		spinner_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		spinner_6.setBounds(272, 218, 55, 45);
 		contentPane.add(spinner_6);
-		minMin =(int) spinner_6.getValue();
 
 		JSpinner spinner_7 = new JSpinner();
 		spinner_7.setModel(new SpinnerNumberModel(1, 1, 31, 1));
 		spinner_7.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		spinner_7.setBounds(382, 218, 55, 45);
 		contentPane.add(spinner_7);
-		minD =(int) spinner_7.getValue();
 
 		JSpinner spinner_8 = new JSpinner();
 		spinner_8.setModel(new SpinnerNumberModel(1, 1, 24, 1));
 		spinner_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		spinner_8.setBounds(452, 218, 55, 45);
 		contentPane.add(spinner_8);
-		minM=(int) spinner_8.getValue();
 
 		JSpinner spinner_9 = new JSpinner();
 		spinner_9.setModel(new SpinnerNumberModel(1, 1, 3000, 1));
 		spinner_9.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		spinner_9.setBounds(522, 218, 87, 45);
 		contentPane.add(spinner_9);
-		minY =(int) spinner_9.getValue();
 
 		JLabel label = new JLabel("MAX : ");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -177,20 +164,36 @@ public class Time_F extends JFrame {
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(minY>maxY || minM > maxM || minD>maxD || minH > maxH || minMin>maxMin){
-					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
+				if (spinner.getValue().equals("") || spinner_8.getValue().equals("") || spinner_9.getValue().equals("")
+						|| spinner_7.getValue().equals("") || spinner_6.getValue().equals("")
+						|| spinner_5.getValue().equals("") || spinner_4.getValue().equals("")
+						|| spinner_3.getValue().equals("") || spinner_2.getValue().equals("")
+						|| spinner_1.getValue().equals("")) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Values!");
 				}
-				else{
+				if ((int) spinner_9.getValue() > (int) spinner_4.getValue()
+						|| (int) spinner_8.getValue() > (int) spinner_3.getValue()
+						|| (int) spinner_7.getValue() > (int) spinner_2.getValue()
+						|| (int) spinner_5.getValue() > (int) spinner.getValue()
+						|| (int) spinner_6.getValue() > (int) spinner_1.getValue()) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
+				} else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
-						MainFrame.filter1 = new OriginalFilter(new TimeFilter(maxY, maxM, maxD, minY, minM, minD, maxH, maxMin, minH, minMin));
-						SamplesPredicate.filterWithPredicate(MainFrame.filter1);
+						MainFrame.no1Filter = new OriginalFilter(new TimeFilter((int) spinner_4.getValue(),
+								(int) spinner_3.getValue(), (int) spinner_2.getValue(), (int) spinner_9.getValue(),
+								(int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner.getValue(),
+								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue()));
 					}
 					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-						MainFrame.filter1 = new NotFilter(new TimeFilter(maxY, maxM, maxD, minY, minM, minD, maxH, maxMin, minH, minMin));
-						SamplesPredicate.filterWithPredicate(MainFrame.filter1);
+						MainFrame.no1Filter = new NotFilter(new TimeFilter((int) spinner_4.getValue(),
+								(int) spinner_3.getValue(), (int) spinner_2.getValue(), (int) spinner_9.getValue(),
+								(int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner.getValue(),
+								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue()));
+
 					}
+					SamplesPredicate.filterWithPredicate(MainFrame.no1Filter);
 				}
-				
+
 			}
 		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -201,7 +204,7 @@ public class Time_F extends JFrame {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Wraper.writeCurrentFilter(MainFrame.filter1) ;
+					Wraper.writeCurrentFilter(MainFrame.no1Filter);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -211,6 +214,11 @@ public class Time_F extends JFrame {
 		button_1.setBackground(new Color(0, 102, 102));
 		button_1.setBounds(12, 444, 196, 29);
 		contentPane.add(button_1);
+
+		JLabel lblChooseASecond = new JLabel("Choose A Second Filter : ");
+		lblChooseASecond.setFont(new Font("Sitka Text", Font.BOLD, 18));
+		lblChooseASecond.setBounds(487, 295, 238, 20);
+		contentPane.add(lblChooseASecond);
 
 		JRadioButton radioButton_2 = new JRadioButton("Or Location Filter");
 		radioButton_2.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -242,24 +250,24 @@ public class Time_F extends JFrame {
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnAddLocationFilter.isSelected()) {
-					Location l = new Location(0);
+					Location l = new Location("add");
 					l.setVisible(true);
 
 				}
 				if (radioButton_2.isSelected()) {
-					Location l = new Location(1);
+					Location l = new Location("or");
 					l.setVisible(true);
 				}
 				if (radioButton_6.isSelected()) {
-					Device d = new Device(0);
+					Device d = new Device("add");
 					d.setVisible(true);
 				}
 				if (radioButton_4.isSelected()) {
-					Device d = new Device(1);
+					Device d = new Device("or");
 					d.setVisible(true);
 				}
 				if (radioButton_3.isSelected()) {
-					Time t = new Time(1);
+					Time t = new Time("or");
 					t.setVisible(true);
 				}
 			}
@@ -281,12 +289,6 @@ public class Time_F extends JFrame {
 		group2.add(rdbtnAddLocationFilter);
 		group2.add(radioButton_6);
 		radioButton_2.setSelected(true);
-
-		JLabel lblChooseASecond = new JLabel("Choose A Second Filter : ");
-		lblChooseASecond.setFont(new Font("Sitka Text", Font.BOLD, 18));
-		lblChooseASecond.setBounds(487, 295, 238, 20);
-		contentPane.add(lblChooseASecond);
-
 
 	}
 }

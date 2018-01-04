@@ -22,7 +22,7 @@ public class Device extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private static int filterChoice;
+	private static String filterChoice;
 
 	/**
 	 * Launch the application.
@@ -43,8 +43,8 @@ public class Device extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Device(int i) {
-		this.filterChoice = i;
+	public Device(String i) {
+		Device.filterChoice = i;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 448, 429);
 		contentPane = new JPanel();

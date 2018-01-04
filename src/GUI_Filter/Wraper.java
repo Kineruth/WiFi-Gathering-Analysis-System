@@ -49,9 +49,10 @@ public class Wraper {
 public static void writeCurrentFilter(Filter f) throws IOException{
 	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 	FileOutputStream fOut;
+	ObjectOutputStream objOut;
 	try {
 		fOut = new FileOutputStream(new File("C:\\Users\\admin\\Desktop\\Filter - "+timeStamp+".txt"));
-		ObjectOutputStream objOut = new ObjectOutputStream(fOut);
+		objOut = new ObjectOutputStream(fOut);
 
 	// Write objects to file
 	objOut.writeObject(f);
@@ -64,19 +65,24 @@ public static void writeCurrentFilter(Filter f) throws IOException{
 	}
 }
 
-//public static void readFilterFile(File f){
-//	FileInputStream fi = new FileInputStream(new File("myObjects.txt"));
-//	ObjectInputStream oi = new ObjectInputStream(fi);
-//
-//	// Read objects
-//	Person pr1 = (Person) oi.readObject();
-//	Person pr2 = (Person) oi.readObject();
-//
-//	System.out.println(pr1.toString());
-//	System.out.println(pr2.toString());
-//
-//	oi.close();
-//	fi.close();
-//}
+/**
+ * This function gets a file path to a File that has a filter object written in bytes.
+ * It reads from the file and retrieves the Filter.
+ * @param filterFilePath a given file path.
+ * @return the Filter object from given file.
+ * @throws IOException
+ * @throws ClassNotFoundException
+ */
+public static Filter readFilterFile(String filterFilePath) throws IOException, ClassNotFoundException{
+	
+	 FileInputStream fis = new FileInputStream(filterFilePath);
+     ObjectInputStream ois = new ObjectInputStream(fis);
+
+     Filter filter = (Filter) ois.readObject();
+     
+	ois.close();
+	fis.close();
+	return filter;
+}
 
 }

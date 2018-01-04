@@ -21,10 +21,12 @@ import GUI_Filter.DataBase;
 import GUI_Filter.DeviceFilter;
 import GUI_Filter.Filter;
 import GUI_Filter.LocationFilter;
+import GUI_Filter.SamplesPredicate;
 import GUI_Filter.TimeFilter;
 import GUI_Filter.Wraper;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.DropMode;
 import javax.swing.SwingConstants;
@@ -36,7 +38,7 @@ import java.awt.SystemColor;
 public class MainFrame {
 
 	private JFrame frame;
-	public static Filter filter1, filter2, filter3, filter4,filter5;
+	public static Filter no1Filter, filter1, no2Filter, filter2,connectFilter;
 
 	/**
 	 * Launch the application.
@@ -211,7 +213,7 @@ public class MainFrame {
 		btnTimeFilter.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnTimeFilter.setForeground(new Color(128, 0, 0));
 		btnTimeFilter.setBackground(new Color(255, 255, 255));
-		btnTimeFilter.setBounds(350, 318, 246, 41);
+		btnTimeFilter.setBounds(348, 261, 246, 41);
 		frame.getContentPane().add(btnTimeFilter);
 
 		JButton btnFilterByDevice = new JButton("Filter By Device");
@@ -225,7 +227,7 @@ public class MainFrame {
 		btnFilterByDevice.setForeground(new Color(128, 0, 0));
 		btnFilterByDevice.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnFilterByDevice.setBackground(Color.WHITE);
-		btnFilterByDevice.setBounds(350, 377, 246, 41);
+		btnFilterByDevice.setBounds(348, 320, 246, 41);
 		frame.getContentPane().add(btnFilterByDevice);
 
 		JButton btnFilterByLocation = new JButton("Filter By Location");
@@ -239,7 +241,7 @@ public class MainFrame {
 		btnFilterByLocation.setForeground(new Color(128, 0, 0));
 		btnFilterByLocation.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnFilterByLocation.setBackground(Color.WHITE);
-		btnFilterByLocation.setBounds(350, 434, 246, 41);
+		btnFilterByLocation.setBounds(348, 377, 246, 41);
 		frame.getContentPane().add(btnFilterByLocation);
 
 		/*
@@ -278,6 +280,7 @@ public class MainFrame {
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setBounds(122, 0, 100, 36);
 		panel.add(label_1);
+		label_1.setText(DataBase.dataBase.size()+"");
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(250, 235, 215));
@@ -321,6 +324,33 @@ public class MainFrame {
 		btnAlgorithm_1.setBackground(Color.WHITE);
 		btnAlgorithm_1.setBounds(636, 261, 266, 41);
 		frame.getContentPane().add(btnAlgorithm_1);
+		
+		JButton btnUploadFilter = new JButton("Upload Filter\r\n");
+		btnUploadFilter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DataBase.setCopyDataBase();
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "txt");
+				chooser.setFileFilter(filter);
+				chooser.setDialogTitle("Choose Csv File");
+				if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					System.out.println(chooser.getSelectedFile().getAbsolutePath());
+					try {
+//						Filter f = Wraper.readFilterFile(chooser.getSelectedFile().getAbsolutePath());
+						//NOT WORKING!
+						SamplesPredicate.filterWithPredicate(Wraper.readFilterFile(chooser.getSelectedFile().getAbsolutePath()));
+					} catch (ClassNotFoundException | IOException e1) {
+						JOptionPane.showMessageDialog(new JFrame(), "Error :: Could Not Upload Given File!");
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btnUploadFilter.setForeground(new Color(128, 0, 0));
+		btnUploadFilter.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnUploadFilter.setBackground(Color.WHITE);
+		btnUploadFilter.setBounds(348, 442, 246, 41);
+		frame.getContentPane().add(btnUploadFilter);
 		 
 		//Save original dataBase before making any changes
 		if(btnAlgorithm_1.isSelected() || btnAlgorithm.isSelected() || btnFilterByLocation.isSelected() || btnFilterByDevice.isSelected() || btnTimeFilter.isSelected()){

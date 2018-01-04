@@ -19,6 +19,7 @@ public class SamplesPredicate {
 //		List<Sample> temp = new ArrayList<Sample>(samples);
 //		Predicate<Sample> samplePredicate = s-> f.checkSample(s);
 //		temp.removeIf(samplePredicate);
+		System.out.println(f.toString());
 		DataBase.dataBase = new ArrayList<Sample>(DataBase.dataBase.stream().filter(s-> f.checkSample(s)).collect(Collectors.<Sample>toList()));
 	}
 }
