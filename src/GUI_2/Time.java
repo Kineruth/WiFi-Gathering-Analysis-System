@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import GUI_Filter.AndFilter;
 import GUI_Filter.DataBase;
+import GUI_Filter.Filter;
 import GUI_Filter.NotFilter;
 import GUI_Filter.OrFilter;
 import GUI_Filter.OriginalFilter;
@@ -36,8 +37,11 @@ import javax.swing.SpinnerNumberModel;
 
 public class Time extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7974167552892378616L;
 	private JPanel contentPane;
-	private static String choice;
 
 	/**
 	 * Launch the application.
@@ -47,7 +51,7 @@ public class Time extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Time frame = new Time(choice);
+					Time frame = new Time();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,8 +63,7 @@ public class Time extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Time(String f1) {
-		this.choice = f1;
+	public Time() {
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 590, 505);
@@ -167,6 +170,12 @@ public class Time extends JFrame {
 		radioButton_1.setBounds(177, 304, 219, 25);
 		contentPane.add(radioButton_1);
 
+		Filter f = DataBase.getCurrentFilter();
+		Filter f2 = new TimeFilter((int) spinner_6.getValue(), (int) spinner_5.getValue(), (int) spinner_4.getValue(),
+				(int) spinner_7.getValue(), (int) spinner_8.getValue(), (int) spinner_9.getValue(),
+				(int) spinner.getValue(), (int) spinner_1.getValue(), (int) spinner_2.getValue(),
+				(int) spinner_3.getValue());
+
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -177,30 +186,23 @@ public class Time extends JFrame {
 						|| (int) spinner_2.getValue() > (int) spinner.getValue())
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
-					MainFrame.filter2 = new TimeFilter((int) spinner_6.getValue(), (int) spinner_5.getValue(),
-							(int) spinner_4.getValue(), (int) spinner_7.getValue(), (int) spinner_8.getValue(),
-							(int) spinner_9.getValue(), (int) spinner.getValue(), (int) spinner_1.getValue(),
-							(int) spinner_2.getValue(), (int) spinner_3.getValue());
 					if (radioButton.isSelected()) {
 						// filter with range
-						if (Time.choice.equals("add"))
-							MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-									new OriginalFilter(MainFrame.filter2));
-						if (Time.choice.equals("or"))
-							MainFrame.connectFilter = new OrFilter(MainFrame.filter1,
-									new OriginalFilter(MainFrame.filter2));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter(new AndFilter(f, new OriginalFilter(f2)));
+						if (DataBase.getFilterChoice().equals("or"))
+							DataBase.setCurrentFilter(new OrFilter(f, new OriginalFilter(f2)));
 					}
 					if (radioButton_1.isSelected()) {
 						// without
-						if (Time.choice.equals("add"))
-							MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-									new NotFilter(MainFrame.filter2));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter(new AndFilter(f, new NotFilter(f2)));
 
-						if (Time.choice.equals("or"))
-							MainFrame.connectFilter = new OrFilter(MainFrame.filter1, new NotFilter(MainFrame.filter2));
+						if (DataBase.getFilterChoice().equals("or"))
+							DataBase.setCurrentFilter(new OrFilter(f, new NotFilter(f2)));
 					}
 					DataBase.setCopyDataBase();
-					SamplesPredicate.filterWithPredicate(MainFrame.connectFilter);
+					SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
 				}
 
 			}
@@ -220,30 +222,23 @@ public class Time extends JFrame {
 						|| (int) spinner_2.getValue() > (int) spinner.getValue())
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
-					MainFrame.filter2 = new TimeFilter((int) spinner_6.getValue(), (int) spinner_5.getValue(),
-							(int) spinner_4.getValue(), (int) spinner_7.getValue(), (int) spinner_8.getValue(),
-							(int) spinner_9.getValue(), (int) spinner.getValue(), (int) spinner_1.getValue(),
-							(int) spinner_2.getValue(), (int) spinner_3.getValue());
 					if (radioButton.isSelected()) {
 						// filter with range
-						if (Time.choice.equals("add"))
-							MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-									new OriginalFilter(MainFrame.filter2));
-						if (Time.choice.equals("or"))
-							MainFrame.connectFilter = new OrFilter(MainFrame.filter1,
-									new OriginalFilter(MainFrame.filter2));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter(new AndFilter(f, new OriginalFilter(f2)));
+						if (DataBase.getFilterChoice().equals("or"))
+							DataBase.setCurrentFilter(new OrFilter(f, new OriginalFilter(f2)));
 					}
 					if (radioButton_1.isSelected()) {
 						// without
-						if (Time.choice.equals("add"))
-							MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-									new NotFilter(MainFrame.filter2));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter(new AndFilter(f, new NotFilter(f2)));
 
-						if (Time.choice.equals("or"))
-							MainFrame.connectFilter = new OrFilter(MainFrame.filter1, new NotFilter(MainFrame.filter2));
+						if (DataBase.getFilterChoice().equals("or"))
+							DataBase.setCurrentFilter(new OrFilter(f, new NotFilter(f2)));
 					}
 					try {
-						Wraper.writeCurrentFilter(MainFrame.connectFilter);
+						Wraper.writeCurrentFilter(DataBase.getCurrentFilter());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}

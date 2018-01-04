@@ -173,20 +173,20 @@ public class Time_F extends JFrame {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				} else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
-						MainFrame.no1Filter = new OriginalFilter(new TimeFilter((int) spinner_4.getValue(),
+						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter((int) spinner_4.getValue(),
 								(int) spinner_3.getValue(), (int) spinner_2.getValue(), (int) spinner_9.getValue(),
 								(int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner.getValue(),
-								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue()));
+								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue())));
 					}
 					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-						MainFrame.no1Filter = new NotFilter(new TimeFilter((int) spinner_4.getValue(),
+						DataBase.setCurrentFilter(new NotFilter(new TimeFilter((int) spinner_4.getValue(),
 								(int) spinner_3.getValue(), (int) spinner_2.getValue(), (int) spinner_9.getValue(),
 								(int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner.getValue(),
-								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue()));
+								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue())));
 
 					}
 					DataBase.setCopyDataBase();
-					SamplesPredicate.filterWithPredicate(MainFrame.no1Filter);
+					SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
 				}
 
 			}
@@ -206,20 +206,20 @@ public class Time_F extends JFrame {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				} else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
-						MainFrame.no1Filter = new OriginalFilter(new TimeFilter((int) spinner_4.getValue(),
+						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter((int) spinner_4.getValue(),
 								(int) spinner_3.getValue(), (int) spinner_2.getValue(), (int) spinner_9.getValue(),
 								(int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner.getValue(),
-								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue()));
+								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue())));
 					}
 					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-						MainFrame.no1Filter = new NotFilter(new TimeFilter((int) spinner_4.getValue(),
+						DataBase.setCurrentFilter( new NotFilter(new TimeFilter((int) spinner_4.getValue(),
 								(int) spinner_3.getValue(), (int) spinner_2.getValue(), (int) spinner_9.getValue(),
 								(int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner.getValue(),
-								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue()));
+								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue())));
 
 					}
 					try {
-						Wraper.writeCurrentFilter(MainFrame.no1Filter);
+						Wraper.writeCurrentFilter(DataBase.getCurrentFilter());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -273,36 +273,41 @@ public class Time_F extends JFrame {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
-						MainFrame.no1Filter = new OriginalFilter(new TimeFilter((int) spinner_4.getValue(),
+						DataBase.setCurrentFilter( new OriginalFilter(new TimeFilter((int) spinner_4.getValue(),
 								(int) spinner_3.getValue(), (int) spinner_2.getValue(), (int) spinner_9.getValue(),
 								(int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner.getValue(),
-								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue()));
+								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue())));
 					}
 					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-						MainFrame.no1Filter = new NotFilter(new TimeFilter((int) spinner_4.getValue(),
+						DataBase.setCurrentFilter(new NotFilter(new TimeFilter((int) spinner_4.getValue(),
 								(int) spinner_3.getValue(), (int) spinner_2.getValue(), (int) spinner_9.getValue(),
 								(int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner.getValue(),
-								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue()));
+								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue())));
 					}
 					if (rdbtnAddLocationFilter.isSelected()) {
-						Location l = new Location("add");
+						DataBase.setFilterChoice("add");
+						Location l = new Location();
 						l.setVisible(true);
 
 					}
 					if (radioButton_2.isSelected()) {
-						Location l = new Location("or");
+						DataBase.setFilterChoice("or");
+						Location l = new Location();
 						l.setVisible(true);
 					}
 					if (radioButton_6.isSelected()) {
-						Device d = new Device("add");
+						DataBase.setFilterChoice("add");
+						Device d = new Device();
 						d.setVisible(true);
 					}
 					if (radioButton_4.isSelected()) {
-						Device d = new Device("or");
+						DataBase.setFilterChoice("or");
+						Device d = new Device();
 						d.setVisible(true);
 					}
 					if (radioButton_3.isSelected()) {
-						Time t = new Time("or");
+						DataBase.setFilterChoice("or");
+						Time t = new Time();
 						t.setVisible(true);
 					}
 				}

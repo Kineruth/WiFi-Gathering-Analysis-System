@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import GUI_Filter.Wraper;
+
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.SwingConstants;
@@ -149,9 +152,11 @@ public class Algorithm2 extends JFrame {
 		btnGetLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String mac1, signal1, mac2, signal2, mac3, signal3;
+				
 				// send to location
 				if (rdbtnNewRadioButton.isSelected()) {
-					// send a sample to be calculated into location on map
+					
+					Wraper.createAlgo2(Wraper.convertToSample(textField.getText()));
 				}
 				if (rdbtnNewRadioButton_1.isSelected()) {
 					if (chckbxMac.isSelected()) {

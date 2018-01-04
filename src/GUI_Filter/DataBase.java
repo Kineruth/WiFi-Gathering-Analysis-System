@@ -18,6 +18,8 @@ public abstract class DataBase implements List<Sample> {
 	 */
 	public static List<Sample> dataBase=new ArrayList<Sample>();	;
 	public static List<Sample> copyDataBase;
+	private static Filter currentFilter;
+	private static String filterChoice;
 
 	/**
 	 * Adds new samples to the database.
@@ -68,4 +70,19 @@ public abstract class DataBase implements List<Sample> {
 		Coordinate p =new Coordinate(sample.getLAT(),sample.getLON(),sample.getALT());
 		return  p;
 		}
+	public static Filter getCurrentFilter() {
+		return DataBase.currentFilter;
+	}
+
+	public static void setCurrentFilter(Filter currentFilter) {
+		DataBase.currentFilter = currentFilter;
+	}
+
+	public static String getFilterChoice() {
+		return DataBase.filterChoice;
+	}
+
+	public static void setFilterChoice(String filterChoice) {
+		DataBase.filterChoice = filterChoice;
+	}
 }

@@ -66,7 +66,6 @@ public class Wraper {
 	
 public static void writeCurrentFilter(Filter f) throws IOException{
 	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-	f.toString();
 	FileOutputStream fOut = null;
 	ObjectOutputStream objOut;
 	try {

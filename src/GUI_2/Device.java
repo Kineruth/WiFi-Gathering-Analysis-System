@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import GUI_Filter.AndFilter;
 import GUI_Filter.DataBase;
 import GUI_Filter.DeviceFilter;
+import GUI_Filter.Filter;
 import GUI_Filter.LocationFilter;
 import GUI_Filter.NotFilter;
 import GUI_Filter.OrFilter;
@@ -34,9 +35,12 @@ import java.awt.event.ActionEvent;
 
 public class Device extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7687617504704647259L;
 	private JPanel contentPane;
 	private JTextField textField;
-	private static String filterChoice;
 
 	/**
 	 * Launch the application.
@@ -45,7 +49,7 @@ public class Device extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Device frame = new Device(filterChoice);
+					Device frame = new Device();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,8 +61,8 @@ public class Device extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Device(String i) {
-		Device.filterChoice = i;
+	public Device() {
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 448, 429);
 		contentPane = new JPanel();
@@ -89,32 +93,31 @@ public class Device extends JFrame {
 		radioButton_1.setBounds(115, 245, 219, 25);
 		contentPane.add(radioButton_1);
 
+		Filter f = DataBase.getCurrentFilter();
+		Filter f2 = new DeviceFilter(textField.getText());
+
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (textField.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Device!");
 				} else {
-					MainFrame.filter2 = new DeviceFilter(textField.getText());
 					if (radioButton.isSelected()) {
 						// original
-						if (Device.filterChoice.equals("add"))
-							MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-									new OriginalFilter(MainFrame.filter2));
-						if (Device.filterChoice.equals("add"))
-							MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-									new NotFilter(MainFrame.filter2));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter(new AndFilter(f, new OriginalFilter(f2)));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter( new AndFilter(f, new NotFilter(f2)));
 					}
 					if (radioButton_1.isSelected()) {
 						// not
-						if (Device.filterChoice.equals("add"))
-							MainFrame.connectFilter = new OrFilter(MainFrame.filter1,
-									new OriginalFilter(MainFrame.filter2));
-						if (Device.filterChoice.equals("add"))
-							MainFrame.connectFilter = new OrFilter(MainFrame.filter1, new NotFilter(MainFrame.filter2));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter(new OrFilter(f, new OriginalFilter(f2)));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter( new OrFilter(f, new NotFilter(f2)));
 					}
 					DataBase.setCopyDataBase();
-					SamplesPredicate.filterWithPredicate(MainFrame.connectFilter );
+					SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
 				}
 			}
 		});
@@ -128,26 +131,22 @@ public class Device extends JFrame {
 				if (textField.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Device!");
 				} else {
-					MainFrame.filter2 = new DeviceFilter(textField.getText());
 					if (radioButton.isSelected()) {
 						// original
-						if (Device.filterChoice.equals("add"))
-							MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-									new OriginalFilter(MainFrame.filter2));
-						if (Device.filterChoice.equals("add"))
-							MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-									new NotFilter(MainFrame.filter2));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter( new AndFilter(f, new OriginalFilter(f2)));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter(new AndFilter(f, new NotFilter(f2)));
 					}
 					if (radioButton_1.isSelected()) {
 						// not
-						if (Device.filterChoice.equals("add"))
-							MainFrame.connectFilter = new OrFilter(MainFrame.filter1,
-									new OriginalFilter(MainFrame.filter2));
-						if (Device.filterChoice.equals("add"))
-							MainFrame.connectFilter = new OrFilter(MainFrame.filter1, new NotFilter(MainFrame.filter2));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter(new OrFilter(f, new OriginalFilter(f2)));
+						if (DataBase.getFilterChoice().equals("add"))
+							DataBase.setCurrentFilter(new OrFilter(f, new NotFilter(f2)));
 					}
 					try {
-						Wraper.writeCurrentFilter(MainFrame.connectFilter);
+						Wraper.writeCurrentFilter(DataBase.getCurrentFilter());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}

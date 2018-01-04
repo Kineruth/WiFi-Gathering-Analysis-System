@@ -38,7 +38,9 @@ import java.awt.SystemColor;
 public class MainFrame {
 
 	private JFrame frame;
-	public static Filter no1Filter, filter1, no2Filter, filter2,connectFilter;
+//	private Filter currentFilter;
+//	private String filterChoice;
+//	public static Filter no1Filter, filter1, no2Filter, filter2,connectFilter;
 
 	/**
 	 * Launch the application.
@@ -339,10 +341,8 @@ public class MainFrame {
 		btnUploadFilter.setBounds(348, 442, 246, 41);
 		frame.getContentPane().add(btnUploadFilter);
 		 
-//		//Save original dataBase before making any changes
-//		if(btnAlgorithm_1.isSelected() || btnAlgorithm.isSelected() || btnFilterByLocation.isSelected() || btnFilterByDevice.isSelected() || btnTimeFilter.isSelected()){
-//			DataBase.setCopyDataBase();
-//		}
 
 	}
+
+	
 }

@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import GUI_Filter.AndFilter;
 import GUI_Filter.DataBase;
+import GUI_Filter.Filter;
 import GUI_Filter.LocationFilter;
 import GUI_Filter.NotFilter;
 import GUI_Filter.OrFilter;
@@ -33,13 +34,16 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class Location extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5710571743956511017L;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-	private static String filterChoice;
 
 	/**
 	 * Launch the application.
@@ -48,7 +52,7 @@ public class Location extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Location frame = new Location(filterChoice);
+					Location frame = new Location();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,8 +64,7 @@ public class Location extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Location(String i) {
-		Location.filterChoice = i;
+	public Location() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 814, 544);
 		getContentPane().setLayout(null);
@@ -149,6 +152,12 @@ public class Location extends JFrame {
 		label_4.setBounds(14, 235, 75, 20);
 		panel.add(label_4);
 
+		Filter f = DataBase.getCurrentFilter();
+		Filter f2 = new LocationFilter(Double.parseDouble(textField.getText()),
+				Double.parseDouble(textField_3.getText()), Double.parseDouble(textField_1.getText()),
+				Double.parseDouble(textField_4.getText()), Double.parseDouble(textField_2.getText()),
+				Double.parseDouble(textField_5.getText()));
+
 		JButton button_2 = new JButton("Filter");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -158,31 +167,23 @@ public class Location extends JFrame {
 							|| Double.parseDouble(textField_5.getText()) > Double.parseDouble(textField_2.getText()))
 						JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 					else {
-						MainFrame.filter2 = new LocationFilter(Double.parseDouble(textField.getText()),
-								Double.parseDouble(textField_3.getText()), Double.parseDouble(textField_1.getText()),
-								Double.parseDouble(textField_4.getText()), Double.parseDouble(textField_2.getText()),
-								Double.parseDouble(textField_5.getText()));
 						if (radioButton.isSelected()) {
 							// original
-							if (Location.filterChoice.equals("add"))
-								MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-										new OriginalFilter(MainFrame.filter2));
-							if (Location.filterChoice.equals("or"))
-								MainFrame.connectFilter = new OrFilter(MainFrame.filter1,
-										new OriginalFilter(MainFrame.filter2));
+							if (DataBase.getFilterChoice().equals("add"))
+								DataBase.setCurrentFilter(new AndFilter(f, new OriginalFilter(f2)));
+							if (DataBase.getFilterChoice().equals("or"))
+								DataBase.setCurrentFilter(new OrFilter(f, new OriginalFilter(f2)));
 						}
 						if (radioButton_1.isSelected()) {
 							// not
-							if (Location.filterChoice.equals("add"))
-								MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-										new NotFilter(MainFrame.filter2));
+							if (DataBase.getFilterChoice().equals("add"))
+								DataBase.setCurrentFilter(new AndFilter(f, new NotFilter(f2)));
 
-							if (Location.filterChoice.equals("or"))
-								MainFrame.connectFilter = new OrFilter(MainFrame.filter1,
-										new NotFilter(MainFrame.filter2));
+							if (DataBase.getFilterChoice().equals("or"))
+								DataBase.setCurrentFilter(new OrFilter(f, new NotFilter(f2)));
 						}
 						DataBase.setCopyDataBase();
-						SamplesPredicate.filterWithPredicate(MainFrame.connectFilter);
+						SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
 					}
 
 				} catch (NumberFormatException e1) {
@@ -213,31 +214,23 @@ public class Location extends JFrame {
 							|| Double.parseDouble(textField_5.getText()) > Double.parseDouble(textField_2.getText()))
 						JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 					else {
-						MainFrame.filter2 = new LocationFilter(Double.parseDouble(textField.getText()),
-								Double.parseDouble(textField_3.getText()), Double.parseDouble(textField_1.getText()),
-								Double.parseDouble(textField_4.getText()), Double.parseDouble(textField_2.getText()),
-								Double.parseDouble(textField_5.getText()));
 						if (radioButton.isSelected()) {
 							// original
-							if (Location.filterChoice.equals("add"))
-								MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-										new OriginalFilter(MainFrame.filter2));
-							if (Location.filterChoice.equals("or"))
-								MainFrame.connectFilter = new OrFilter(MainFrame.filter1,
-										new OriginalFilter(MainFrame.filter2));
+							if (DataBase.getFilterChoice().equals("add"))
+								DataBase.setCurrentFilter(new AndFilter(f, new OriginalFilter(f2)));
+							if (DataBase.getFilterChoice().equals("or"))
+								DataBase.setCurrentFilter(new OrFilter(f, new OriginalFilter(f2)));
 						}
 						if (radioButton_1.isSelected()) {
 							// not
-							if (Location.filterChoice.equals("add"))
-								MainFrame.connectFilter = new AndFilter(MainFrame.filter1,
-										new NotFilter(MainFrame.filter2));
+							if (DataBase.getFilterChoice().equals("add"))
+								DataBase.setCurrentFilter(new AndFilter(f, new NotFilter(f2)));
 
-							if (Location.filterChoice.equals("or"))
-								MainFrame.connectFilter = new OrFilter(MainFrame.filter1,
-										new NotFilter(MainFrame.filter2));
+							if (DataBase.getFilterChoice().equals("or"))
+								DataBase.setCurrentFilter(new OrFilter(f, new NotFilter(f2)));
 						}
 						try {
-							Wraper.writeCurrentFilter(MainFrame.connectFilter);
+							Wraper.writeCurrentFilter(DataBase.getCurrentFilter());
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}

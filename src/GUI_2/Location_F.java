@@ -159,37 +159,7 @@ public class Location_F extends JFrame {
 		textField_5.setBounds(559, 220, 166, 50);
 		contentPane.add(textField_5);
 
-		JButton btnSaveFilter = new JButton("Save Current Filter");
-		btnSaveFilter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (textField_3.getText().equals("") || textField.getText().equals("")
-							|| textField_4.getText().equals("") || textField_1.getText().equals("")
-							|| textField_5.getText().equals("") || textField_2.getText().equals(""))
-						JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Values!");
-
-					if (Double.parseDouble(textField_3.getText()) > Double.parseDouble(textField.getText())
-							|| Double.parseDouble(textField_4.getText()) > Double.parseDouble(textField_1.getText())
-							|| Double.parseDouble(textField_5.getText()) > Double.parseDouble(textField_2.getText()))
-						JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
-					else {
-						try {
-							Wraper.writeCurrentFilter(MainFrame.no1Filter);
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Double Number");
-				}
-
-			}
-		});
-		btnSaveFilter.setBackground(new Color(0, 102, 102));
-		btnSaveFilter.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnSaveFilter.setBounds(14, 451, 196, 29);
-		contentPane.add(btnSaveFilter);
+		
 
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Filter with range");
 		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -242,40 +212,45 @@ public class Location_F extends JFrame {
 					else {
 						if (rdbtnNewRadioButton.isSelected()) {
 							// Original filter
-							MainFrame.filter1 = new OriginalFilter(new LocationFilter(
+							DataBase.setCurrentFilter(new OriginalFilter(new LocationFilter(
 									Double.parseDouble(textField.getText()), Double.parseDouble(textField_3.getText()),
 									Double.parseDouble(textField_1.getText()),
 									Double.parseDouble(textField_4.getText()),
 									Double.parseDouble(textField_2.getText()),
-									Double.parseDouble(textField_5.getText())));
+									Double.parseDouble(textField_5.getText()))));
 						}
 						if (rdbtnWithoutRange.isSelected()) {
 							// Not filter
-							MainFrame.filter1 = new NotFilter(new LocationFilter(
+							DataBase.setCurrentFilter( new NotFilter(new LocationFilter(
 									Double.parseDouble(textField.getText()), Double.parseDouble(textField_3.getText()),
 									Double.parseDouble(textField_1.getText()),
 									Double.parseDouble(textField_4.getText()),
 									Double.parseDouble(textField_2.getText()),
-									Double.parseDouble(textField_5.getText())));
+									Double.parseDouble(textField_5.getText()))));
 						}
 						if (rdbtnAddTimeFilter.isSelected()) {
-							Time t = new Time("add");
+							DataBase.setFilterChoice("add");
+							Time t = new Time();
 							t.setVisible(true);
 						}
 						if (rdbtnOrTimeFilter.isSelected()) {
-							Time t = new Time("or");
+							DataBase.setFilterChoice("or");
+							Time t = new Time();
 							t.setVisible(true);
 						}
 						if (rdbtnAddDeviceFilter.isSelected()) {
-							Device d = new Device("add");
+							DataBase.setFilterChoice("add");
+							Device d = new Device();
 							d.setVisible(true);
 						}
 						if (rdbtnOrDeviceFilter.isSelected()) {
-							Device d = new Device("or");
+							DataBase.setFilterChoice("or");
+							Device d = new Device();
 							d.setVisible(true);
 						}
 						if (rdbtnOrLocationFilter.isSelected()) {
-							Location l = new Location("or");
+							DataBase.setFilterChoice("or");
+							Location l = new Location();
 							l.setVisible(true);
 						}
 					}
@@ -354,24 +329,24 @@ public class Location_F extends JFrame {
 					else {
 						if (rdbtnNewRadioButton.isSelected()) {
 							// Original filter
-							MainFrame.filter1 = new OriginalFilter(new LocationFilter(
+							DataBase.setCurrentFilter(new OriginalFilter(new LocationFilter(
 									Double.parseDouble(textField.getText()), Double.parseDouble(textField_3.getText()),
 									Double.parseDouble(textField_1.getText()),
 									Double.parseDouble(textField_4.getText()),
 									Double.parseDouble(textField_2.getText()),
-									Double.parseDouble(textField_5.getText())));
+									Double.parseDouble(textField_5.getText()))));
 						}
 						if (rdbtnWithoutRange.isSelected()) {
 							// Not filter
-							MainFrame.filter1 = new NotFilter(new LocationFilter(
+							DataBase.setCurrentFilter(new NotFilter(new LocationFilter(
 									Double.parseDouble(textField.getText()), Double.parseDouble(textField_3.getText()),
 									Double.parseDouble(textField_1.getText()),
 									Double.parseDouble(textField_4.getText()),
 									Double.parseDouble(textField_2.getText()),
-									Double.parseDouble(textField_5.getText())));
+									Double.parseDouble(textField_5.getText()))));
 						}
 						DataBase.setCopyDataBase();
-						SamplesPredicate.filterWithPredicate(MainFrame.no1Filter);
+						SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
 					}
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Double Number");
@@ -382,6 +357,55 @@ public class Location_F extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnNewButton.setBounds(14, 412, 195, 29);
 		contentPane.add(btnNewButton);
+		JButton btnSaveFilter = new JButton("Save Current Filter");
+		btnSaveFilter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (textField_3.getText().equals("") || textField.getText().equals("")
+							|| textField_4.getText().equals("") || textField_1.getText().equals("")
+							|| textField_5.getText().equals("") || textField_2.getText().equals(""))
+						JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Values!");
+
+					if (Double.parseDouble(textField_3.getText()) > Double.parseDouble(textField.getText())
+							|| Double.parseDouble(textField_4.getText()) > Double.parseDouble(textField_1.getText())
+							|| Double.parseDouble(textField_5.getText()) > Double.parseDouble(textField_2.getText()))
+						JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
+					else {
+						if (rdbtnNewRadioButton.isSelected()) {
+							// Original filter
+							DataBase.setCurrentFilter(new OriginalFilter(new LocationFilter(
+									Double.parseDouble(textField.getText()), Double.parseDouble(textField_3.getText()),
+									Double.parseDouble(textField_1.getText()),
+									Double.parseDouble(textField_4.getText()),
+									Double.parseDouble(textField_2.getText()),
+									Double.parseDouble(textField_5.getText()))));
+						}
+						if (rdbtnWithoutRange.isSelected()) {
+							// Not filter
+							DataBase.setCurrentFilter( new NotFilter(new LocationFilter(
+									Double.parseDouble(textField.getText()), Double.parseDouble(textField_3.getText()),
+									Double.parseDouble(textField_1.getText()),
+									Double.parseDouble(textField_4.getText()),
+									Double.parseDouble(textField_2.getText()),
+									Double.parseDouble(textField_5.getText()))));
+						}
+						try {
+							Wraper.writeCurrentFilter(DataBase.getCurrentFilter());
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Double Number");
+				}
+
+			}
+		});
+		btnSaveFilter.setBackground(new Color(0, 102, 102));
+		btnSaveFilter.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnSaveFilter.setBounds(14, 451, 196, 29);
+		contentPane.add(btnSaveFilter);
 
 	}
 }

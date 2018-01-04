@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import GUI_Filter.DataBase;
 import GUI_Filter.DeviceFilter;
+import GUI_Filter.Filter;
 import GUI_Filter.NotFilter;
 import GUI_Filter.OriginalFilter;
 import GUI_Filter.SamplesPredicate;
@@ -36,7 +37,9 @@ public class Device_F extends JFrame {
 	private static final long serialVersionUID = -3335203380013471318L;
 	private JPanel contentPane;
 	private JTextField textField;
-
+	 
+//	private String filterChoice;
+//	private Filter currentFilter;
 	/**
 	 * Launch the application.
 	 */
@@ -90,18 +93,17 @@ public class Device_F extends JFrame {
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				if (textField.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Device!");
 				} else {
 					if (rdbtnFilterWithDevice.isSelected()) {
-						MainFrame.filter1 = new OriginalFilter(new DeviceFilter(textField.getText()));
+						DataBase.setCurrentFilter(new OriginalFilter(new DeviceFilter(textField.getText())));	
 					}
 					if (rdbtnFilterWithoutDevice.isSelected()) {
-						MainFrame.filter1 = new NotFilter(new DeviceFilter(textField.getText()));
+						DataBase.setCurrentFilter( new NotFilter(new DeviceFilter(textField.getText())));
 					}
 					DataBase.setCopyDataBase();
-					SamplesPredicate.filterWithPredicate(MainFrame.filter1);
+					SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
 				}
 			}
 		});
@@ -116,12 +118,12 @@ public class Device_F extends JFrame {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Device!");
 				else {
 					if (rdbtnFilterWithDevice.isSelected())
-						MainFrame.filter1 = new OriginalFilter(new DeviceFilter(textField.getText()));
+						DataBase.setCurrentFilter(new OriginalFilter(new DeviceFilter(textField.getText())));
 
 					if (rdbtnFilterWithoutDevice.isSelected())
-						MainFrame.filter1 = new NotFilter(new DeviceFilter(textField.getText()));
+						DataBase.setCurrentFilter(new NotFilter(new DeviceFilter(textField.getText())));
 					try {
-						Wraper.writeCurrentFilter(MainFrame.no1Filter);
+						Wraper.writeCurrentFilter(DataBase.getCurrentFilter());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -166,28 +168,33 @@ public class Device_F extends JFrame {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Device!");
 				} else {
 					if (rdbtnFilterWithDevice.isSelected())
-						MainFrame.filter1 = new OriginalFilter(new DeviceFilter(textField.getText()));
+						DataBase.setCurrentFilter(new OriginalFilter(new DeviceFilter(textField.getText())));
 
 					if (rdbtnFilterWithoutDevice.isSelected())
-						MainFrame.filter1 = new NotFilter(new DeviceFilter(textField.getText()));
+						DataBase.setCurrentFilter(new NotFilter(new DeviceFilter(textField.getText())));
 					if (rdbtnAddLocationFilter.isSelected()) {
-						Location l = new Location("add");
+						DataBase.setFilterChoice("add");
+						Location l = new Location();
 						l.setVisible(true);
 					}
 					if (radioButton_6.isSelected()) {
-						Location l = new Location("or");
+						DataBase.setFilterChoice("or");
+						Location l = new Location();
 						l.setVisible(true);
 					}
 					if (radioButton_3.isSelected()) {
-						Time t = new Time("add");
+						DataBase.setFilterChoice("add");
+						Time t = new Time();
 						t.setVisible(true);
 					}
 					if (radioButton_5.isSelected()) {
-						Time t = new Time("or");
+						DataBase.setFilterChoice("or");
+						Time t = new Time();
 						t.setVisible(true);
 					}
 					if (radioButton_4.isSelected()) {
-						Device d = new Device("or");
+						DataBase.setFilterChoice("or");
+						Device d = new Device();
 						d.setVisible(true);
 					}
 				}
