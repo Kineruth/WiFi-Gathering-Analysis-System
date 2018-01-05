@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"src"}]
+packageSearchIndex = [{"l":"GUI_Filter"}]

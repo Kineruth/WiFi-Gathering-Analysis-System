@@ -31,7 +31,10 @@ public abstract class DataBase implements List<Sample> {
 		System.out.println("Current samples: "+DataBase.dataBase.size());
 	}
 	
-
+/**
+ * Sets the current database.
+ * @param lsp a given list of samples.
+ */
 	public static void setDataBase(List<Sample> lsp) {
 		DataBase.dataBase = lsp;
 	}
@@ -71,18 +74,31 @@ public abstract class DataBase implements List<Sample> {
 		Coordinate p =new Coordinate(sample.getLAT(),sample.getLON(),sample.getALT());
 		return  p;
 		}
+	/**
+	 * 
+	 * @return the current Filter.
+	 */
 	public static Filter getCurrentFilter() {
 		return DataBase.currentFilter;
 	}
-
+/**
+ * 
+ * @param currentFilter the current Filter.
+ */
 	public static void setCurrentFilter(Filter currentFilter) {
 		DataBase.currentFilter = currentFilter;
 	}
-
+/**
+ * 
+ * @return the current filter choice.
+ */
 	public static String getFilterChoice() {
 		return DataBase.filterChoice;
 	}
-
+/**
+ * 
+ * @param filterChoice a given filter choice.
+ */
 	public static void setFilterChoice(String filterChoice) {
 		DataBase.filterChoice = filterChoice;
 	}

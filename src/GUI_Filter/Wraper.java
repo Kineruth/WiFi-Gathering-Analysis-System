@@ -24,13 +24,20 @@ import MergedCSV.Sample;
 import MergedCSV.WiFiNetwork;
 
 public class Wraper {
-
+/**
+ * Addes new samples from files' folder.
+ * @param folderPath a given folder path.
+ */
 	public static void folderAdded( String folderPath) {
 		MergeCSVfiles mg = new MergeCSVfiles(folderPath);
 		 DataBase.addData(mg.getSamplesFromFiles());
 		 JOptionPane.showMessageDialog(new JFrame(), "Folder Added Succesfully!");
 	}
-
+/**
+ * Addes new samples from a given file.
+ * @param filePath a given file path.
+ * @throws IOException
+ */
 	public static void mergedFileAdded(String filePath) throws IOException {
 		FileFormat fm = new FileFormat();
 		LinesToSamples ls = new LinesToSamples();
@@ -39,32 +46,48 @@ public class Wraper {
 			 DataBase.addData(ls.convertLines(ls.readCSV(filePath)));
 		JOptionPane.showMessageDialog(new JFrame(), "File Added Succesfully !");
 	}
-
+/**
+ * Sends samples to be written to merged CSV.
+ */
 	public static void saveMergedCSV() {
 		MergeCSVfiles mg = new MergeCSVfiles();
 		mg.writeFile(DataBase.dataBase);
 		JOptionPane.showMessageDialog(new JFrame(), "File Saved To Desktop!");
 
 	}
-
+/**
+ * Sends samples to be written to KML file.
+ * @throws FileNotFoundException
+ * @throws MalformedURLException
+ */
 	public static void saveAsKML() throws FileNotFoundException, MalformedURLException {
 		ConvertCSVToKML kml = new ConvertCSVToKML();
 		kml.writeFile(DataBase.dataBase);
 		JOptionPane.showMessageDialog(new JFrame(), "File Saved To Desktop!");
 	}
-
+/**
+ * Clears all dataBase.
+ */
 	public static void clearance() {
 		System.out.println("Samples amount before delete: " +  DataBase.dataBase.size());
 		DataBase.deleteAllData();
 		System.out.println("Samples amount after delete: " +DataBase.dataBase.size());
 	}
+	/**
+	 * Gets mac number.
+	 * @return
+	 */
 	public static int getMacNumber(){
 		Algorithms a = new Algorithms();
 		List<Sample> temp = new ArrayList<Sample>(DataBase.dataBase);
 		return  a.strongestMacLocation(temp, 4).size();
 	}
 
-	
+	/**
+	 * Writes a current Filter into a file with bytes.
+	 * @param f a given filter.
+	 * @throws IOException
+	 */
 public static void writeCurrentFilter(Filter f) throws IOException{
 	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 	FileOutputStream fOut = null;
@@ -129,7 +152,11 @@ public static void createAlgo2(Sample s){
 	JOptionPane.showMessageDialog(new JFrame(), "LAT: "+sample.getLAT()+", LON: "+sample.getLON()+", ALT"+sample.getALT());
 	
 }
-
+/**
+ * Converts line to sample for algo 1.
+ * @param text
+ * @return
+ */
 public static Sample convertToSample(String text) {
 	Sample s = new Sample();
 	String [] str= text.split(",");
@@ -144,6 +171,16 @@ public static Sample convertToSample(String text) {
 	}
 	return s;	
 }
+/**
+ * Converts given macs and signals to a sample.
+ * @param s1 given mac 1.
+ * @param s2 given mac 2.
+ * @param s3 given mac 3.
+ * @param i1 given signal 1.
+ * @param i2 given signal 2.
+ * @param i3 given signal 3.
+ * @return
+ */
 public static Sample convertMacsToSample(String s1,String s2, String s3, String i1, String i2, String i3){
 	Sample s = new Sample();
 	if(!s1.isEmpty()){
