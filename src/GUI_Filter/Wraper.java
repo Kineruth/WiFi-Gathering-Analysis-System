@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -203,5 +204,12 @@ public static Sample convertMacsToSample(String s1,String s2, String s3, String 
 	}
 	return s;
 	
+}
+
+@SuppressWarnings("deprecation")
+public static boolean checkDateMinMax( int maxY,  int maxM,  int maxD,  int minY,  int minM,  int minD,  int maxH,  int maxMin,  int minH,  int minMin){
+	Date d1 = new Date(maxY,maxM,maxD,maxH,maxMin);
+	Date d2 = new Date(minY,minM,minD,minH,minMin);
+	return d1.after(d2);
 }
 }

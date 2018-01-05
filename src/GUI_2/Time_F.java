@@ -165,11 +165,10 @@ public class Time_F extends JFrame {
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if ((int) spinner_9.getValue() > (int) spinner_4.getValue()
-						|| (int) spinner_8.getValue() > (int) spinner_3.getValue()
-						|| (int) spinner_7.getValue() > (int) spinner_2.getValue()
-						|| (int) spinner_5.getValue() > (int) spinner.getValue()
-						|| (int) spinner_6.getValue() > (int) spinner_1.getValue()) {
+				if (!Wraper.checkDateMinMax((int) spinner_4.getValue(), (int) spinner_3.getValue(),
+						(int) spinner_2.getValue(), (int) spinner_9.getValue(), (int) spinner_8.getValue(),
+						(int) spinner_7.getValue(), (int) spinner.getValue(), (int) spinner_1.getValue(),
+						(int) spinner_5.getValue(), (int) spinner_6.getValue())) {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				} else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
@@ -197,11 +196,10 @@ public class Time_F extends JFrame {
 		JButton button_1 = new JButton("Save Current Filter");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if ((int) spinner_9.getValue() > (int) spinner_4.getValue()
-						|| (int) spinner_8.getValue() > (int) spinner_3.getValue()
-						|| (int) spinner_7.getValue() > (int) spinner_2.getValue()
-						|| (int) spinner_5.getValue() > (int) spinner.getValue()
-						|| (int) spinner_6.getValue() > (int) spinner_1.getValue()) {
+				if (!Wraper.checkDateMinMax((int) spinner_4.getValue(), (int) spinner_3.getValue(),
+						(int) spinner_2.getValue(), (int) spinner_9.getValue(), (int) spinner_8.getValue(),
+						(int) spinner_7.getValue(), (int) spinner.getValue(), (int) spinner_1.getValue(),
+						(int) spinner_5.getValue(), (int) spinner_6.getValue())) {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				} else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
@@ -211,7 +209,7 @@ public class Time_F extends JFrame {
 								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue())));
 					}
 					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-						DataBase.setCurrentFilter( new NotFilter(new TimeFilter((int) spinner_4.getValue(),
+						DataBase.setCurrentFilter(new NotFilter(new TimeFilter((int) spinner_4.getValue(),
 								(int) spinner_3.getValue(), (int) spinner_2.getValue(), (int) spinner_9.getValue(),
 								(int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner.getValue(),
 								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue())));
@@ -272,7 +270,7 @@ public class Time_F extends JFrame {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
-						DataBase.setCurrentFilter( new OriginalFilter(new TimeFilter((int) spinner_4.getValue(),
+						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter((int) spinner_4.getValue(),
 								(int) spinner_3.getValue(), (int) spinner_2.getValue(), (int) spinner_9.getValue(),
 								(int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner.getValue(),
 								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue())));

@@ -153,10 +153,7 @@ public class Location extends JFrame {
 		panel.add(label_4);
 
 		Filter f = DataBase.getCurrentFilter();
-		Filter f2 = new LocationFilter(Double.parseDouble(textField.getText()),
-				Double.parseDouble(textField_3.getText()), Double.parseDouble(textField_1.getText()),
-				Double.parseDouble(textField_4.getText()), Double.parseDouble(textField_2.getText()),
-				Double.parseDouble(textField_5.getText()));
+		
 
 		JButton button_2 = new JButton("Filter");
 		button_2.addActionListener(new ActionListener() {
@@ -167,6 +164,10 @@ public class Location extends JFrame {
 							|| Double.parseDouble(textField_5.getText()) > Double.parseDouble(textField_2.getText()))
 						JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 					else {
+						Filter f2 = new LocationFilter(Double.parseDouble(textField.getText()),
+								Double.parseDouble(textField_3.getText()), Double.parseDouble(textField_1.getText()),
+								Double.parseDouble(textField_4.getText()), Double.parseDouble(textField_2.getText()),
+								Double.parseDouble(textField_5.getText()));
 						if (radioButton.isSelected()) {
 							// original
 							if (DataBase.getFilterChoice().equals("add"))
@@ -213,6 +214,10 @@ public class Location extends JFrame {
 							|| Double.parseDouble(textField_5.getText()) > Double.parseDouble(textField_2.getText()))
 						JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 					else {
+						Filter f2 = new LocationFilter(Double.parseDouble(textField.getText()),
+								Double.parseDouble(textField_3.getText()), Double.parseDouble(textField_1.getText()),
+								Double.parseDouble(textField_4.getText()), Double.parseDouble(textField_2.getText()),
+								Double.parseDouble(textField_5.getText()));
 						if (radioButton.isSelected()) {
 							// original
 							if (DataBase.getFilterChoice().equals("add"))
