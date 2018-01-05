@@ -301,6 +301,7 @@ public class MainFrame {
 		label_2.setFont(new Font("Sitka Text", Font.BOLD, 17));
 		label_2.setBounds(86, 0, 100, 36);
 		panel_1.add(label_2);
+		label_2.setText(Wraper.getMacNumber()+"");
 
 		JButton btnAlgorithm = new JButton("Algorithm 2 - Samples");
 		btnAlgorithm.addActionListener(new ActionListener() {

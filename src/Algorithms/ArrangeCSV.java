@@ -20,15 +20,12 @@ import MergedCSV.Sample;
 public class ArrangeCSV {
 
 	private String filePath, fileName, fileOutput;
-	private File file1, file2;
 	private int num;
 /**
  * Default Constructor
  */
 	public ArrangeCSV() {
 		this.filePath = null;
-		this.file1 = null;
-		this.file2 = null;
 		this.fileOutput = null;
 		this.num = 0;
 	}
@@ -42,7 +39,7 @@ public class ArrangeCSV {
 		if (num > 0)
 			this.num = num;
 		this.filePath = filePath + "";
-		this.file1 = new File(this.filePath);
+		new File(this.filePath);
 		this.fileName = this.filePath.replaceFirst(".csv", (" - Algo1 Output.csv"));
 		checkCSVFile(1);
 	}
@@ -59,8 +56,8 @@ public class ArrangeCSV {
 			this.num = num;
 		this.filePath = filePath + "";
 		this.fileOutput = fileOutput + "";
-		this.file1 = new File(this.filePath);
-		this.file2 = new File(this.fileOutput);
+		new File(this.filePath);
+		new File(this.fileOutput);
 		checkCSVFile(2);
 	}
 

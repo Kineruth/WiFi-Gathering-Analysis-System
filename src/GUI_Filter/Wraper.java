@@ -1,17 +1,13 @@
 package GUI_Filter;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +57,11 @@ public class Wraper {
 		System.out.println("Samples amount before delete: " +  DataBase.dataBase.size());
 		DataBase.deleteAllData();
 		System.out.println("Samples amount after delete: " +DataBase.dataBase.size());
+	}
+	public static int getMacNumber(){
+		Algorithms a = new Algorithms();
+		List<Sample> temp = new ArrayList<Sample>(DataBase.dataBase);
+		return  a.strongestMacLocation(temp, 4).size();
 	}
 
 	
@@ -120,7 +121,12 @@ public static void createAlgo1(String mac){
 }
 
 public static void createAlgo2(Sample s){
-	
+	Algorithms a = new Algorithms();
+	List<Sample> smpl = new ArrayList<Sample>();
+	List<Sample> temp = new ArrayList<Sample>(DataBase.dataBase);
+	smpl.add(s);
+	Sample sample = new Sample(a.userLocation(temp, smpl, 4) .get(0));
+	JOptionPane.showMessageDialog(new JFrame(), "LAT: "+sample.getLAT()+", LON: "+sample.getLON()+", ALT"+sample.getALT());
 	
 }
 

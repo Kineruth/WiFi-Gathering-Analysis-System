@@ -85,23 +85,38 @@ public class WiFiNetwork implements Comparable<WiFiNetwork> {
 	public String getSignal() {
 		return this.Signal;
 	}
-
+/**
+ * 
+ * @return this WifiNetwork's frequency.
+ */
 	public String getFrequency() {
 		return this.Frequency;
 	}
-
+/**
+ * 
+ * @param frequency given Frequency
+ */
 	public void setFrequency(String frequency) {
 		this.Frequency = frequency;
 	}
-
+/**
+ * 
+ * @param sSID given SSID
+ */
 	public void setSSID(String sSID) {
 		this.SSID = sSID;
 	}
-
+/**
+ * 
+ * @param mAC given mac
+ */
 	public void setMAC(String mAC) {
 		this.MAC = mAC;
 	}
-
+/**
+ * 
+ * @param signal given signal
+ */
 	public void setSignal(String signal) {
 		this.Signal = signal;
 	}

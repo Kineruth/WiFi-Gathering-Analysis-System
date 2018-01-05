@@ -152,11 +152,15 @@ public class Algorithm2 extends JFrame {
 		JButton btnGetLocation = new JButton("Get Location");
 		btnGetLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String mac1="", signal1="", mac2 = "", signal2="", mac3="", signal3="";
-
+				String mac1 = "", signal1 = "", mac2 = "", signal2 = "", mac3 = "", signal3 = "";
+				boolean flag = false;
 				// send to location
 				if (rdbtnNewRadioButton.isSelected()) {
-					Wraper.createAlgo2(Wraper.convertToSample(textField.getText()));
+					if (textField.getText().isEmpty())
+						JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Sample!");
+					else {
+						Wraper.createAlgo2(Wraper.convertToSample(textField.getText()));
+					}
 				}
 				if (rdbtnNewRadioButton_1.isSelected()) {
 					if (chckbxMac.isSelected()) {
@@ -164,20 +168,28 @@ public class Algorithm2 extends JFrame {
 						signal1 = textField_4.getText();
 						if (mac1.isEmpty() || signal1.isEmpty())
 							JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Values!");
+						else
+							flag = true;
 					}
 					if (chckbxMac_1.isSelected()) {
 						mac2 = textField_2.getText();
 						signal2 = textField_5.getText();
 						if (mac2.isEmpty() || signal2.isEmpty())
 							JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Values!");
+						else
+							flag = true;
 					}
 					if (chckbxMac_2.isSelected()) {
 						mac3 = textField_3.getText();
 						signal3 = textField_6.getText();
 						if (mac3.isEmpty() || signal3.isEmpty())
 							JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Values!");
+						else
+							flag = true;
 					}
-					Wraper.createAlgo2(Wraper.convertMacsToSample(mac1, mac2, mac3, signal1, signal2, signal3));
+					if (flag)
+						Wraper.createAlgo2(Wraper.convertMacsToSample(mac1, mac2, mac3, signal1, signal2, signal3));
+					flag = false;
 				}
 			}
 		});
