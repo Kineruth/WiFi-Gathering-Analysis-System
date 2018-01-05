@@ -102,7 +102,6 @@ public class Device_F extends JFrame {
 					if (rdbtnFilterWithoutDevice.isSelected()) {
 						DataBase.setCurrentFilter( new NotFilter(new DeviceFilter(textField.getText())));
 					}
-					DataBase.setCopyDataBase();
 					SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
 				}
 			}

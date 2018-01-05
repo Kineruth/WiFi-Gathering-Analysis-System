@@ -16,10 +16,9 @@ public class SamplesPredicate {
 	 * @param f a given filter.
 	 */
 	public static void filterWithPredicate(Filter f){
-//		List<Sample> temp = new ArrayList<Sample>(samples);
-//		Predicate<Sample> samplePredicate = s-> f.checkSample(s);
-//		temp.removeIf(samplePredicate);
-		System.out.println(f.toString());
+		System.out.println("Samples before filtering: "+DataBase.dataBase.size());
+		DataBase.setCopyDataBase();
 		DataBase.dataBase = new ArrayList<Sample>(DataBase.dataBase.stream().filter(s-> f.checkSample(s)).collect(Collectors.<Sample>toList()));
+		System.out.println("Samples after filtering: "+DataBase.dataBase.size());
 	}
 }

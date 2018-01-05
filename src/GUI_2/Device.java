@@ -116,7 +116,6 @@ public class Device extends JFrame {
 						if (DataBase.getFilterChoice().equals("add"))
 							DataBase.setCurrentFilter( new OrFilter(f, new NotFilter(f2)));
 					}
-					DataBase.setCopyDataBase();
 					SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
 				}
 			}

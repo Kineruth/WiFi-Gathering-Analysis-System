@@ -132,10 +132,33 @@ public static Sample convertToSample(String text) {
 	s.setLAT(str[2]);
 	s.setLON(str[3]);
 	s.setALT(str[4]);
-	for (int i = 5; i < str.length; i=i+4) {
+	for (int i = 6; i < str.length; i=i+4) {
 		WiFiNetwork wn = new WiFiNetwork(str[i], str[i+1], str[i+2], str[i+3]);
 		s.addNetwork(wn);
 	}
 	return s;	
+}
+public static Sample convertMacsToSample(String s1,String s2, String s3, String i1, String i2, String i3){
+	Sample s = new Sample();
+	if(!s1.isEmpty()){
+		WiFiNetwork wn = new WiFiNetwork();
+		wn.setMAC(s1);
+		wn.setSignal(i1);
+		s.addNetwork(wn);
+	}
+	if(!s2.isEmpty()){
+		WiFiNetwork wn = new WiFiNetwork();
+		wn.setMAC(s2);
+		wn.setSignal(i2);
+		s.addNetwork(wn);
+	}
+	if(!s3.isEmpty()){
+		WiFiNetwork wn = new WiFiNetwork();
+		wn.setMAC(s3);
+		wn.setSignal(i3);
+		s.addNetwork(wn);
+	}
+	return s;
+	
 }
 }

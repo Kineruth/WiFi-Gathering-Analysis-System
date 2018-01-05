@@ -201,7 +201,6 @@ public class Time extends JFrame {
 						if (DataBase.getFilterChoice().equals("or"))
 							DataBase.setCurrentFilter(new OrFilter(f, new NotFilter(f2)));
 					}
-					DataBase.setCopyDataBase();
 					SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
 				}
 

@@ -185,7 +185,6 @@ public class Time_F extends JFrame {
 								(int) spinner_1.getValue(), (int) spinner_5.getValue(), (int) spinner_6.getValue())));
 
 					}
-					DataBase.setCopyDataBase();
 					SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
 				}
 

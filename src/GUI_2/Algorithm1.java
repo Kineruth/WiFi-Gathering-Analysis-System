@@ -20,6 +20,10 @@ import java.awt.event.ActionEvent;
 
 public class Algorithm1 extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3382283942043610504L;
 	private JPanel contentPane;
 	private JTextField textField;
 

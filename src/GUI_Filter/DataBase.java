@@ -28,6 +28,7 @@ public abstract class DataBase implements List<Sample> {
 	public static void addData(List<Sample> samples){
 		DataBase.dataBase.addAll(samples);
 		DataBase.dataBase.stream().distinct().collect(Collectors.toList());
+		System.out.println("Current samples: "+DataBase.dataBase.size());
 	}
 	
 

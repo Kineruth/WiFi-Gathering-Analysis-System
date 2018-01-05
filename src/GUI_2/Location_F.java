@@ -345,7 +345,6 @@ public class Location_F extends JFrame {
 									Double.parseDouble(textField_2.getText()),
 									Double.parseDouble(textField_5.getText()))));
 						}
-						DataBase.setCopyDataBase();
 						SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
 					}
 				} catch (NumberFormatException e1) {
