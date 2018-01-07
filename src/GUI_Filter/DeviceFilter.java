@@ -23,6 +23,6 @@ public class DeviceFilter implements Filter{
 			 */
 		@Override
 		public boolean checkSample(Sample sample) {
-		return  !(sample.getID().equals(this.ID));
+		return  (sample.getID().equals(this.ID));
 		}
 }

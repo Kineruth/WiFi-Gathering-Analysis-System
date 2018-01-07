@@ -62,9 +62,8 @@ public class UploadFilter extends JFrame {
 				JFileChooser chooser = new JFileChooser();
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "txt");
 				chooser.setFileFilter(filter);
-				chooser.setDialogTitle("Choose Csv File");
+				chooser.setDialogTitle("Choose Filter File");
 				if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					System.out.println(chooser.getSelectedFile().getAbsolutePath());
 					try {
 						DataBase.setCurrentFilter(Wraper.readFilterFile(chooser.getSelectedFile().getAbsolutePath()));
 					} catch (ClassNotFoundException | IOException e1) {

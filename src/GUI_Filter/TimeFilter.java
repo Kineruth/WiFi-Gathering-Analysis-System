@@ -43,7 +43,7 @@ public class TimeFilter implements Filter{
 			 */
 		@Override
 		public boolean checkSample(Sample sample) {
-			return  !(Integer.parseInt(sample.getTime().split(" ")[0].split("-")[0])<=this.maxY && Integer.parseInt(sample.getTime().split(" ")[0].split("-")[0])>=this.minY
+			return  (Integer.parseInt(sample.getTime().split(" ")[0].split("-")[0])<=this.maxY && Integer.parseInt(sample.getTime().split(" ")[0].split("-")[0])>=this.minY
 					&& Integer.parseInt(sample.getTime().split(" ")[0].split("-")[1])<=this.maxM && Integer.parseInt(sample.getTime().split(" ")[0].split("-")[1])>=this.minM
 					&& Integer.parseInt(sample.getTime().split(" ")[0].split("-")[2])<=this.maxD && Integer.parseInt(sample.getTime().split(" ")[0].split("-")[2])>=this.minD
 					&& Integer.parseInt(sample.getTime().split(" ")[1].split(":")[0])<=this.maxH &&Integer.parseInt(sample.getTime().split(" ")[1].split(":")[0])>= this.minH

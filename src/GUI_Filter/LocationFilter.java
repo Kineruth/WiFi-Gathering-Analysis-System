@@ -26,7 +26,7 @@ public class LocationFilter implements Filter{
 	 */
 		@Override
 		public boolean checkSample(Sample sample) {
-			return !(Double.parseDouble(sample.getLAT())<=this.maxLAT && Double.parseDouble(sample.getLAT())>=this.minLAT
+			return (Double.parseDouble(sample.getLAT())<=this.maxLAT && Double.parseDouble(sample.getLAT())>=this.minLAT
 					&&Double.parseDouble(sample.getLON())<= this.maxLON && Double.parseDouble(sample.getLON())>= this.minLON
 					&&Double.parseDouble(sample.getALT())<= this.maxALT && Double.parseDouble(sample.getALT())>= this.minALT);
 		}
