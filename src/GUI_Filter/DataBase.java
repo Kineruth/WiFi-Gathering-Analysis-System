@@ -19,11 +19,12 @@ public abstract class DataBase implements List<Sample> {
 	 * we will make a copy of it so when we want to restore the original,
 	 * we could set the database to the copy.
 	 */
-	public static List<Sample> dataBase=new ArrayList<Sample>();	;
+	public static List<Sample> dataBase=new ArrayList<Sample>();
 	public static List<Sample> copyDataBase;
 	private static Filter currentFilter;
 	private static String filterChoice;
-	private static File folderPaths[] ;
+	private static List<String> folderPaths=new ArrayList<String>();
+//	private static List<String> filePaths = new ArrayList<String>();
 
 	/**
 	 * Adds new samples to the database.
@@ -110,4 +111,32 @@ public abstract class DataBase implements List<Sample> {
 	public static void setFilterChoice(String filterChoice) {
 		DataBase.filterChoice = filterChoice;
 	}
+/**
+ * 
+ * @return this folderPath list.
+ */
+public static List<String> getFolderPaths() {
+	return DataBase.folderPaths;
+}
+/**
+ * Sets this list to the given one.
+ * @param folderPaths a given FolderPath list
+ */
+public static void setFolderPaths(List<String> folderPaths) {
+	DataBase.folderPaths = new ArrayList<String>(folderPaths);
+}
+
+public static void addFolderPath(String path){
+	DataBase.folderPaths.add(path);
+}
+public static void removeFolderPath(String path){
+	if(DataBase.folderPaths.contains(path)){
+		for(String s : DataBase.folderPaths){
+			if(s.equals(path)) DataBase.folderPaths.remove(s);
+		}
+	}
+}
+//	public static void addFilePath(String path){
+//		DataBase.filePaths.add(path);
+//	}
 }

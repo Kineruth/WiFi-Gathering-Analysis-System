@@ -35,6 +35,7 @@ public class Wraper {
 	public static void folderAdded(String folderPath) {
 		MergeCSVfiles mg = new MergeCSVfiles(folderPath);
 		DataBase.addData(mg.getSamplesFromFiles());
+		DataBase.addFolderPath(folderPath);
 		JOptionPane.showMessageDialog(new JFrame(), "Folder Added Succesfully!");
 	}
 
