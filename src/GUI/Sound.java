@@ -1,4 +1,4 @@
-package GUI_2;
+package GUI;
 
 import java.awt.event.*;
 import javafx.scene.media.Media;

@@ -1,4 +1,4 @@
-package GUI_2;
+package GUI;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -14,7 +14,7 @@ import java.nio.file.WatchService;
 public class Watch_Service {
 
 	public static void main(String[] args) throws IOException{
-		WatchService watchservice=FileSystems.getDefault().newWatchService();
+		Watch_Service watchservice=FileSystems.getDefault().newWatchService();
 		Path directory =Paths.get("C:\\alive\\");
 		WatchKey watchkey =directory.register(watchservice,StandardWatchEventKinds.ENTRY_CREATE,
 				StandardWatchEventKinds.ENTRY_DELETE,
