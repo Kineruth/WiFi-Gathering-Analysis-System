@@ -34,11 +34,8 @@ public class TimeFilter implements Filter {
 	 * This function filter the lines by the user choice of time. Filters the
 	 * samples within the stated range, Filters using Predicate - checks if the
 	 * user's date and hour is as in the line, if not - removes the line.
-	 * Predicate removeIf:
-	 * https://www.concretepage.com/java/jdk-8/java-8-list-example-with-foreach-removeif-replaceall-and-sort
 	 * 
-	 * @param linesUnited
-	 *            a given list of lines from the CSV file.
+	 * @param sample a given sample.
 	 */
 	@Override
 	public boolean checkSample(Sample sample) {
@@ -54,9 +51,6 @@ public class TimeFilter implements Filter {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		if ((this.max.getTime() - current.getTime()) < 0 || (current.getTime() - this.min.getTime()) < 0)
-			return false;
-		return true;
-//		return current.after(this.min) && current.before(this.max);
+		return current.after(this.min) && this.max.getTime() >= current.getTime()&& current.before(this.max) && this.min.getTime() <= current.getTime();
 	}
 }

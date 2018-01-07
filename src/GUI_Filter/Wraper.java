@@ -233,13 +233,13 @@ public class Wraper {
 		return s;
 
 	}
-
+/**
+ * Returns true if the dates the user chose are really max and min.
+ * @param max a given max date.
+ * @param min a given min date.
+ * @return true/false,
+ */
 	public static boolean checkDateMinMax(Date max, Date min) {
-//		return (max.after(min) && max.getTime() >= min.getTime()) || max.equals(min);
-		System.out.println(max.toGMTString());
-		System.out.println(min.toGMTString());
-		if((max.getTime()-min.getTime())<0)
-			return false;
-		return true;
+		return (max.after(min) && max.getTime() >= min.getTime()) || max.equals(min);
 	}
 }

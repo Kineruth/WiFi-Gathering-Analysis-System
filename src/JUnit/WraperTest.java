@@ -1,10 +1,12 @@
-package GUI_Filter;
+package JUnit;
 
 import static org.junit.Assert.*;
 
 import java.util.Date;
 
 import org.junit.Test;
+
+import GUI_Filter.Wraper;
 
 public class WraperTest {
 
