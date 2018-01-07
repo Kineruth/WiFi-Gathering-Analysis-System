@@ -36,6 +36,10 @@ import java.awt.SystemColor;
 
 public class Time_F extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4636976657178532934L;
 	private JPanel contentPane;
 
 	/**
@@ -162,22 +166,28 @@ public class Time_F extends JFrame {
 		rdbtnFilterWithTime.setBounds(12, 329, 195, 25);
 		contentPane.add(rdbtnFilterWithTime);
 
-		Date maxDate = new Date((int)spinner_4.getValue(), (int)spinner_3.getValue(), (int)spinner_2.getValue(),(int) spinner.getValue(), (int)spinner_1.getValue());
-		Date minDate = new Date((int)spinner_5.getValue(), (int)spinner_6.getValue(), (int)spinner_7.getValue(),(int) spinner_8.getValue(), (int)spinner_9.getValue());
-		if(maxDate.after(minDate)) System.out.println("hey!!");
-		else System.out.println("Whyyyy");
-		
+		Calendar maxC = Calendar.getInstance();
+		Calendar minC = Calendar.getInstance();
+		maxC.set((int) spinner_4.getValue(), (int) spinner_3.getValue(), (int) spinner_2.getValue(),
+				(int) spinner.getValue(), (int) spinner_1.getValue());
+		minC.set((int) spinner_5.getValue(), (int) spinner_6.getValue(), (int) spinner_7.getValue(),
+				(int) spinner_8.getValue(), (int) spinner_9.getValue());
+		if (maxC.after(minC))
+			System.out.println("hey!!");
+		else
+			System.out.println("Whyyyy");
+
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Wraper.checkDateMinMax(maxDate,minDate)==false) 
+				if (Wraper.checkDateMinMax(maxC, minC) == false)
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
-				 else {
+				else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
-						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(maxDate, minDate)));
+						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(maxC, minC)));
 					}
 					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(maxDate, minDate)));
+						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(maxC, minC)));
 
 					}
 					SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
@@ -192,14 +202,14 @@ public class Time_F extends JFrame {
 		JButton button_1 = new JButton("Save Current Filter");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!Wraper.checkDateMinMax(maxDate, minDate) )
+				if (!Wraper.checkDateMinMax(maxC, minC))
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
-				 else {
+				else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
-						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(maxDate, minDate)));
+						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(maxC, minC)));
 					}
 					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(maxDate, minDate)));
+						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(maxC, minC)));
 
 					}
 					try {
@@ -249,14 +259,14 @@ public class Time_F extends JFrame {
 		JButton button_2 = new JButton("Next");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Wraper.checkDateMinMax(maxDate,minDate)==false)
+				if (Wraper.checkDateMinMax(maxC, minC) == false)
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
-						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(maxDate, minDate)));
+						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(maxC, minC)));
 					}
 					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(maxDate, minDate)));
+						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(maxC, minC)));
 					}
 					if (rdbtnAddLocationFilter.isSelected()) {
 						DataBase.setFilterChoice("add");

@@ -40,9 +40,9 @@ public class Sample {
 	 */
 	public Sample(String ID, String Time, String LAT, String LON, String ALT, double PI) {
 		this.ID = ID;
-		this.Time = Time;
-		TimeCorrector tc = new TimeCorrector();
-		tc.correctAndSetTime(this.Time);
+		this.Time = TimeCorrector.correctAndSetTime(Time);
+//		TimeCorrector tc = new TimeCorrector();
+//		tc.correctAndSetTime(this.Time);
 		this.LAT = LAT;
 		this.LON = LON;
 		this.ALT = ALT;

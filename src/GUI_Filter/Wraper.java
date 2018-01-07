@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -233,7 +234,9 @@ public class Wraper {
 
 	}
 
-	public static boolean checkDateMinMax(Date max, Date min) {
-		return (max.after(min) && max.getTime() >= min.getTime()) || max.equals(min);
+	public static boolean checkDateMinMax(Calendar max, Calendar min) {
+//		return (max.after(min) && max.getTime() >= min.getTime()) || max.equals(min);
+//		return max.after(min) && max.getTimeInMillis()>=min.getTimeInMillis()|| max.equals(min);
+return max.getTimeInMillis()>=min.getTimeInMillis();
 	}
 }

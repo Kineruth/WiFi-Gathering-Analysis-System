@@ -42,7 +42,7 @@ public class Main {
 		
 		String diractory_Path = "C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task1\\data";
 		MergeCSVfiles t = new MergeCSVfiles(diractory_Path);
-//		t.sortDirFiles();
+		t.sortDirFiles();
 
 		
 		
@@ -61,7 +61,7 @@ public class Main {
 		String fileOutput="C:\\Users\\admin\\Documents\\Computer Science\\Second Year\\First Sem\\OOP\\Tasks\\Task2\\testing\\Boaz_Files\\_comb_no_gps_ts1.csv";
 		int number =4;
 		
-		a.macStrongestLocation(filePath, number); //algo 1
+//		a.macStrongestLocation(filePath, number); //algo 1
 //		a.userLocation(filePath, fileOutput, number); //algo 2
 	}
 

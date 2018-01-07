@@ -1,8 +1,10 @@
 package GUI_Filter;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import MergedCSV.Sample;
+import MergedCSV.TimeCorrector;
 
 public class TimeFilter implements Filter {
 
@@ -10,7 +12,8 @@ public class TimeFilter implements Filter {
 	 * 
 	 */
 	private static final long serialVersionUID = -1625053601231834310L;
-	private Date maxD, minD;
+	// private Date maxD, minD;
+	private Calendar maxC, minC;
 
 	/**
 	 * 
@@ -19,9 +22,9 @@ public class TimeFilter implements Filter {
 	 * @param minD
 	 *            a given min Date.
 	 */
-	public TimeFilter(Date maxD, Date minD) {
-		this.maxD = maxD;
-		this.minD = minD;
+	public TimeFilter(Calendar maxD, Calendar minD) {
+		this.maxC = maxD;
+		this.minC = minD;
 	}
 
 	/**
@@ -36,15 +39,18 @@ public class TimeFilter implements Filter {
 	 */
 	@Override
 	public boolean checkSample(Sample sample) {
-		@SuppressWarnings("deprecation")
-		Date current = new Date(Integer.parseInt(sample.getTime().split(" ")[0].split("-")[0]),
+		
+//		System.out.println(sample.getTime());
+//		TimeCorrector.correctAndSetTime(sample.getTime());
+		
+		Calendar current = Calendar.getInstance();
+		current.set(Integer.parseInt(sample.getTime().split(" ")[0].split("-")[0]),
 				Integer.parseInt(sample.getTime().split(" ")[0].split("-")[1]),
 				Integer.parseInt(sample.getTime().split(" ")[0].split("-")[2]),
 				Integer.parseInt(sample.getTime().split(" ")[1].split(":")[0]),
 				Integer.parseInt(sample.getTime().split(" ")[1].split(":")[1]));
 
-		return ((current.before(this.maxD) && current.getTime() <= this.maxD.getTime() || current.equals(this.maxD))
-				&& ((current.after(this.minD) && current.getTime() >= this.minD.getTime())
-						|| current.equals(this.minD)));
+		return ((current.before(this.maxC)
+				|| current.equals(this.maxC)) && (current.after(this.minC) || current.equals(this.minC)));
 	}
 }

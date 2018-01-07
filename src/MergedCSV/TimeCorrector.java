@@ -18,7 +18,8 @@ public String setTimeKMLFormat(String time){
  * This function corrects a given time to be in this pattern:  (yyyy-mm-dd hh:mm:ss), if not it corrects it.
  * @param time a given time.
  */
-public void correctAndSetTime(String time){
+public static String correctAndSetTime(String current){
+	String time = current;
 	if(time.contains("/"))
 		time=time.replaceAll("/", "-");
 	String [] timeStamp = time.split(" ");
@@ -29,7 +30,7 @@ public void correctAndSetTime(String time){
 		else //in dd-mm-yyyy format
 			time= date[2]+"-"+date[1]+"-"+date[0]+" "+timeStamp[1]+":00";
 	}
-		
+		return time;
 }
 
 }
