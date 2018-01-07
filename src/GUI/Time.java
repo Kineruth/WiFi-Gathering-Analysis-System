@@ -63,6 +63,7 @@ public class Time extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("deprecation")
 	public Time() {
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -170,19 +171,15 @@ public class Time extends JFrame {
 		radioButton_1.setBounds(177, 304, 219, 25);
 		contentPane.add(radioButton_1);
 
+		Date maxDate = new Date((int)spinner_6.getValue(), (int)spinner_5.getValue(), (int)spinner_4.getValue(), (int)spinner.getValue(), (int)spinner_1.getValue());
+		Date minDate = new Date((int) spinner_9.getValue(), (int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner_2.getValue(), (int) spinner_3.getValue());
 		Filter f = DataBase.getCurrentFilter();
-		Filter f2 = new TimeFilter((int) spinner_6.getValue(), (int) spinner_5.getValue(), (int) spinner_4.getValue(),
-				(int) spinner_7.getValue(), (int) spinner_8.getValue(), (int) spinner_9.getValue(),
-				(int) spinner.getValue(), (int) spinner_1.getValue(), (int) spinner_2.getValue(),
-				(int) spinner_3.getValue());
+		Filter f2 = new TimeFilter(maxDate, minDate);
 
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!Wraper.checkDateMinMax((int) spinner_6.getValue(), (int) spinner_5.getValue(), (int) spinner_4.getValue(),
-						(int) spinner_7.getValue(), (int) spinner_8.getValue(), (int) spinner_9.getValue(),
-						(int) spinner.getValue(), (int) spinner_1.getValue(), (int) spinner_2.getValue(),
-						(int) spinner_3.getValue()))
+				if (Wraper.checkDateMinMax(maxDate,minDate)==false)
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
 					if (radioButton.isSelected()) {
@@ -213,10 +210,7 @@ public class Time extends JFrame {
 		JButton button_1 = new JButton("Save Current Filter");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!Wraper.checkDateMinMax((int) spinner_6.getValue(), (int) spinner_5.getValue(), (int) spinner_4.getValue(),
-						(int) spinner_7.getValue(), (int) spinner_8.getValue(), (int) spinner_9.getValue(),
-						(int) spinner.getValue(), (int) spinner_1.getValue(), (int) spinner_2.getValue(),
-						(int) spinner_3.getValue()))
+				if (Wraper.checkDateMinMax(maxDate,minDate))
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
 					if (radioButton.isSelected()) {
