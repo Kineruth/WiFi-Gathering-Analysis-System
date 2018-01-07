@@ -1,7 +1,9 @@
 package GUI_Filter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import Algorithms.Algorithms;
@@ -26,8 +28,12 @@ public abstract class DataBase implements List<Sample> {
 	 * @param samples a given list of samples.
 	 */
 	public static void addData(List<Sample> samples){
-		DataBase.dataBase.addAll(samples);
-		DataBase.dataBase.stream().distinct().collect(Collectors.toList());
+		Set<Sample> set = new HashSet<Sample>();
+		set.addAll(DataBase.dataBase);
+		set.addAll(samples);
+		
+		DataBase.dataBase.clear();
+		DataBase.dataBase.addAll(set);		
 		System.out.println("Current samples: "+DataBase.dataBase.size());
 	}
 	

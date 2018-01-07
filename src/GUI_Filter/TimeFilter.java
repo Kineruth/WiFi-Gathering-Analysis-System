@@ -38,11 +38,7 @@ public class TimeFilter implements Filter {
 	 *            a given list of lines from the CSV file.
 	 */
 	@Override
-	public boolean checkSample(Sample sample) {
-		
-//		System.out.println(sample.getTime());
-//		TimeCorrector.correctAndSetTime(sample.getTime());
-		
+	public boolean checkSample(Sample sample) {		
 		Calendar current = Calendar.getInstance();
 		current.set(Integer.parseInt(sample.getTime().split(" ")[0].split("-")[0]),
 				Integer.parseInt(sample.getTime().split(" ")[0].split("-")[1]),

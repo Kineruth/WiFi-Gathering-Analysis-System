@@ -41,13 +41,13 @@ public class Sample {
 	public Sample(String ID, String Time, String LAT, String LON, String ALT, double PI) {
 		this.ID = ID;
 		this.Time = TimeCorrector.correctAndSetTime(Time);
-//		TimeCorrector tc = new TimeCorrector();
-//		tc.correctAndSetTime(this.Time);
+		// TimeCorrector tc = new TimeCorrector();
+		// tc.correctAndSetTime(this.Time);
 		this.LAT = LAT;
 		this.LON = LON;
 		this.ALT = ALT;
 		this.PI = PI;
-		
+
 		this.commonNetworks = new ArrayList<WiFiNetwork>();
 	}
 
@@ -166,7 +166,6 @@ public class Sample {
 		return this.commonNetworks.size();
 	}
 
-
 	/**
 	 * 
 	 * @return prints this Sample information with this commonNetworks'
@@ -194,6 +193,44 @@ public class Sample {
 	public String getTimeInKML() {
 		TimeCorrector tc = new TimeCorrector();
 		return tc.setTimeKMLFormat(this.Time);
+	}
+/**
+ * Credit : Shoval Haim
+ */
+	@Override
+	public boolean equals(Object obj) {
+
+		if (obj instanceof Sample) {
+			Sample s = (Sample) obj;
+			if (this.Time == s.getTime() && this.ID == s.getID() && this.LAT.equals(s.getLAT())
+					&& this.LON.equals(s.getLON()) && this.ALT.equals(s.getALT()))
+				for (int i = 0; i < s.getCommonNetworks().size(); i++) {
+					if (!(this.getCommonNetworks().get(i).equals(s.getCommonNetworks().get(i))))
+						return false;
+				}
+		}
+		return true;
+	}
+	/**
+	 * Credit : Shoval Haim
+	 */
+	@Override
+	 public int hashCode() {
+	 int num = 10;
+	 num += Double.parseDouble(this.getLAT());
+	 num += Double.parseDouble(this.getLON());
+	 num += Double.parseDouble(this.getALT());
+	 num += this.ID.hashCode();
+	 num += this.Time.hashCode();
+	 
+	 for(int i=0; i<this.commonNetworks.size(); i++){
+		 num += Integer.parseInt(this.commonNetworks.get(i).getSignal());
+		 num += this.commonNetworks.get(i).getMAC().hashCode();
+		 num += this.commonNetworks.get(i).getSSID().hashCode();
+		 num += Integer.parseInt(this.commonNetworks.get(i).getFrequency());
+		 num += Integer.parseInt(this.commonNetworks.get(i).getSignal());
+	 }
+	return num;
 	}
 
 	/**
@@ -261,8 +298,5 @@ public class Sample {
 	private boolean compareALT(String ALT) {
 		return this.ALT.equals(ALT);
 	}
-
-
-
 
 }
