@@ -30,6 +30,8 @@ import java.util.Calendar;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 import java.awt.SystemColor;
@@ -41,7 +43,7 @@ public class Time_F extends JFrame {
 	 */
 	private static final long serialVersionUID = 4636976657178532934L;
 	private JPanel contentPane;
-
+	private static Date max = new Date(), min=new Date();
 	/**
 	 * Launch the application.
 	 */
@@ -164,30 +166,33 @@ public class Time_F extends JFrame {
 		rdbtnFilterWithTime.setSelected(true);
 		rdbtnFilterWithTime.setFont(new Font("Tahoma", Font.BOLD, 16));
 		rdbtnFilterWithTime.setBounds(12, 329, 195, 25);
-		contentPane.add(rdbtnFilterWithTime);
+		contentPane.add(rdbtnFilterWithTime);	
 
-		Calendar maxC = Calendar.getInstance();
-		Calendar minC = Calendar.getInstance();
-		maxC.set((int) spinner_4.getValue(), (int) spinner_3.getValue(), (int) spinner_2.getValue(),
-				(int) spinner.getValue(), (int) spinner_1.getValue());
-		minC.set((int) spinner_5.getValue(), (int) spinner_6.getValue(), (int) spinner_7.getValue(),
-				(int) spinner_8.getValue(), (int) spinner_9.getValue());
-		if (maxC.after(minC))
-			System.out.println("hey!!");
-		else
-			System.out.println("Whyyyy");
 
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Wraper.checkDateMinMax(maxC, minC) == false)
+				String s = spinner_4.getValue()+"-"+ spinner_3.getValue()+"-"+spinner_2.getValue()+" "+((int)spinner.getValue()+2)+":"+spinner_1.getValue()+":00";
+				String s2 = spinner_9.getValue()+"-"+ spinner_8.getValue()+"-"+spinner_7.getValue()+" "+((int)spinner_5.getValue()+2)+":"+spinner_6.getValue()+":00";
+				SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
+				 try {
+					max = dt.parse(s);
+					max.setMonth((int)spinner_3.getValue()-1);
+					max.setHours((int)spinner.getValue()+2);
+					min = dt.parse(s2);
+					min.setMonth((int)spinner_8.getValue()-1);
+					min.setHours((int)spinner_5.getValue()+2);
+				} catch (ParseException e2) {
+					e2.printStackTrace();
+				}
+				if (Wraper.checkDateMinMax(max, min) == false)
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
-						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(maxC, minC)));
+						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(max, min)));
 					}
 					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(maxC, minC)));
+						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(max, min)));
 
 					}
 					SamplesPredicate.filterWithPredicate(DataBase.getCurrentFilter());
@@ -202,14 +207,27 @@ public class Time_F extends JFrame {
 		JButton button_1 = new JButton("Save Current Filter");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!Wraper.checkDateMinMax(maxC, minC))
+				String s = spinner_4.getValue()+"-"+ ((int)spinner_3.getValue()+9)+"-"+spinner_2.getValue()+" "+((int)spinner.getValue()+2)+":"+spinner_1.getValue()+":00";
+				String s2 = spinner_9.getValue()+"-"+ ((int)spinner_8.getValue()+9)+"-"+spinner_7.getValue()+" "+((int)spinner_5.getValue()+2)+":"+spinner_6.getValue()+":00";
+				SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
+				 try {
+						max = dt.parse(s);
+						max.setMonth((int)spinner_3.getValue()-1);
+						max.setHours((int)spinner.getValue()+2);
+						min = dt.parse(s2);
+						min.setMonth((int)spinner_8.getValue()-1);
+						min.setHours((int)spinner_5.getValue()+2);
+				} catch (ParseException e2) {
+					e2.printStackTrace();
+				}
+				if (!Wraper.checkDateMinMax(max, min))
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
-						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(maxC, minC)));
+						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(max, min)));
 					}
 					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(maxC, minC)));
+						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(max, min)));
 
 					}
 					try {
@@ -259,14 +277,27 @@ public class Time_F extends JFrame {
 		JButton button_2 = new JButton("Next");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Wraper.checkDateMinMax(maxC, minC) == false)
+				String s = spinner_4.getValue()+"-"+ ((int)spinner_3.getValue())+"-"+spinner_2.getValue()+" "+((int)spinner.getValue())+":"+spinner_1.getValue()+":00";
+				String s2 = spinner_9.getValue()+"-"+ ((int)spinner_8.getValue())+"-"+spinner_7.getValue()+" "+((int)spinner_5.getValue())+":"+spinner_6.getValue()+":00";
+				SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
+				 try {
+						max = dt.parse(s);
+						max.setMonth((int)spinner_3.getValue()-1);
+						max.setHours((int)spinner.getValue()+2);
+						min = dt.parse(s2);
+						min.setMonth((int)spinner_8.getValue()-1);
+						min.setHours((int)spinner_5.getValue()+2);
+				} catch (ParseException e2) {
+					e2.printStackTrace();
+				}
+				if (Wraper.checkDateMinMax(max, min) == false)
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
 					if (rdbtnFilterWithTime.isSelected()) { // original filter
-						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(maxC, minC)));
+						DataBase.setCurrentFilter(new OriginalFilter(new TimeFilter(max, min)));
 					}
 					if (rdbtnFilterWithoutTime.isSelected()) { // not filter
-						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(maxC, minC)));
+						DataBase.setCurrentFilter(new NotFilter(new TimeFilter(max, min)));
 					}
 					if (rdbtnAddLocationFilter.isSelected()) {
 						DataBase.setFilterChoice("add");

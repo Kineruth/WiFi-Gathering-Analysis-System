@@ -234,9 +234,12 @@ public class Wraper {
 
 	}
 
-	public static boolean checkDateMinMax(Calendar max, Calendar min) {
+	public static boolean checkDateMinMax(Date max, Date min) {
 //		return (max.after(min) && max.getTime() >= min.getTime()) || max.equals(min);
-//		return max.after(min) && max.getTimeInMillis()>=min.getTimeInMillis()|| max.equals(min);
-return max.getTimeInMillis()>=min.getTimeInMillis();
+		System.out.println(max.toGMTString());
+		System.out.println(min.toGMTString());
+		if((max.getTime()-min.getTime())<0)
+			return false;
+		return true;
 	}
 }

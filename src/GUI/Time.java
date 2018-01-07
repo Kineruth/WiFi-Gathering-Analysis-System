@@ -31,6 +31,8 @@ import java.util.Date;
 import java.util.Calendar;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.SpinnerNumberModel;
@@ -42,6 +44,7 @@ public class Time extends JFrame {
 	 */
 	private static final long serialVersionUID = 7974167552892378616L;
 	private JPanel contentPane;
+	private static Date max, min;
 
 	/**
 	 * Launch the application.
@@ -171,19 +174,29 @@ public class Time extends JFrame {
 		radioButton_1.setBounds(177, 304, 219, 25);
 		contentPane.add(radioButton_1);
 
-		
-		Calendar maxC= Calendar.getInstance();
-		Calendar minC= Calendar.getInstance();
-		maxC.set((int)spinner_6.getValue(), (int)spinner_5.getValue(), (int)spinner_4.getValue(), (int)spinner.getValue(), (int)spinner_1.getValue());
-		minC.set((int) spinner_9.getValue(), (int) spinner_8.getValue(), (int) spinner_7.getValue(), (int) spinner_2.getValue(), (int) spinner_3.getValue());
-		
 		Filter f = DataBase.getCurrentFilter();
-		Filter f2 = new TimeFilter(maxC, minC);
 
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Wraper.checkDateMinMax(maxC,minC)==false)
+				String s = spinner_6.getValue() + "-" + ((int) spinner_5.getValue()) + "-" + spinner_4.getValue()
+						+ " " + ((int) spinner.getValue() ) + ":" + spinner_1.getValue() + ":00";
+				String s2 = spinner_9.getValue() + "-" + ((int) spinner_8.getValue() ) + "-" + spinner_7.getValue()
+						+ " " + ((int) spinner_2.getValue() ) + ":" + spinner_3.getValue() + ":00";
+				SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss");
+				try {
+					max = dt.parse(s);
+					max.setMonth((int) spinner_5.getValue() - 1);
+					max.setHours((int) spinner.getValue()+2);
+					min = dt.parse(s2);
+					min.setMonth((int) spinner_8.getValue() - 1);
+					min.setHours((int) spinner_2.getValue() +2);
+				} catch (ParseException e2) {
+					e2.printStackTrace();
+				}
+				Filter f2 = new TimeFilter(max, min);
+
+				if (Wraper.checkDateMinMax(max, min) == false)
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
 					if (radioButton.isSelected()) {
@@ -214,7 +227,23 @@ public class Time extends JFrame {
 		JButton button_1 = new JButton("Save Current Filter");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Wraper.checkDateMinMax(maxC,minC))
+				String s = spinner_6.getValue() + "-" + ((int) spinner_5.getValue()) + "-" + spinner_4.getValue()
+						+ " " + ((int) spinner.getValue() ) + ":" + spinner_1.getValue() + ":00";
+				String s2 = spinner_9.getValue() + "-" + ((int) spinner_8.getValue() ) + "-" + spinner_7.getValue()
+						+ " " + ((int) spinner_2.getValue()) + ":" + spinner_3.getValue() + ":00";
+				SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss");
+				try {
+					max = dt.parse(s);
+					max.setMonth((int) spinner_5.getValue() - 1);
+					max.setHours((int) spinner.getValue()+2);
+					min = dt.parse(s2);
+					min.setMonth((int) spinner_8.getValue() - 1);
+					min.setHours((int) spinner_2.getValue() +2);
+				} catch (ParseException e2) {
+					e2.printStackTrace();
+				}
+				Filter f2 = new TimeFilter(max, min);
+				if (Wraper.checkDateMinMax(max, min))
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter Correct Max/Min Values!");
 				else {
 					if (radioButton.isSelected()) {

@@ -1,5 +1,7 @@
 package GUI_Filter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -12,8 +14,9 @@ public class TimeFilter implements Filter {
 	 * 
 	 */
 	private static final long serialVersionUID = -1625053601231834310L;
+	private Date max, min;
 	// private Date maxD, minD;
-	private Calendar maxC, minC;
+	// private Calendar min;
 
 	/**
 	 * 
@@ -22,9 +25,9 @@ public class TimeFilter implements Filter {
 	 * @param minD
 	 *            a given min Date.
 	 */
-	public TimeFilter(Calendar maxD, Calendar minD) {
-		this.maxC = maxD;
-		this.minC = minD;
+	public TimeFilter(Date maxD, Date minD) {
+		this.max = maxD;
+		this.min = minD;
 	}
 
 	/**
@@ -38,15 +41,22 @@ public class TimeFilter implements Filter {
 	 *            a given list of lines from the CSV file.
 	 */
 	@Override
-	public boolean checkSample(Sample sample) {		
-		Calendar current = Calendar.getInstance();
-		current.set(Integer.parseInt(sample.getTime().split(" ")[0].split("-")[0]),
-				Integer.parseInt(sample.getTime().split(" ")[0].split("-")[1]),
-				Integer.parseInt(sample.getTime().split(" ")[0].split("-")[2]),
-				Integer.parseInt(sample.getTime().split(" ")[1].split(":")[0]),
-				Integer.parseInt(sample.getTime().split(" ")[1].split(":")[1]));
-
-		return ((current.before(this.maxC)
-				|| current.equals(this.maxC)) && (current.after(this.minC) || current.equals(this.minC)));
+	public boolean checkSample(Sample sample) {
+		String s = sample.getTime().split(" ")[0].split("-")[0] + "-" + sample.getTime().split(" ")[0].split("-")[1] 
+				+ "-" + sample.getTime().split(" ")[0].split("-")[2] + " "
+				+ (Integer.parseInt(sample.getTime().split(" ")[1].split(":")[0]) + 2) + ":"
+				+ sample.getTime().split(" ")[1].split(":")[1] + ":00";
+		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss");
+		Date current = new Date();
+		try {
+			current = dt.parse(s);
+			current.setMonth( Integer.parseInt(sample.getTime().split(" ")[0].split("-")[1] )-1);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		if ((this.max.getTime() - current.getTime()) < 0 || (current.getTime() - this.min.getTime()) < 0)
+			return false;
+		return true;
+//		return current.after(this.min) && current.before(this.max);
 	}
 }
