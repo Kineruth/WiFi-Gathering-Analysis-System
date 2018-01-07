@@ -1,5 +1,6 @@
 package GUI_Filter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,7 +15,7 @@ import de.micromata.opengis.kml.v_2_2_0.Point;
 public abstract class DataBase implements List<Sample> {
 
 	/**
-	 * DataBade is the one we will work on, and everytime we want to filter,
+	 * DataBase is the one we will work on, and every time we want to filter,
 	 * we will make a copy of it so when we want to restore the original,
 	 * we could set the database to the copy.
 	 */
@@ -22,6 +23,7 @@ public abstract class DataBase implements List<Sample> {
 	public static List<Sample> copyDataBase;
 	private static Filter currentFilter;
 	private static String filterChoice;
+	private static File folderPaths[] ;
 
 	/**
 	 * Adds new samples to the database.
