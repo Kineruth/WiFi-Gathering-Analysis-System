@@ -23,6 +23,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import GUI_Filter.DataBase;
+import GUI_Filter.Wraper;
 
 /**
  * Credit: Yuval Mizrahi.
@@ -143,7 +144,7 @@ public class Watch_Service {
 	}
 	private static void reg(Path dir, Map<WatchKey, Path> keys, java.nio.file.WatchService ws)
 			throws IOException {
-		WatchKey key = dir.register(ws, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
+		WatchKey key = dir.register(ws, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
 		keys.put(key, dir);
 	}
 	/**
