@@ -24,7 +24,7 @@ public abstract class DataBase implements List<Sample> {
 	private static Filter currentFilter;
 	private static String filterChoice;
 	private static List<String> folderPaths=new ArrayList<String>();
-//	private static List<String> filePaths = new ArrayList<String>();
+	private static List<String> filePaths = new ArrayList<String>();
 
 	/**
 	 * Adds new samples to the database.
@@ -136,7 +136,16 @@ public static void removeFolderPath(String path){
 		}
 	}
 }
-//	public static void addFilePath(String path){
-//		DataBase.filePaths.add(path);
-//	}
+	public static void addFilePath(String path){
+		DataBase.filePaths.add(path);
+	}
+
+	public static List<String> getFilePaths() {
+		return DataBase.filePaths;
+	}
+
+	public static void setFilePaths(List<String> filePaths) {
+		DataBase.filePaths = filePaths;
+	}
+	
 }

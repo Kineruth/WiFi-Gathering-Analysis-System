@@ -8,6 +8,6 @@
 	<classpathentry kind="lib" path="KML API/jaxb-api-2.1.jar"/>
 	<classpathentry kind="lib" path="KML API/jaxb-impl-2.1.17.jar"/>
 	<classpathentry kind="lib" path="KML API/jsr173_api-1.0.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

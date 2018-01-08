@@ -50,8 +50,11 @@ public class Wraper {
 		FileFormat fm = new FileFormat();
 		LinesToSamples ls = new LinesToSamples();
 		File f = new File(filePath);
-		if (fm.checkMergedCSVFormat(f))
+		if (fm.checkMergedCSVFormat(f)){
 			DataBase.addData(ls.convertLines(ls.readCSV(filePath)));
+			DataBase.addFilePath(filePath);
+		}
+			
 		JOptionPane.showMessageDialog(new JFrame(), "File Added Succesfully !");
 	}
 
