@@ -20,7 +20,7 @@ public abstract class DataBase implements List<Sample> {
 	 * we could set the database to the copy.
 	 */
 	public static List<Sample> dataBase=new ArrayList<Sample>();
-	public static List<Sample> copyDataBase;
+	public static List<Sample> copyDataBase=new ArrayList<Sample>();
 	private static Filter currentFilter;
 	private static String filterChoice;
 	private static List<String> folderPaths=new ArrayList<String>();
@@ -37,6 +37,7 @@ public abstract class DataBase implements List<Sample> {
 		
 		DataBase.dataBase.clear();
 		DataBase.dataBase.addAll(set);		
+		DataBase.setCopyDataBase();
 		System.out.println("Current samples: "+DataBase.dataBase.size());
 	}
 	

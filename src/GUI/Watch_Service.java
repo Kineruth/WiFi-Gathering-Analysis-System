@@ -27,48 +27,53 @@ import GUI_Filter.Wraper;
 
 /**
  * Credit: Yuval Mizrahi.
+ * 
  * @author admin
  *
  */
 public class Watch_Service {
-/**
- * 
- */
+	/**
+	 * 
+	 */
 	private static void checkChangeInFiles() {
-		int pathsAmount[] = {DataBase.getFilePaths().size()};
+		int pathsAmount[] = { DataBase.getFilePaths().size() };
 		ExecutorService service = Executors.newCachedThreadPool();
 		List<Long> lastModified = new ArrayList<>();
-		for(int i = 0 ; i < DataBase.getFilePaths().size() ; i++)
-		{
+		for (int i = 0; i < DataBase.getFilePaths().size(); i++) {
 			lastModified.add(new File(DataBase.getFilePaths().get(i)).lastModified());
 		}
 		service.submit(new Runnable() {
 
 			@Override
 			public void run() {
-				while(Thread.interrupted() == false)
-				{
-					for(int i = 0 ; i < lastModified.size() ; i++)
-					{
-						if(lastModified.get(i) != new File(DataBase.getFilePaths().get(i)).lastModified())
-						{
-							try {
-								resetDataBase();
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} //need to create this function in dataBase.
-							lastModified.set(i, new File(DataBase.getFilePaths().get(i)).lastModified()) ;
+				while (Thread.interrupted() == false) {
+					if (pathsAmount[0] < DataBase.getFilePaths().size()) {
+						//a file has been removed
+						try {
+							resetDataBase();
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
 					}
-					if(pathsAmount[0] != DataBase.getFilePaths().size())
-					{
-						for(int i = pathsAmount[0]; i < DataBase.getFilePaths().size() ; i++)
-						{
+					if (pathsAmount[0] > DataBase.getFilePaths().size()) {
+						//a file has been added
+						for (int i = pathsAmount[0]; i < DataBase.getFilePaths().size(); i++) {
 							lastModified.add(new File(DataBase.getFilePaths().get(i)).lastModified());
 						}
 						pathsAmount[0] = DataBase.getFilePaths().size();
 					}
+					for (int i = 0; i < lastModified.size(); i++) {
+						if (lastModified.get(i) != new File(DataBase.getFilePaths().get(i)).lastModified()) {
+							//a file has been modified
+							try {
+								resetDataBase();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+							lastModified.set(i, new File(DataBase.getFilePaths().get(i)).lastModified());
+						}
+					}
+
 				}
 			}
 		});
@@ -76,6 +81,7 @@ public class Watch_Service {
 
 	/**
 	 * A shell function for listen for files
+	 * 
 	 * @throws InterruptedException
 	 */
 	public static void fileslisten() throws InterruptedException {
@@ -89,8 +95,10 @@ public class Watch_Service {
 		t.start();
 
 	}
+
 	/**
 	 * A function that check if the folder source database has changed
+	 * 
 	 * @param database
 	 * @param temp
 	 * @param paths
@@ -98,14 +106,13 @@ public class Watch_Service {
 	 * @throws Exception
 	 */
 	private static void checkChangeInFolder() throws Exception {
-		@SuppressWarnings("unused")
-		int amountofpaths[] = {DataBase.getFolderPaths().size()};
+		int amountofpaths[] = { DataBase.getFolderPaths().size() };
 		ExecutorService service = Executors.newCachedThreadPool();
 		final java.nio.file.FileSystem fs = FileSystems.getDefault();
 		final java.nio.file.WatchService ws = fs.newWatchService();
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final Map<WatchKey, Path> keys = new ConcurrentHashMap();
-		for(int i = 0 ; i < DataBase.getFolderPaths().size() ; i++)
+		for (int i = 0; i < DataBase.getFolderPaths().size(); i++)
 			reg(fs.getPath(DataBase.getFolderPaths().get(i)), keys, ws);
 		service.submit(new Runnable() {
 			@Override
@@ -121,34 +128,33 @@ public class Watch_Service {
 						try {
 							resetDataBase();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						key.reset();
-					}
-					else if(amountofpaths[0] != DataBase.getFolderPaths().size()) {
-						for(int i = amountofpaths[0] ; i < DataBase.getFolderPaths().size() ; i++)
-						{
+					} else if (amountofpaths[0] != DataBase.getFolderPaths().size()) {
+						for (int i = amountofpaths[0]; i < DataBase.getFolderPaths().size(); i++) {
 							try {
 								reg(fs.getPath(DataBase.getFolderPaths().get(i)), keys, ws);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
-						amountofpaths[0] = DataBase.getFolderPaths().size();	
+						amountofpaths[0] = DataBase.getFolderPaths().size();
 					}
 				}
 			}
 		});
 	}
-	private static void reg(Path dir, Map<WatchKey, Path> keys, java.nio.file.WatchService ws)
-			throws IOException {
-		WatchKey key = dir.register(ws, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+
+	private static void reg(Path dir, Map<WatchKey, Path> keys, java.nio.file.WatchService ws) throws IOException {
+		WatchKey key = dir.register(ws, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE,
+				StandardWatchEventKinds.ENTRY_MODIFY);
 		keys.put(key, dir);
 	}
+
 	/**
 	 * A sheel function for listen to folder
+	 * 
 	 * @param database
 	 * @param temp
 	 * @param folder
@@ -171,21 +177,19 @@ public class Watch_Service {
 	}
 
 	/**
-	 * Resets the database if have change in the file or the
-	 * folder source database
+	 * Resets the database if have change in the file or the folder source
+	 * database
+	 * 
 	 * @throws IOException
 	 */
-	private static void resetDataBase() throws IOException
-	{
+	private static void resetDataBase() throws IOException {
 		synchronized (DataBase.dataBase) {
 			DataBase.dataBase.clear();
 			DataBase.copyDataBase.clear();
-			for(int i = 0 ; i < DataBase.getFolderPaths().size() ; i++)
-			{
+			for (int i = 0; i < DataBase.getFolderPaths().size(); i++) {
 				Wraper.folderAdded(DataBase.getFolderPaths().get(i));
 			}
-			for(int i = 0  ; i< DataBase.getFilePaths().size() ; i++)
-			{
+			for (int i = 0; i < DataBase.getFilePaths().size(); i++) {
 				Wraper.mergedFileAdded(DataBase.getFilePaths().get(i));
 			}
 		}
