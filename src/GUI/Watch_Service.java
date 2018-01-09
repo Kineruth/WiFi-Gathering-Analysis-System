@@ -67,6 +67,7 @@ public class Watch_Service {
 							//a file has been modified
 							try {
 								resetDataBase();
+								System.out.println("In thread change in file");
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
@@ -90,6 +91,7 @@ public class Watch_Service {
 			@Override
 			public void run() {
 				checkChangeInFiles();
+				System.out.println("In thread fileListen");
 			}
 		});
 		t.start();
@@ -149,6 +151,7 @@ public class Watch_Service {
 	private static void reg(Path dir, Map<WatchKey, Path> keys, java.nio.file.WatchService ws) throws IOException {
 		WatchKey key = dir.register(ws, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE,
 				StandardWatchEventKinds.ENTRY_MODIFY);
+		System.out.println("In watchKey");
 		keys.put(key, dir);
 	}
 

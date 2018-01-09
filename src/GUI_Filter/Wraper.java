@@ -33,10 +33,23 @@ public class Wraper {
 	 *            a given folder path.
 	 */
 	public static void folderAdded(String folderPath) {
-		MergeCSVfiles mg = new MergeCSVfiles(folderPath);
-		DataBase.addData(mg.getSamplesFromFiles());
-		DataBase.addFolderPath(folderPath);
-		JOptionPane.showMessageDialog(new JFrame(), "Folder Added Succesfully!");
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				synchronized (DataBase.dataBase) {
+					MergeCSVfiles mg = new MergeCSVfiles(folderPath);
+					DataBase.addData(mg.getSamplesFromFiles());
+					DataBase.addFolderPath(folderPath);
+					/*
+					 * JOptionPane.showMessageDialog(new JFrame(),
+					 * "Folder Added Succesfully!");
+					 */
+					System.out.println("In thread folder");
+				}
+
+			}
+		}).start();
 	}
 
 	/**
@@ -47,15 +60,27 @@ public class Wraper {
 	 * @throws IOException
 	 */
 	public static void mergedFileAdded(String filePath) throws IOException {
-		FileFormat fm = new FileFormat();
-		LinesToSamples ls = new LinesToSamples();
-		File f = new File(filePath);
-		if (fm.checkMergedCSVFormat(f)){
-			DataBase.addData(ls.convertLines(ls.readCSV(filePath)));
-			DataBase.addFilePath(filePath);
-		}
-			
-		JOptionPane.showMessageDialog(new JFrame(), "File Added Succesfully !");
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				synchronized (DataBase.dataBase) {
+					FileFormat fm = new FileFormat();
+					LinesToSamples ls = new LinesToSamples();
+					File f = new File(filePath);
+					try {
+						if (fm.checkMergedCSVFormat(f)) {
+							DataBase.addData(ls.convertLines(ls.readCSV(filePath)));
+							DataBase.addFilePath(filePath);
+						}
+						System.out.println("In thread file");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			// JOptionPane.showMessageDialog(new JFrame(), "File Added
+			// Succesfully !");
+		}).start();
 	}
 
 	/**
@@ -89,16 +114,6 @@ public class Wraper {
 		System.out.println("Samples amount after delete: " + DataBase.dataBase.size());
 	}
 
-	/**
-	 * Gets mac number.
-	 * 
-	 * @return
-	 */
-	public static int getMacNumber() {
-		Algorithms a = new Algorithms();
-		List<Sample> temp = new ArrayList<Sample>(DataBase.dataBase);
-		return a.strongestMacLocation(temp, 4).size();
-	}
 
 	/**
 	 * Writes a current Filter into a file with bytes.
@@ -237,12 +252,16 @@ public class Wraper {
 		return s;
 
 	}
-/**
- * Returns true if the dates the user chose are really max and min.
- * @param max a given max date.
- * @param min a given min date.
- * @return true/false,
- */
+
+	/**
+	 * Returns true if the dates the user chose are really max and min.
+	 * 
+	 * @param max
+	 *            a given max date.
+	 * @param min
+	 *            a given min date.
+	 * @return true/false,
+	 */
 	public static boolean checkDateMinMax(Date max, Date min) {
 		return (max.after(min) && max.getTime() >= min.getTime()) || max.equals(min);
 	}

@@ -25,6 +25,7 @@ public abstract class DataBase implements List<Sample> {
 	private static String filterChoice;
 	private static List<String> folderPaths=new ArrayList<String>();
 	private static List<String> filePaths = new ArrayList<String>();
+	private static int macs=0;
 
 	/**
 	 * Adds new samples to the database.
@@ -147,6 +148,28 @@ public static void removeFolderPath(String path){
 
 	public static void setFilePaths(List<String> filePaths) {
 		DataBase.filePaths = filePaths;
+	}
+	public static void getMacsNumber(){
+		Algorithms a = new Algorithms();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				synchronized (DataBase.dataBase) {
+		
+		List<Sample> temp = new ArrayList<Sample>(DataBase.dataBase);
+		DataBase.macs= a.strongestMacLocation(temp, 4).size();
+		System.out.println("In thread mac");
+				}
+			}
+		}).start();
+	}
+
+	public static int getMacs() {
+		return DataBase.macs;
+	}
+
+	public static void setMacs(int macs) {
+		DataBase.macs = macs;
 	}
 	
 }

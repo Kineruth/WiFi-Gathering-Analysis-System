@@ -224,11 +224,11 @@ public class Sample {
 	 num += this.Time.hashCode();
 	 
 	 for(int i=0; i<this.commonNetworks.size(); i++){
-		 num += Integer.parseInt(this.commonNetworks.get(i).getSignal());
+		 num += Double.parseDouble(this.commonNetworks.get(i).getSignal());
 		 num += this.commonNetworks.get(i).getMAC().hashCode();
 		 num += this.commonNetworks.get(i).getSSID().hashCode();
-		 num += Integer.parseInt(this.commonNetworks.get(i).getFrequency());
-		 num += Integer.parseInt(this.commonNetworks.get(i).getSignal());
+		 num += Double.parseDouble(this.commonNetworks.get(i).getFrequency());
+		 num += Double.parseDouble(this.commonNetworks.get(i).getSignal());
 	 }
 	return num;
 	}
