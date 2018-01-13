@@ -47,11 +47,13 @@ Create a new CSV file with all the user locations for every sample's scan using 
 --  
 
 ```  
-.:    
+.: 
+KML API  
 doc 
 docs
-KML API
+img  
 src  
+uml  
 Wigle Wifi App - Exports - Examples  
 .classpath  
 .gitignore  
@@ -67,6 +69,8 @@ doc - has the JavaDoc files, specificaly the ones called *allclasses* .
 docs - has all the files wanted for Task 3 of the project.
 src - has all the java classes and Unit testing.  
 Wigle Wifi App - Exports - Examples - has exports files from the Wigle app.  
+uml - has a class diagram of the whole program.  
+img - has images used as icons in the GUI part of the program.  
 ```
 
 Further look into the classes:
@@ -83,12 +87,19 @@ Further look into the classes:
 10. **ArrangeCSV** - This class creates a CSV file with all the strongest location for every Mac, or a CSV file with the user locations for every Sample's scan.
 11. **LinesToSamples** - This class gets a file path, reads from the file (CSV format) and converts all the lines into Samples.
 12. **Algorithms** - This class has the two algorithms for Task 3 of the project. Algo 1 - mac strongest location. Algo 2 - user location.
-13. **Calculate** - This class has all the calculations needed for class 'Algorithms'.
+13. **Calculate** - This class has all the calculations needed for class 'Algorithms'.  
+14. **TimeFilter** - This class filters the database by a given max-min date & time.    
+15. **LocationFilter** - This class filters the database by a given max-min cooardinates' values.  
+16. **DeviceFilter** - This class filters the database by a given device type.  
+17.**DataBase** - This class represents a database = list of samples, and some methods to it.  
+18. **Wraper** - This class acts as a bridge from the GUI to the others classes for performing some methods that exist in them like reading from a given file or creating a new one.  
+19. *There are more classes in the GUI directory that are visulaize the whole GUI process.*  
 
 *How to run the program:*
 --
 Clone the repository to your computer, add all the java files (classes) to your eclipse, or some other tool used for java. 
-You need to add the KML API library files from its folder to your project or the program won't run at all.
+You need to add the KML API library files from its folder to your project or the program won't run at all.  
+Now after adding the GUI option, you can run it as the main one - run the class **MainFrame** to run the program.  
 
 *How to create CSV & KML files:*
 --  
