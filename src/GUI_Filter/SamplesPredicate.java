@@ -24,10 +24,20 @@ public class SamplesPredicate {
 	 *            a given filter.
 	 */
 	public static void filterWithPredicate(Filter f) {
-		System.out.println("Samples before filtering: " + DataBase.dataBase.size());
-		DataBase.setCopyDataBase();
-		Predicate<Sample> samplePredicate = s -> !(f.checkSample(s));
-		DataBase.dataBase.removeIf(samplePredicate);
-		System.out.println("Samples after filtering: " + DataBase.dataBase.size());
+		if(f instanceof OrFilter) {
+			System.out.println("Samples before filtering: " + DataBase.dataBase.size());
+			DataBase.setDataBase(DataBase.copyDataBase);
+			Predicate<Sample> samplePredicate = s -> !(f.checkSample(s));
+			DataBase.dataBase.removeIf(samplePredicate);
+			System.out.println("Samples after filtering: " + DataBase.dataBase.size());
+		}
+		else {
+			System.out.println("Samples before filtering: " + DataBase.dataBase.size());
+//			DataBase.setCopyDataBase();
+			Predicate<Sample> samplePredicate = s -> !(f.checkSample(s));
+			DataBase.dataBase.removeIf(samplePredicate);
+			System.out.println("Samples after filtering: " + DataBase.dataBase.size());
+		}
+		
 	}
 }

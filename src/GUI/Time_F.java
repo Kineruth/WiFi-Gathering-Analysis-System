@@ -172,6 +172,7 @@ public class Time_F extends JFrame {
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DataBase.setCopyDataBase();
 				String s = spinner_4.getValue()+"-"+ spinner_3.getValue()+"-"+spinner_2.getValue()+" "+((int)spinner.getValue()+2)+":"+spinner_1.getValue()+":00";
 				String s2 = spinner_9.getValue()+"-"+ spinner_8.getValue()+"-"+spinner_7.getValue()+" "+((int)spinner_5.getValue()+2)+":"+spinner_6.getValue()+":00";
 				SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 

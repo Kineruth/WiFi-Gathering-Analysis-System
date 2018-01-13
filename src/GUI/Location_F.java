@@ -316,6 +316,7 @@ public class Location_F extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				DataBase.setCopyDataBase();
 				try {
 					if (textField_3.getText().equals("") || textField.getText().equals("")
 							|| textField_4.getText().equals("") || textField_1.getText().equals("")

@@ -93,6 +93,7 @@ public class Device_F extends JFrame {
 		JButton button = new JButton("Filter");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DataBase.setCopyDataBase();
 				if (textField.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(new JFrame(), "Error :: Must Enter A Device!");
 				} else {
