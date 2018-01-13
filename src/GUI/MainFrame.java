@@ -38,9 +38,9 @@ import java.awt.SystemColor;
 public class MainFrame {
 
 	private JFrame frame;
-//	private Filter currentFilter;
-//	private String filterChoice;
-//	public static Filter no1Filter, filter1, no2Filter, filter2,connectFilter;
+	// private Filter currentFilter;
+	// private String filterChoice;
+	// public static Filter no1Filter, filter1, no2Filter, filter2,connectFilter;
 
 	/**
 	 * Launch the application.
@@ -282,7 +282,7 @@ public class MainFrame {
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setBounds(122, 0, 100, 36);
 		panel.add(label_1);
-		label_1.setText(DataBase.dataBase.size()+"");
+		label_1.setText(DataBase.dataBase.size() + "");
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(250, 235, 215));
@@ -302,7 +302,7 @@ public class MainFrame {
 		label_2.setBounds(86, 0, 100, 36);
 		panel_1.add(label_2);
 		DataBase.getMacsNumber();
-		label_2.setText(DataBase.getMacs()+"");
+		label_2.setText(DataBase.getMacs() + "");
 
 		JButton btnAlgorithm = new JButton("Algorithm 2 - Samples");
 		btnAlgorithm.addActionListener(new ActionListener() {
@@ -329,7 +329,7 @@ public class MainFrame {
 		btnAlgorithm_1.setBackground(Color.WHITE);
 		btnAlgorithm_1.setBounds(636, 261, 266, 41);
 		frame.getContentPane().add(btnAlgorithm_1);
-		
+
 		JButton btnUploadFilter = new JButton("Upload Filter\r\n");
 		btnUploadFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -342,9 +342,8 @@ public class MainFrame {
 		btnUploadFilter.setBackground(Color.WHITE);
 		btnUploadFilter.setBounds(348, 442, 246, 41);
 		frame.getContentPane().add(btnUploadFilter);
-		 
 
+		System.out.println("Ended Main Frame");
 	}
 
-	
 }
