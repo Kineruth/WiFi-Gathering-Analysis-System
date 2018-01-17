@@ -282,7 +282,7 @@ public class MainFrame {
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setBounds(122, 0, 100, 36);
 		panel.add(label_1);
-		label_1.setText(DataBase.dataBase.size() + "");
+		
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(250, 235, 215));
@@ -301,8 +301,7 @@ public class MainFrame {
 		label_2.setFont(new Font("Sitka Text", Font.BOLD, 17));
 		label_2.setBounds(86, 0, 100, 36);
 		panel_1.add(label_2);
-		DataBase.getMacsNumber();
-		label_2.setText(DataBase.getMacs() + "");
+		
 
 		JButton btnAlgorithm = new JButton("Algorithm 2 - Samples");
 		btnAlgorithm.addActionListener(new ActionListener() {
@@ -357,7 +356,20 @@ public class MainFrame {
 		btnUploadTable.setBackground(Color.WHITE);
 		btnUploadTable.setBounds(621, 537, 266, 41);
 		frame.getContentPane().add(btnUploadTable);
+		
+		new Thread(new Runnable() {
 
-		System.out.println("Ended Main Frame");
+			@Override
+			public void run() {
+				while(true)
+				{
+					label_1.setText(DataBase.dataBase.size() + "");
+					label_2.setText(DataBase.getMacs() + "");
+//					TextFilter.setText(curentoperator[0].toString());
+				}
+
+			}
+		}).start();
+
 	}
 }
