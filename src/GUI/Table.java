@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import GUI_Filter.DataBase;
 import SQL.Data;
 import SQL.DataBaseTable;
 
@@ -151,14 +152,26 @@ public class Table extends JFrame {
 				} else {
 					Data d = new Data(textField.getText(), textField_1.getText(), textField_6.getText(),
 							textField_2.getText(), textField_3.getText(), textField_4.getText(), textField_5.getText());
-					try {
-						DataBaseTable.readTable(d);
-					} catch (ClassNotFoundException e1) {
-						JOptionPane.showMessageDialog(new JFrame(), "Couldn't Upload Table!");
-						e1.printStackTrace();
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
+					new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							while(true)
+							{
+								try {
+									
+									DataBaseTable.readTable(d);
+								} catch (ClassNotFoundException e1) {
+									JOptionPane.showMessageDialog(new JFrame(), "Couldn't Upload Table!");
+									e1.printStackTrace();
+								} catch (ParseException e1) {
+									e1.printStackTrace();
+								}
+							}
+
+						}
+					}).start();
+					
 				}
 			}
 		});
