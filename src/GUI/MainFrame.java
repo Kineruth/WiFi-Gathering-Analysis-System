@@ -342,8 +342,22 @@ public class MainFrame {
 		btnUploadFilter.setBackground(Color.WHITE);
 		btnUploadFilter.setBounds(348, 442, 246, 41);
 		frame.getContentPane().add(btnUploadFilter);
+		
+		JButton btnUploadTable = new JButton("Upload Table");
+		btnUploadTable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Table t = new Table();
+				t.setVisible(true);
+				
+			}
+		});
+		btnUploadTable.setForeground(new Color(128, 0, 0));
+		btnUploadTable.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnUploadTable.setBackground(Color.WHITE);
+		btnUploadTable.setBounds(621, 537, 266, 41);
+		frame.getContentPane().add(btnUploadTable);
 
 		System.out.println("Ended Main Frame");
 	}
-
 }
