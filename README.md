@@ -96,7 +96,8 @@ Further look into the classes:
 19. *There are more classes in the GUI directory that are visulaize the whole GUI process.*  
 
 *How to run the program:*
---
+--  
+**Added a JAR file to run the whole application.**    
 Clone the repository to your computer, add all the java files (classes) to your eclipse, or some other tool used for java. 
 You need to add the KML API library files from its folder to your project or the program won't run at all.  
 Now after adding the GUI option, you can run it as the main one - run the class **MainFrame** to run the program.  
