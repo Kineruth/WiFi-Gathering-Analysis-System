@@ -4,32 +4,35 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Statement;
 
 import GUI_Filter.DataBase;
 import MergedCSV.Sample;
 import MergedCSV.WiFiNetwork;
 
-public class DataBaseTable {
+public class ConnectSQL {
 
-	public static List<Sample> readTable(Data table) throws ParseException, ClassNotFoundException {
+	public static List<Sample> readTable(SQL table) throws ParseException, ClassNotFoundException {
 		List<Sample> data = new ArrayList<Sample>();
+		Statement st = null;
 		Connection con = null;
 		ResultSet rs = null;
 		
 		try {
 			con = DriverManager.getConnection(table.getUrl(), table.getUsername(), table.getPassword());
-			PreparedStatement pst = con.prepareStatement("SELECT * FROM " + table.getTable());
+			st = con.createStatement();
+			
+			PreparedStatement pst = con.prepareStatement("SELECT * FROM  " + table.getTable());
 			rs = pst.executeQuery();
-
+//			ResultSetMetaData rsmd= rs.getMetaData();
+			
 			while (rs.next()) {
 				Sample s = new Sample();
 				s.setTime(rs.getNString(2));
@@ -46,7 +49,7 @@ public class DataBaseTable {
 			}
 			DataBase.addData(data);
 		} catch (SQLException ex) {
-			Logger lgr = Logger.getLogger(DataBaseTable.class.getName());
+			Logger lgr = Logger.getLogger(ConnectSQL.class.getName());
 			lgr.log(Level.SEVERE, ex.getMessage(), ex);
 		} finally {
 			try {
@@ -58,7 +61,7 @@ public class DataBaseTable {
 				}
 			} catch (SQLException ex) {
 
-				Logger lgr = Logger.getLogger(DataBaseTable.class.getName());
+				Logger lgr = Logger.getLogger(ConnectSQL.class.getName());
 				lgr.log(Level.WARNING, ex.getMessage(), ex);
 			}
 		}

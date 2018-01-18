@@ -1,16 +1,17 @@
 package SQL;
 
-public class Data {
+public class SQL {
 
 	private String ip, port, dbName, username, password, url, table;
 
-	public Data(String ip, String port, String dbName, String username, String password, String url, String table) {
+	public SQL(String ip, String port, String dbName, String username, String password, String table) {
 		this.ip = ip;
 		this.port = port;
 		this.dbName = dbName;
 		this.username = username;
 		this.password = password;
-		this.url = "jdbc:mysql://" + ip + ":" + port + "/" + dbName + "?useSSL=false";
+//		this.url = url;
+		this.url = "jdbc:mysql://" + ip + ":" + port + "/" + dbName;//+"?useSSL=false" ; 
 		this.table = table;
 	}
 
@@ -31,7 +32,7 @@ public class Data {
 	}
 
 	public String getdbName() {
-		return dbName;
+		return this.dbName;
 	}
 
 	public void setdbName(String dbName) {
@@ -39,7 +40,7 @@ public class Data {
 	}
 
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	public void setUsername(String username) {
@@ -47,7 +48,7 @@ public class Data {
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -55,7 +56,7 @@ public class Data {
 	}
 
 	public String getUrl() {
-		return url;
+		return this.url;
 	}
 
 	public void setUrl(String url) {
@@ -63,7 +64,7 @@ public class Data {
 	}
 
 	public String getTable() {
-		return table;
+		return this.table;
 	}
 
 	public void setTable(String tablename) {

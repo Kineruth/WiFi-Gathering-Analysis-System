@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import GUI_Filter.DataBase;
-import SQL.Data;
-import SQL.DataBaseTable;
+import SQL.SQL;
+import SQL.ConnectSQL;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -23,12 +23,15 @@ import java.awt.event.ActionEvent;
 
 public class Table extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1020067558566345653L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
 
@@ -53,7 +56,7 @@ public class Table extends JFrame {
 	 */
 	public Table() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 590, 634);
+		setBounds(100, 100, 580, 568);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -79,14 +82,14 @@ public class Table extends JFrame {
 		textField_3.setBounds(213, 269, 232, 32);
 		contentPane.add(textField_3);
 
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(213, 335, 232, 32);
-		contentPane.add(textField_4);
+//		textField_4 = new JTextField();
+//		textField_4.setColumns(10);
+//		textField_4.setBounds(213, 335, 232, 32);
+//		contentPane.add(textField_4);
 
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
-		textField_5.setBounds(213, 398, 232, 32);
+		textField_5.setBounds(213, 336, 232, 32);
 		contentPane.add(textField_5);
 
 		JLabel lblNewLabel = new JLabel("Fill In Information");
@@ -119,54 +122,61 @@ public class Table extends JFrame {
 		lblUrl.setBounds(65, 275, 110, 20);
 		contentPane.add(lblUrl);
 
-		JLabel lblUrl_1 = new JLabel("URL : ");
-		lblUrl_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUrl_1.setFont(new Font("Sitka Text", Font.BOLD, 17));
-		lblUrl_1.setBounds(65, 341, 69, 20);
-		contentPane.add(lblUrl_1);
+//		JLabel lblUrl_1 = new JLabel("URL : ");
+//		lblUrl_1.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblUrl_1.setFont(new Font("Sitka Text", Font.BOLD, 17));
+//		lblUrl_1.setBounds(65, 341, 69, 20);
+//		contentPane.add(lblUrl_1);
 
 		JLabel lblTableName = new JLabel("Table Name : ");
 		lblTableName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTableName.setFont(new Font("Sitka Text", Font.BOLD, 17));
-		lblTableName.setBounds(48, 404, 127, 20);
+		lblTableName.setBounds(48, 342, 127, 20);
 		contentPane.add(lblTableName);
 
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
-		textField_6.setBounds(213, 454, 232, 32);
+		textField_6.setBounds(213, 392, 232, 32);
 		contentPane.add(textField_6);
 
 		JLabel lblDatabaseName = new JLabel("DataBase Name : ");
 		lblDatabaseName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDatabaseName.setFont(new Font("Sitka Text", Font.BOLD, 17));
-		lblDatabaseName.setBounds(27, 460, 148, 20);
+		lblDatabaseName.setBounds(27, 398, 148, 20);
 		contentPane.add(lblDatabaseName);
 
 		JButton btnNewButton = new JButton("OK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textField.getText().isEmpty() || textField_1.getText().isEmpty() || textField_2.getText().isEmpty()
-						|| textField_3.getText().isEmpty() || textField_4.getText().isEmpty()
+						|| textField_3.getText().isEmpty()
 						|| textField_5.getText().isEmpty() || textField_6.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(new JFrame(), "Fill Information!");
 				} else {
-					Data d = new Data(textField.getText(), textField_1.getText(), textField_6.getText(),
-							textField_2.getText(), textField_3.getText(), textField_4.getText(), textField_5.getText());
+					SQL d = new SQL(textField.getText(), textField_1.getText(), textField_6.getText(),
+							textField_2.getText(), textField_3.getText(), textField_5.getText());
 					new Thread(new Runnable() {
-
+						
+//						boolean flag= true;
 						@Override
 						public void run() {
 							while(true)
 							{
 								try {
+//									flag=false;
+									ConnectSQL.readTable(d);
 									
-									DataBaseTable.readTable(d);
 								} catch (ClassNotFoundException e1) {
 									JOptionPane.showMessageDialog(new JFrame(), "Couldn't Upload Table!");
+//									flag=false;
 									e1.printStackTrace();
+									
 								} catch (ParseException e1) {
+//									flag=false;
 									e1.printStackTrace();
+									
 								}
+								
 							}
 
 						}
@@ -176,7 +186,7 @@ public class Table extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Sitka Text", Font.BOLD, 20));
-		btnNewButton.setBounds(268, 533, 115, 29);
+		btnNewButton.setBounds(268, 471, 115, 29);
 		contentPane.add(btnNewButton);
 	}
 }

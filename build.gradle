@@ -30,6 +30,9 @@ dependencies {
      // https://mvnrepository.com/artifact/de.micromata.jak/JavaAPIforKml
 
     compile group: 'de.micromata.jak', name: 'JavaAPIforKml', version: '2.2.0'
+    
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
  
 }
 

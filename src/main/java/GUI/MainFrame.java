@@ -83,8 +83,8 @@ public class MainFrame {
 		 * Main image parameters:
 		 */
 		JLabel label = new JLabel("");
-		Image img7 = new ImageIcon(this.getClass().getResource("/database.png")).getImage();
-		label.setIcon(new ImageIcon(img7));
+//		Image img7 = new ImageIcon(this.getClass().getResource("/database.png")).getImage();
+//		label.setIcon(new ImageIcon(img7));
 		label.setBounds(406, 48, 176, 149);
 		frame.getContentPane().add(label);
 
@@ -93,8 +93,8 @@ public class MainFrame {
 		 */
 
 		JButton btnAddWigleFolder = new JButton("Add WiGLE Folder");
-		Image img = new ImageIcon(this.getClass().getResource("/add.png")).getImage();
-		btnAddWigleFolder.setIcon(new ImageIcon(img));
+//		Image img = new ImageIcon(this.getClass().getResource("/add.png")).getImage();
+//		btnAddWigleFolder.setIcon(new ImageIcon(img));
 		btnAddWigleFolder.setForeground(new Color(128, 0, 0));
 		btnAddWigleFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -120,7 +120,7 @@ public class MainFrame {
 		 * Add File button:
 		 */
 		JButton btnAddMergedFile = new JButton("  Add Merged File");
-		btnAddMergedFile.setIcon(new ImageIcon(img));
+//		btnAddMergedFile.setIcon(new ImageIcon(img));
 		btnAddMergedFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
@@ -152,8 +152,8 @@ public class MainFrame {
 				DataBase.restoreData();
 			}
 		});
-		Image img4 = new ImageIcon(this.getClass().getResource("/restore.png")).getImage();
-		btnRestore.setIcon(new ImageIcon(img4));
+//		Image img4 = new ImageIcon(this.getClass().getResource("/restore.png")).getImage();
+//		btnRestore.setIcon(new ImageIcon(img4));
 		btnRestore.setForeground(new Color(128, 0, 0));
 		// btnRestore.setHorizontalTextPosition(SwingContants.CENTER);
 		btnRestore.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -165,8 +165,8 @@ public class MainFrame {
 		 * Save CSV button:
 		 */
 		JButton btnSaveAsMerge = new JButton("Save As CSV");
-		Image img5 = new ImageIcon(this.getClass().getResource("/csv.png")).getImage();
-		btnSaveAsMerge.setIcon(new ImageIcon(img5));
+//		Image img5 = new ImageIcon(this.getClass().getResource("/csv.png")).getImage();
+//		btnSaveAsMerge.setIcon(new ImageIcon(img5));
 		btnSaveAsMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Wraper.saveMergedCSV();
@@ -182,8 +182,8 @@ public class MainFrame {
 		 * Save KML button:
 		 */
 		JButton btnCreatKml = new JButton("Save As KML");
-		Image img3 = new ImageIcon(this.getClass().getResource("/kml.png")).getImage();
-		btnCreatKml.setIcon(new ImageIcon(img3));
+//		Image img3 = new ImageIcon(this.getClass().getResource("/kml.png")).getImage();
+//		btnCreatKml.setIcon(new ImageIcon(img3));
 		btnCreatKml.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnCreatKml.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -210,8 +210,8 @@ public class MainFrame {
 
 			}
 		});
-		Image img6 = new ImageIcon(this.getClass().getResource("/filter.png")).getImage();
-		btnTimeFilter.setIcon(new ImageIcon(img6));
+//		Image img6 = new ImageIcon(this.getClass().getResource("/filter.png")).getImage();
+//		btnTimeFilter.setIcon(new ImageIcon(img6));
 		btnTimeFilter.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnTimeFilter.setForeground(new Color(128, 0, 0));
 		btnTimeFilter.setBackground(new Color(255, 255, 255));
@@ -225,7 +225,7 @@ public class MainFrame {
 				device.setVisible(true);
 			}
 		});
-		btnFilterByDevice.setIcon(new ImageIcon(img6));
+//		btnFilterByDevice.setIcon(new ImageIcon(img6));
 		btnFilterByDevice.setForeground(new Color(128, 0, 0));
 		btnFilterByDevice.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnFilterByDevice.setBackground(Color.WHITE);
@@ -239,7 +239,7 @@ public class MainFrame {
 				loc.setVisible(true);
 			}
 		});
-		btnFilterByLocation.setIcon(new ImageIcon(img6));
+//		btnFilterByLocation.setIcon(new ImageIcon(img6));
 		btnFilterByLocation.setForeground(new Color(128, 0, 0));
 		btnFilterByLocation.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnFilterByLocation.setBackground(Color.WHITE);
@@ -256,8 +256,8 @@ public class MainFrame {
 			}
 		});
 
-		Image img2 = new ImageIcon(this.getClass().getResource("/clear.png")).getImage();
-		btnClearAll.setIcon(new ImageIcon(img2));
+//		Image img2 = new ImageIcon(this.getClass().getResource("/clear.png")).getImage();
+//		btnClearAll.setIcon(new ImageIcon(img2));
 		btnClearAll.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnClearAll.setForeground(new Color(128, 0, 0));
 		btnClearAll.setBackground(new Color(255, 255, 255));
