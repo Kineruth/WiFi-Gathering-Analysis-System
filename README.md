@@ -7,7 +7,7 @@ Object Oriented
 Project source can be downloaded from:
 --- 
 https://github.com/Kineruth/Task1.git  
-Program is a project for Ariel University's Object Oriented course.
+This program is a project for Ariel University's Object Oriented course.
 
 Authors:
 --
@@ -15,7 +15,7 @@ Kineret Ruth Nahary
 Yakir Amar
 
 
-**Intoduction**
+**Introduction**
 ==
 
 About the project:
@@ -41,7 +41,7 @@ https://serc.carleton.edu/sp/library/google_earth/what.html
 ```
 The program gives two another options:
 Create a new CSV file with all the strongest locations for every Mac from a merged CSV file.
-Create a new CSV file with all the user locations for every sample's scan using a merged CSV file as database and other merged CSV file with no coordinates specified in it. The samples' scans are taken from the second file.
+Create a new CSV file with all the user locations for every sample's scan, by using a merged CSV file as database and other merged CSV file with no coordinates specified in it. The samples' scans are taken from the second file.
 
 **File list:**
 --  
