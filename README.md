@@ -1,7 +1,7 @@
 **Date: 23/11/2017**  
-**Last Edit: 18/1/2018**
+**Last Edit: 16/6/2020**
 
-Object Oriented
+WiFi Gathering And Analysis System
 ===
 
 Project source can be downloaded from:
